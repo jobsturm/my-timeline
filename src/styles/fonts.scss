@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:600,700|Open+Sans:300,400,600&display=swap');
+
+%headline1_style {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 800;
+    font-size: 6rem; // 96px
+    color: inherit;
+    letter-spacing: -1.5px;
+    text-align: left;
+}
+
+%headline2_style {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 3.75rem; // 60px;
+    color: inherit;
+    letter-spacing: -0.5px;
+    text-align: left;
+}
+
+%headline3_style {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700;
+    font-size: 3rem; //48px
+    color: inherit;
+    text-align: left;
+}
+
+%headline4_style {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 700; // 34px
+    font-size: 2.125rem;
+    color: inherit;
+    letter-spacing: 0.25px;
+    text-align: left;
+}
+
+%headline5_style {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    font-size: 1.5rem; // 24px
+    color: inherit;
+}
+
+%headline6_style {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 700;
+    font-size: 1.25em; // 20px
+    color: inherit;
+    letter-spacing: 0.15px;
+}
+
+%subtitle1_style {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 1rem; // 16px
+    color: inherit;
+    letter-spacing: 0.15px;
+    text-align: left;
+    line-height: 24px;
+}
+
+%subtitle2_style {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem; // 14px
+    color: inherit;
+    letter-spacing: 0.1px;
+    text-align: left;
+    line-height: 24px;
+}
+
+%body1_style {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 1em; // 16px
+    color: inherit;
+    letter-spacing: 0.44px;
+    text-align: left;
+    line-height: 28px;
+}
+
+%body2_style {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.875rem; // 14px
+    color: inherit;
+    letter-spacing: 0.25px;
+    text-align: left;
+    line-height: 20px;
+}
+
+%button_typography_style {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.875rem; // 14px
+    color: inherit;
+    letter-spacing: 0;
+}
+
+%caption_style {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
+    font-size: 0.75rem; // 12px
+    color: inherit;
+    letter-spacing: 0.4px;
+    text-align: left;
+    line-height: 16px;
+}
+
+%overline_style {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 0.625rem; //10px
+    color: inherit;
+    letter-spacing: 1px;
+    line-height: 16px;
+}
