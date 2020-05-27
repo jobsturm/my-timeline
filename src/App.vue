@@ -3,6 +3,7 @@
         <Head/>
         <Childhood/>
         <Childhood/>
+        <Childhood/>
     </div>
 </template>
 

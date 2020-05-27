@@ -27,7 +27,7 @@ import { mapMutations } from 'vuex';
 import Slide from '../classes/Slide';
 import Line from '../classes/Line';
 import Point from '../classes/Point';
-import slideMixin from '../ mixins/slideMixin';
+import slideMixin from '../mixins/slideMixin';
 
 export default Vue.extend({
     name: 'Head',

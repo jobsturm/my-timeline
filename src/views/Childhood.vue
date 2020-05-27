@@ -5,11 +5,11 @@
         ref="slide"
     >
         <div class="slide__content">
-            
         </div>
         <svg class="slide__background_graphic">
             <g class="year_indicator" >
                 <text :x="lineStartX - 60" :y="20" style="fill: #056CF2;">1996</text>
+                <text :x="lineStartX + 28" :y="20" style="fill: #056CF2;">Born</text>
                 <path :d="svgPath" fill="#056CF2"/>
             </g>
             <path :d="svgPath" fill="#056CF2"/>
@@ -18,8 +18,12 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapMutations, mapState } from 'vuex';
+import { mixins } from 'vue-class-component';
+import { Vue, Component, Watch } from 'vue-property-decorator';
+import {
+    State,
+    Mutation,
+} from 'vuex-class';
 import Slide from '../classes/Slide';
 import Line from '../classes/Line';
 import Point from '../classes/Point';
@@ -28,79 +32,74 @@ import easingFunctions from '../helpers/easingFunctions';
 
 console.log(easingFunctions);
 
-export default Vue.extend({
-    name: 'Head',
-    mixins: [slideMixin],
-    data() {
-        return {
-            index: 1,
-            animationState: 'start',
-        };
-    },
-    computed: {
-        ...mapState([
-            'slides',
-        ]),
-        animationClass():string {
-            return `header--${this.animationState}`;
-        },
-        previousSlide():Slide|null {
-            return this.slides[this.index - 1];
-        },
-        lineStartPosition():Point|null {
-            if (!this.previousSlide) return null;
-            return this.previousSlide.line.end;
-        },
-        lineStartX():number {
-            let lineStartX = 0;
-            if (this.lineStartPosition) lineStartX = Math.round(this.lineStartPosition.x);
-            return lineStartX;
-        }
-        svgPath():string {
-            return `
-                M ${this.lineStartX} 0
-                H ${this.lineStartX + 16}    
-                V ${this.height * easingFunctions.easeInQuad(this.entered) }
-                H ${this.lineStartX}
-                Z
-            `;
-        },
-    },
-    methods: {
-        ...mapMutations([
-            'registerSlide',
-            'updateSlide',
-        ]),
-        updateLine() {
-            const { start, end } = this.getTimelinePosition();
-            this.updateSlide({
-                index: this.index,
-                line: new Line({ start, end }),
-            });
-        },
-        getTimelinePosition() {
-            if (!this.lineStartPosition) {
-                return {
-                    start: new Point({ x: 0, y: 0 }),
-                    end: new Point({ x: 0, y: 0 }),
-                };
-            }
-            const start = this.lineStartPosition;
-            const end = new Point({
-                x: 0,
-                y: 222,
-            });
+@Component
+export default class Head extends mixins(slideMixin) {
+    @State('slides') slides!:Array<Slide>;
+
+    @Mutation('registerSlide') registerSlide!:Function;
+
+    @Mutation('updateSlide') updateSlide!:Function;
+
+    index = 1;
+
+    animationState = 'start';
+
+    get animationClass():string {
+        return `header--${this.animationState}`;
+    }
+
+    get previousSlide():Slide|null {
+        return this.slides[this.index - 1];
+    }
+
+    get lineStartPosition():Point|null {
+        if (!this.previousSlide) return null;
+        return this.previousSlide.line.end;
+    }
+
+    get lineStartX():number {
+        let lineStartX = 0;
+        if (this.lineStartPosition) lineStartX = Math.round(this.lineStartPosition.x);
+        return lineStartX;
+    }
+
+    get svgPath():string {
+        return `
+            M ${this.lineStartX} 0
+            H ${this.lineStartX + 16}
+            V ${this.height * easingFunctions.easeInQuad(this.entered)}
+            H ${this.lineStartX}
+            Z
+        `;
+    }
+
+    @Watch('windowSizeSum')
+    updateLine() {
+        const { start, end } = this.getTimelinePosition();
+        this.updateSlide({
+            index: this.index,
+            line: new Line({ start, end }),
+        });
+    }
+
+    getTimelinePosition() {
+        if (!this.lineStartPosition) {
             return {
-                start,
-                end,
+                start: new Point({ x: 0, y: 0 }),
+                end: new Point({ x: 0, y: 0 }),
             };
-        },
-    },
-    watch: {
-        windowSizeSum() {
-            this.updateLine();
-        },
-    },
+        }
+        const start = this.lineStartPosition;
+        const end = new Point({
+            x: 0,
+            y: 222,
+        });
+        return {
+            start,
+            end,
+        };
+    }
+
     mounted() {
         setTimeout(() => {
             this.animationState = 'timeline-slid-in';
@@ -120,8 +119,8 @@ export default Vue.extend({
                 line: new Line({ start, end }),
             }),
         );
-    },
-});
+    }
+}
 </script>
 
 <style lang="sass" scoped>
