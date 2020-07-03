@@ -14,6 +14,9 @@ module.exports = {
         'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
         'no-underscore-dangle': 'off',
         'import/no-cycle': 'off',
+        'lines-between-class-members': 'off',
+        'no-array-constructor': 'off',
+        'no-param-reassign': 'off',
         'max-len': [
             'error',
             {
@@ -23,6 +26,7 @@ module.exports = {
                 ignoreRegExpLiterals: true,
                 ignoreTemplateLiterals: true,
                 ignoreStrings: true,
+                ignorePattern: 'd="([\\s\\S]*?)"',
             },
         ],
         'no-param-reassign': [

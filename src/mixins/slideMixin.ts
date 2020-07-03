@@ -3,20 +3,22 @@ import Component from 'vue-class-component';
 import { vueWindowSizeMixin } from 'vue-window-size';
 import {
     State,
+    Mutation,
 } from 'vuex-class';
+import Slide from '@/classes/Slide';
 
 @Component({
     mixins: [vueWindowSizeMixin],
 })
 export default class slideMixin extends Vue {
     @State('getPreviousLinePosition') getPreviousLinePosition!:Number;
+    @State('slides') slides!:Array<Slide>;
+    @Mutation('registerSlide') registerSlide!:Function;
+    @Mutation('updateSlide') updateSlide!:Function;
 
     entered = 0;
-
     exited = 0;
-
     height = 0;
-
     width = 0;
 
     get windowSizeSum():number {

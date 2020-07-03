@@ -6,71 +6,62 @@
     >
         <div class="slide__content">
         </div>
-        <svg class="slide__background_graphic">
-            <g class="year_indicator" >
-                <text :x="lineStartX - 60" :y="20" style="fill: #056CF2;">1996</text>
-                <text :x="lineStartX + 28" :y="20" style="fill: #056CF2;">Born</text>
-                <path :d="svgPath" fill="#056CF2"/>
-            </g>
-            <path :d="svgPath" fill="#056CF2"/>
-        </svg>
+        <SchoolDoodle
+            class="slide__school_doodle"
+            :animationPercentage="schoolDoodleAnimationPercentage"
+        />
     </section>
 </template>
 
 <script lang="ts">
 import { mixins } from 'vue-class-component';
-import { Vue, Component, Watch } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 import {
     State,
     Mutation,
 } from 'vuex-class';
-import Slide from '../classes/Slide';
-import Line from '../classes/Line';
-import Point from '../classes/Point';
-import slideMixin from '../mixins/slideMixin';
-import easingFunctions from '../helpers/easingFunctions';
+import SchoolDoodle from '@/components/Illustrations/SchoolDoodle.vue';
+import Slide from '@/classes/Slide';
+import Line from '@/classes/Line';
+import Point from '@/classes/Point';
+import slideMixin from '@/mixins/slideMixin';
+import easingFunctions from '@/helpers/easingFunctions';
+import minMax from '@/helpers/minMax';
+import animationStep from '@/helpers/animationStep';
 
-console.log(easingFunctions);
-
-@Component
-export default class Head extends mixins(slideMixin) {
-    @State('slides') slides!:Array<Slide>;
-
-    @Mutation('registerSlide') registerSlide!:Function;
-
-    @Mutation('updateSlide') updateSlide!:Function;
-
+@Component({
+    components: {
+        SchoolDoodle,
+    },
+})
+export default class Childhood extends mixins(slideMixin) {
     index = 1;
-
     animationState = 'start';
 
     get animationClass():string {
         return `header--${this.animationState}`;
     }
-
+    get animationPercentage():number {
+        return easingFunctions.easeInQuad(this.entered);
+    }
+    get schoolDoodleAnimationPercentage():number {
+        return animationStep({
+            parentPercentage: this.animationPercentage,
+            start: 0.2,
+            end: 1,
+        });
+    }
     get previousSlide():Slide|null {
         return this.slides[this.index - 1];
     }
-
     get lineStartPosition():Point|null {
         if (!this.previousSlide) return null;
         return this.previousSlide.line.end;
     }
-
     get lineStartX():number {
         let lineStartX = 0;
         if (this.lineStartPosition) lineStartX = Math.round(this.lineStartPosition.x);
         return lineStartX;
-    }
-
-    get svgPath():string {
-        return `
-            M ${this.lineStartX} 0
-            H ${this.lineStartX + 16}
-            V ${this.height * easingFunctions.easeInQuad(this.entered)}
-            H ${this.lineStartX}
-            Z
-        `;
     }
 
     @Watch('windowSizeSum')
@@ -81,7 +72,6 @@ export default class Head extends mixins(slideMixin) {
             line: new Line({ start, end }),
         });
     }
-
     getTimelinePosition() {
         if (!this.lineStartPosition) {
             return {
@@ -155,4 +145,7 @@ export default class Head extends mixins(slideMixin) {
 
     .year_indicator
         @extend %headline6_style
+
+    .slide__school_doodle
+        position: absolute
 </style>

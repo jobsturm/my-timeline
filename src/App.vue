@@ -27,5 +27,6 @@ export default Vue.extend({
         -webkit-overflow-scrolling: none;
         font-size: 16px;
         overflow-x: hidden;
+        scroll-behavior: smooth;
     }
 </style>

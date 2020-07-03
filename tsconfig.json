@@ -3,6 +3,7 @@
     "target": "esnext",
     "module": "esnext",
     "strict": true,
+    "strictPropertyInitialization": false,
     "jsx": "preserve",
     "importHelpers": true,
     "moduleResolution": "node",
@@ -36,5 +37,4 @@
   "exclude": [
     "node_modules"
   ],
-  "strictPropertyInitialization": false,
 }

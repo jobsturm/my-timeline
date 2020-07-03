@@ -7,7 +7,6 @@ interface SlideInterface {
 
 export default class Slide implements SlideInterface {
     index: number;
-
     line: Line;
 
     constructor({ index, line } : SlideInterface) {
