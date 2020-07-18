@@ -2,8 +2,6 @@
     <div id="app">
         <Head/>
         <Childhood/>
-        <Childhood/>
-        <Childhood/>
     </div>
 </template>
 
@@ -28,5 +26,18 @@ export default Vue.extend({
         font-size: 16px;
         overflow-x: hidden;
         scroll-behavior: smooth;
+    }
+
+    .debug_point {
+        width: 10px;
+        height: 10px;
+        position: absolute;
+        background: red;
+        position: absolute;
+        z-index: 9999;
+        opacity: 0.5;
+        &.debug_point--end {
+            background: yellow;
+        }
     }
 </style>

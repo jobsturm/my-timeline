@@ -1,19 +1,14 @@
 import Point from './Point';
 
 interface PathInterface {
-    start:Point;
-    end:Point;
-    length:number;
+    points:Array<Point>,
 }
 
-export default class Path implements PathInterface {
-    start: Point;
-    end: Point;
-    length: number;
+export default class Path extends Array implements PathInterface {
+    points: Array<Point>;
 
-    constructor({ start, end, length } : PathInterface) {
-        this.start = start;
-        this.end = end;
-        this.length = length;
+    constructor({ points } : PathInterface) {
+        super();
+        this.points = points;
     }
 }

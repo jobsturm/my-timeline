@@ -7,10 +7,8 @@ interface LineInterface {
 
 export default class Line implements LineInterface {
     start: Point;
-
     end: Point;
-
-    angle: Number;
+    angle: number;
 
     constructor({ start, end } : LineInterface) {
         this.start = start;

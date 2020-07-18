@@ -5,7 +5,6 @@ interface PointInterface {
 
 export default class Point {
     x: any;
-
     y: any;
 
     constructor({ x, y } : PointInterface) {

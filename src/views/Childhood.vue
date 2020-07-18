@@ -1,14 +1,14 @@
 <template>
     <section
         class="slide"
-        :class="animationClass"
         ref="slide"
     >
         <div class="slide__content">
         </div>
         <SchoolDoodle
             class="slide__school_doodle"
-            :animationPercentage="schoolDoodleAnimationPercentage"
+            :animationPercentage="animationPercentage"
+            :start="lineStartPosition"
         />
     </section>
 </template>
@@ -38,24 +38,19 @@ export default class Childhood extends mixins(slideMixin) {
     index = 1;
     animationState = 'start';
 
-    get animationClass():string {
-        return `header--${this.animationState}`;
-    }
     get animationPercentage():number {
         return easingFunctions.easeInQuad(this.entered);
-    }
-    get schoolDoodleAnimationPercentage():number {
-        return animationStep({
-            parentPercentage: this.animationPercentage,
-            start: 0.2,
-            end: 1,
-        });
     }
     get previousSlide():Slide|null {
         return this.slides[this.index - 1];
     }
-    get lineStartPosition():Point|null {
-        if (!this.previousSlide) return null;
+    get lineStartPosition():Point {
+        if (!this.previousSlide) {
+            return {
+                x: 0,
+                y: 0,
+            };
+        }
         return this.previousSlide.line.end;
     }
     get lineStartX():number {
@@ -91,16 +86,6 @@ export default class Childhood extends mixins(slideMixin) {
     }
 
     mounted() {
-        setTimeout(() => {
-            this.animationState = 'timeline-slid-in';
-        }, 750);
-        setTimeout(() => {
-            this.animationState = 'timeline-showing';
-        }, 750 + 900);
-        setTimeout(() => {
-            this.updateLine();
-        }, 750 + 900 + 900);
-
         const { start, end } = this.getTimelinePosition();
 
         this.registerSlide(
