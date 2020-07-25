@@ -3,12 +3,11 @@
         class="slide"
         ref="slide"
     >
-        <div class="slide__content">
-        </div>
-        <SchoolDoodle
+        <DiscoverComputer
             class="slide__school_doodle"
             :animationPercentage="animationPercentage"
             :start="lineStartPosition"
+            :end="lineStartPosition"
         />
     </section>
 </template>
@@ -20,7 +19,7 @@ import {
     State,
     Mutation,
 } from 'vuex-class';
-import SchoolDoodle from '@/components/Illustrations/SchoolDoodle.vue';
+import DiscoverComputer from '@/components/Illustrations/DiscoverComputer.vue';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import Point from '@/classes/Point';
@@ -31,15 +30,16 @@ import animationStep from '@/helpers/animationStep';
 
 @Component({
     components: {
-        SchoolDoodle,
+        DiscoverComputer,
     },
 })
-export default class Childhood extends mixins(slideMixin) {
-    index = 1;
+export default class ComputerSlide extends mixins(slideMixin) {
+    index = 2;
     animationState = 'start';
+    end:Point = new Point({ x: 20, y: 100 });
 
     get animationPercentage():number {
-        return easingFunctions.easeInQuad(this.entered);
+        return easingFunctions.linear(this.entered);
     }
     get previousSlide():Slide|null {
         return this.slides[this.index - 1];
@@ -53,12 +53,6 @@ export default class Childhood extends mixins(slideMixin) {
         }
         return this.previousSlide.line.end;
     }
-    get lineStartX():number {
-        let lineStartX = 0;
-        if (this.lineStartPosition) lineStartX = Math.round(this.lineStartPosition.x);
-        return lineStartX;
-    }
-
     @Watch('windowSizeSum')
     updateLine() {
         const { start, end } = this.getTimelinePosition();
@@ -111,26 +105,4 @@ export default class Childhood extends mixins(slideMixin) {
         align-items: center
         overflow: hidden
         flex-direction: column
-
-    .slide__content
-        width: 100vw
-        height: 100vh
-        position: relative
-        top: 0px
-        left: 0px
-        z-index: 1
-
-    .slide__background_graphic
-        background: main.$grey_bg
-        width: 100%
-        height: 100%
-        position: absolute
-        top: 0
-        left: 0
-
-    .year_indicator
-        @extend %headline6_style
-
-    .slide__school_doodle
-        position: absolute
 </style>

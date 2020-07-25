@@ -28,26 +28,23 @@ export default class SmoothPoint {
     private getStartControlPoint():Point {
         const { start, end } = this.line;
         const { nextAngle, previousAngle } = this;
-        console.log(previousAngle);
         if (nextAngle > 20 && nextAngle < 160) {
             // If the next line angle is above 20 zigzag has to be made
             return new Point({
                 x: start.x,
                 y: start.y + ((end.y - start.y) / 2),
             });
-        } else if (previousAngle < 20 || nextAngle > 160) {
+        } if (previousAngle < 20 || nextAngle > 160) {
             return new Point({
                 x: end.x,
                 y: start.y,
             });
-        } else {
-            // Otherwise a corner has to be made
-            return new Point({
-                x: start.x,
-                y: start.y + (end.y - start.y),
-            });
         }
-
+        // Otherwise a corner has to be made
+        return new Point({
+            x: start.x,
+            y: start.y + (end.y - start.y),
+        });
     }
 
     private getEndControlPoint():Point {
@@ -59,17 +56,16 @@ export default class SmoothPoint {
                 x: end.x,
                 y: start.y + ((end.y - start.y) / 2),
             });
-        } else if (previousAngle < 20 || nextAngle > 160) {
+        } if (previousAngle < 20 || nextAngle > 160) {
             return new Point({
                 x: end.x,
                 y: start.y,
             });
-        } else {
-            // Otherwise a corner has to be made
-            return new Point({
-                x: start.x,
-                y: start.y + (end.y - start.y),
-            });
         }
+        // Otherwise a corner has to be made
+        return new Point({
+            x: start.x,
+            y: start.y + (end.y - start.y),
+        });
     }
 }

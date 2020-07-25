@@ -1,20 +1,23 @@
 <template>
     <div id="app">
         <Head/>
-        <Childhood/>
+        <SchoolSlide/>
+        <ComputerSlide/>
     </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import Head from './views/Head.vue';
-import Childhood from './views/Childhood.vue';
+import Head from './slides/Head.vue';
+import SchoolSlide from './slides/SchoolSlide.vue';
+import ComputerSlide from './slides/ComputerSlide.vue';
 
 export default Vue.extend({
     name: 'App',
     components: {
         Head,
-        Childhood,
+        SchoolSlide,
+        ComputerSlide,
     },
 });
 </script>

@@ -38,7 +38,7 @@ export default class AnimationPath extends Vue {
         return `${this.pathLength} ${this.pathLength}`;
     }
     get strokeDashoffset():number {
-        return this.pathLength * (this.percentage || 0);
+        return Math.ceil(this.pathLength * (this.percentage || 0));
     }
     get pathProperties():object {
         const { strokeDasharray, strokeDashoffset } = this;
@@ -58,7 +58,9 @@ export default class AnimationPath extends Vue {
     }
 
     mounted() {
-        this.setPathLength();
+        window.requestAnimationFrame(() => {
+            this.setPathLength();
+        });
     }
 }
 </script>
