@@ -1,5 +1,5 @@
 import Point from './Point';
-import SmoothPoint from './SmoothPoint';
+import SmoothPoint from './SmoothLines/SmoothPoint';
 import Path from './Path';
 import Line from './Line';
 
@@ -35,7 +35,6 @@ export default class SVGSmoothPath implements SVGSmoothPathInterface {
     }
 
     private generateSmoothPath():Array<SmoothPoint> {
-        // first point can't have curve
         const { points } = this.getPixelPath();
         return points.map((point:Point, index:number) => {
             const line = new Line({

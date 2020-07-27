@@ -1,5 +1,5 @@
-import Line from './Line';
-import Point from './Point';
+import Line from '@/classes/Line';
+import Point from '@/classes/Point';
 
 interface SmoothPointInterface {
     line:Line;
@@ -9,6 +9,8 @@ interface SmoothPointInterface {
 
 export default class SmoothPoint {
     line: Line;
+    nextLine: Line | null;
+    previousLine: Line | null;
     nextAngle: number | 0;
     previousAngle: number | 0;
     endPoint: Point;
@@ -18,6 +20,8 @@ export default class SmoothPoint {
 
     constructor({ line, nextLine, previousLine }:SmoothPointInterface) {
         this.line = line;
+        this.nextLine = nextLine;
+        this.previousLine = previousLine;
         this.nextAngle = nextLine ? nextLine.angle : 0;
         this.previousAngle = previousLine ? previousLine.angle : 0;
         this.startControlPoint = this.getStartControlPoint();
@@ -41,10 +45,17 @@ export default class SmoothPoint {
             });
         }
         // Otherwise a corner has to be made
-        return new Point({
-            x: start.x,
-            y: start.y + (end.y - start.y),
-        });
+        if (this.previousLine && this.previousLine.end.x > this.line.end.x) {
+            return new Point({
+                x: start.x + (end.x - start.x),
+                y: start.y,
+            });
+        } else {
+            return new Point({
+                x: start.x,
+                y: start.y + (end.y - start.y),
+            });
+        }
     }
 
     private getEndControlPoint():Point {
@@ -63,9 +74,16 @@ export default class SmoothPoint {
             });
         }
         // Otherwise a corner has to be made
-        return new Point({
-            x: start.x,
-            y: start.y + (end.y - start.y),
-        });
+        if (this.previousLine && this.previousLine.end.x > this.line.end.x) {
+            return new Point({
+                x: start.x + (end.x - start.x),
+                y: start.y,
+            });
+        } else {
+            return new Point({
+                x: start.x,
+                y: start.y + (end.y - start.y),
+            });
+        }
     }
 }
