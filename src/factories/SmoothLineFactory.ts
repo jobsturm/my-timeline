@@ -23,7 +23,6 @@ export default class SmoothLineFactory implements SmoothPathFactoryInterface {
         this.path = path;
         this.lineSegments = this.getLineSegments();
         this.smoothLine = this.getSmoothLine();
-        console.log(this.smoothLine);
     }
 
     private getLineSegments():Array<SmoothLineSegment> {
@@ -52,11 +51,12 @@ export default class SmoothLineFactory implements SmoothPathFactoryInterface {
             const toleranceUp = 90 + verticalTolerance;
             const toleranceDown = 90 - verticalTolerance;
 
+            if (previousLine && nextLine) console.log(nextLine, previousLine);
 
-            if (previousLine && (previousLine.angle < toleranceUp && previousLine.angle > toleranceDown)) {
+            if (previousLine && (Math.abs(previousLine.angle) < toleranceUp && Math.abs(previousLine.angle) > toleranceDown)) {
                 directionIncoming.vertical = true;
             }
-            if (nextLine && (nextLine.angle < toleranceUp && nextLine.angle > toleranceDown)) {
+            if (nextLine && (Math.abs(nextLine.angle) < toleranceUp && Math.abs(nextLine.angle) > toleranceDown)) {
                 directionOutgoing.vertical = true;
             }
             return new SmoothLineSegment({
@@ -79,9 +79,8 @@ export default class SmoothLineFactory implements SmoothPathFactoryInterface {
                     directionOutgoing: { vertical: false },
                 }));
             } else {
-                console.log(lineSegment);
                 const directionIncoming = lineSegment.directionIncoming;
-                const directionOutgoing = lineSegments[index + 1].directionIncoming;
+                const directionOutgoing = lineSegment.directionOutgoing;
                 if (directionIncoming.vertical === directionOutgoing.vertical) {
                     smoothLine.push(new Zigzag({
                         line,

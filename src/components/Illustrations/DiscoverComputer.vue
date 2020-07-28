@@ -66,6 +66,9 @@ export default class SchoolDoodle extends GraphicMixix {
                 new Point({ x: 35, y: 35 }),
                 new Point({ x: 20, y: 55 }),
                 new Point({ x: 20, y: 60 }),
+                new Point({ x: 40, y: 60 }),
+                new Point({ x: 50, y: 70 }),
+                new Point({ x: 50, y: 81 }),
             ],
         });
         const { windowWidth, windowHeight } = this;

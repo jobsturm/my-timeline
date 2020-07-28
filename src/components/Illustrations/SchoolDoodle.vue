@@ -97,6 +97,10 @@ export default class SchoolDoodle extends GraphicMixix {
                     y: 40,
                 }),
                 new Point({
+                    x: 10,
+                    y: 41,
+                }),
+                new Point({
                     x: 30,
                     y: 60,
                 }),
