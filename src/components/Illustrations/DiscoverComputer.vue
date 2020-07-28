@@ -48,6 +48,7 @@ export default class SchoolDoodle extends GraphicMixix {
         const computerCoords = this.graphicLayout.computer;
         const path = new Path({
             points: [
+                new Point({ x: this.start.x, y: -1 }),
                 new Point({ x: this.start.x, y: 0 }),
                 new Point({ x: 80, y: 25 }),
                 new Point({ x: computerCoords.x, y: computerCoords.y }),
@@ -62,7 +63,9 @@ export default class SchoolDoodle extends GraphicMixix {
             points: [
                 new Point({ x: computerCoords.x, y: computerCoords.y }),
                 new Point({ x: 60, y: computerCoords.y }),
-                new Point({ x: 55, y: 35 }),
+                new Point({ x: 35, y: 35 }),
+                new Point({ x: 20, y: 55 }),
+                new Point({ x: 20, y: 60 }),
             ],
         });
         const { windowWidth, windowHeight } = this;

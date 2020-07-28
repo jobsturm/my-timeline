@@ -1,15 +1,15 @@
 import Point from '@/classes/Point';
 
-interface SmoothLinePointInterface {
+interface BezierPointInterface {
     point:Point;
     controlPoint:Point;
 }
 
-export default class SmoothLinePoint implements SmoothLinePointInterface {
+export default class BezierPoint implements BezierPointInterface {
     point: Point;
     controlPoint: Point;
 
-    constructor({ point, controlPoint } : SmoothLinePointInterface) {
+    constructor({ point, controlPoint } : BezierPointInterface) {
         this.point = point;
         this.controlPoint = controlPoint;
     }

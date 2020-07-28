@@ -86,6 +86,10 @@ export default class SchoolDoodle extends GraphicMixix {
             points: [
                 this.getPercentageFromPixelPoint({
                     x: this.start.x,
+                    y: -1,
+                }),
+                this.getPercentageFromPixelPoint({
+                    x: this.start.x,
                     y: 0,
                 }),
                 new Point({
@@ -104,9 +108,12 @@ export default class SchoolDoodle extends GraphicMixix {
                     x: this.end.x,
                     y: 100,
                 }),
+                new Point({
+                    x: this.end.x,
+                    y: 101,
+                }),
             ],
         });
-        console.log(this.windowHeight);
         const SVGPath = new SVGSmoothPath({
             path,
             windowWidth: this.windowWidth,

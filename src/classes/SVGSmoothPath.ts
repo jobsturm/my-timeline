@@ -1,7 +1,8 @@
 import Point from './Point';
-import SmoothPoint from './SmoothLines/SmoothPoint';
 import Path from './Path';
-import Line from './Line';
+import SmoothLineFactory from '@/factories/SmoothLineFactory';
+import Corner from './SmoothLines/Corner';
+import Zigzag from './SmoothLines/Zigzag';
 
 interface SVGSmoothPathInterface {
     path:Path,
@@ -34,33 +35,10 @@ export default class SVGSmoothPath implements SVGSmoothPathInterface {
         return new Path({ points });
     }
 
-    private generateSmoothPath():Array<SmoothPoint> {
-        const { points } = this.getPixelPath();
-        return points.map((point:Point, index:number) => {
-            const line = new Line({
-                start: points[index - 1] || point,
-                end: point,
-            });
-            let nextLine = null;
-            if (points[index + 1]) {
-                nextLine = new Line({
-                    start: point,
-                    end: points[index + 1],
-                });
-            }
-            let previousLine = null;
-            if (points[index - 2]) {
-                previousLine = new Line({
-                    start: points[index - 2],
-                    end: points[index - 1],
-                });
-            }
-            return new SmoothPoint({
-                line,
-                nextLine,
-                previousLine,
-            });
-        });
+    private generateSmoothPath():Array<Corner|Zigzag> {
+        return new SmoothLineFactory({
+            path: this.getPixelPath(),
+        }).smoothLine;
     }
 
     public getSVGStringPath():string {
@@ -69,8 +47,11 @@ export default class SVGSmoothPath implements SVGSmoothPathInterface {
         let SVGStringPath = `M${start.x}, ${start.y}`;
         points.forEach((point, index) => {
             if (index === 0) return; // first point is the start of the path
-            const { x, y } = point.endPoint;
-            const { startControlPoint, endControlPoint } = point;
+            const startBezierPoint = point.bezierPath.points[0];
+            const startControlPoint = startBezierPoint.controlPoint;
+            const endBezierPoint = point.bezierPath.points[1];
+            const endControlPoint = endBezierPoint.controlPoint;
+            const { x, y } = endBezierPoint.point;
             SVGStringPath += `C ${startControlPoint.x},${startControlPoint.y} ${endControlPoint.x},${endControlPoint.y} ${x},${y}`;
         });
         return SVGStringPath;
