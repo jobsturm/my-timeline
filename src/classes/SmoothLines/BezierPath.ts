@@ -1,13 +1,13 @@
 import BezierPoint from '@/classes/SmoothLines/BezierPoint';
 
 interface BezierPathInterface {
-    points:Array<BezierPoint>,
+    points: BezierPoint[];
 }
 
 export default class BezierPath extends Array implements BezierPathInterface {
-    points: Array<BezierPoint>;
+    points: BezierPoint[];
 
-    constructor({ points } : BezierPathInterface) {
+    constructor({ points }: BezierPathInterface) {
         super();
         this.points = points;
     }

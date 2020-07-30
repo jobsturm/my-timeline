@@ -1,8 +1,8 @@
 import Point from './Point';
 
 interface LineInterface {
-    start:Point;
-    end:Point;
+    start: Point;
+    end: Point;
 }
 
 export default class Line implements LineInterface {
@@ -10,7 +10,7 @@ export default class Line implements LineInterface {
     end: Point;
     angle: number;
 
-    constructor({ start, end } : LineInterface) {
+    constructor({ start, end }: LineInterface) {
         this.start = start;
         this.end = end;
         this.angle = Math.atan2(end.y - start.y, end.x - start.x) * 180 / Math.PI;

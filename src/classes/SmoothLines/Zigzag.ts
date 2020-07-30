@@ -4,16 +4,17 @@ import BezierPath from '@/classes/SmoothLines/BezierPath';
 import SmoothLineSegment from '@/classes/SmoothLines/SmoothLineSegment';
 
 export default class Zigzag extends SmoothLineSegment {
-    bezierPath:BezierPath;
+    bezierPath: BezierPath;
 
-    constructor({ line, directionIncoming, directionOutgoing }:SmoothLineSegment) {
+    constructor({ line, directionIncoming, directionOutgoing }: SmoothLineSegment) {
         super({ line, directionIncoming, directionOutgoing });
         this.bezierPath = this.getBezierPath();
     }
 
-    private getBezierPath():BezierPath {
+    private getBezierPath(): BezierPath {
         const { start, end } = this.line;
-        let startPoint, endPoint;
+        let startPoint; let
+            endPoint;
 
         if (this.directionIncoming.vertical) {
             startPoint = new BezierPoint({
@@ -28,7 +29,7 @@ export default class Zigzag extends SmoothLineSegment {
                 point: new Point(start),
                 controlPoint: new Point({
                     x: start.x + ((end.x - start.x) / 2),
-                    y: start.y
+                    y: start.y,
                 }),
             });
         }
@@ -45,7 +46,7 @@ export default class Zigzag extends SmoothLineSegment {
                 point: new Point(end),
                 controlPoint: new Point({
                     x: start.x + ((end.x - start.x) / 2),
-                    y: end.y
+                    y: end.y,
                 }),
             });
         }

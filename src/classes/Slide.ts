@@ -9,7 +9,7 @@ export default class Slide implements SlideInterface {
     index: number;
     line: Line;
 
-    constructor({ index, line } : SlideInterface) {
+    constructor({ index, line }: SlideInterface) {
         this.index = index;
         this.line = line;
     }

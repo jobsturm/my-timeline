@@ -4,16 +4,17 @@ import BezierPath from '@/classes/SmoothLines/BezierPath';
 import SmoothLineSegment from '@/classes/SmoothLines/SmoothLineSegment';
 
 export default class Corner extends SmoothLineSegment {
-    bezierPath:BezierPath;
+    bezierPath: BezierPath;
 
-    constructor({ line, directionIncoming, directionOutgoing }:SmoothLineSegment) {
+    constructor({ line, directionIncoming, directionOutgoing }: SmoothLineSegment) {
         super({ line, directionIncoming, directionOutgoing });
         this.bezierPath = this.getBezierPath();
     }
 
-    private getBezierPath():BezierPath {
+    private getBezierPath(): BezierPath {
         const { start, end } = this.line;
-        let startPoint, endPoint;
+        let startPoint;
+        let endPoint;
 
         // Corners have 8 different variants, however in corners
         // it's a given that 2 of those paths always mirror each other.

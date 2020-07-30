@@ -3,16 +3,16 @@
 import minMax from '@/helpers/minMax';
 
 interface AnimationStepParameters {
-    parentPercentage:number;
-    start:number,
-    end:number,
+    parentPercentage: number;
+    start: number;
+    end: number;
 }
 
 export default function ({
     parentPercentage,
     start,
     end,
-}:AnimationStepParameters):number {
+}: AnimationStepParameters): number {
     const duration = end - start;
     return minMax({
         number: (parentPercentage - start) / duration,

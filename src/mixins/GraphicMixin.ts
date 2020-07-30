@@ -11,16 +11,16 @@ import drawPercentageListGenerator from '@/helpers/drawPercentageListGenerator';
     mixins: [vueWindowSizeMixin],
 })
 export default class GraphicMixin extends Vue {
-    @Prop({ default: 0 }) readonly animationPercentage:number
-    @Prop({ required: true }) readonly start:Point
-    @Prop({ required: true }) readonly end:Point
+    @Prop({ default: 0 }) readonly animationPercentage: number
+    @Prop({ required: true }) readonly start: Point
+    @Prop({ required: true }) readonly end: Point
 
     isMounted = false;
     graphicLayout = {};
-    timeline:{ key: string; start: number; end: number; }[];
+    timeline: { key: string; start: number; end: number }[];
 
-    get coords():object {
-        const graphicsLocations: { [key: string]:object } = {};
+    get coords(): object {
+        const graphicsLocations: { [key: string]: object } = {};
         Object.entries(this.graphicLayout).forEach((entrie) => {
             const key = entrie[0];
             const point = entrie[1] as Point;
@@ -34,7 +34,7 @@ export default class GraphicMixin extends Vue {
         return graphicsLocations;
     }
     // Animation Steps
-    get as():object {
+    get as(): { [key: string]: number; } {
         const { animationPercentage, timeline } = this;
         return drawPercentageListGenerator({
             parentPercentage: animationPercentage,
@@ -42,19 +42,19 @@ export default class GraphicMixin extends Vue {
         });
     }
 
-    public createGraphicTransformProp({ x, y }:Point):string {
+    public createGraphicTransformProp({ x, y }: Point): string {
         return `translate(${x}, ${y})`;
     }
-    public createPixelPoint({ x, y }:Point):Point {
+    public createPixelPoint({ x, y }: Point): Point {
         return this.getPixelFromPercentagePoint(new Point({ x, y }));
     }
-    public getPixelFromPercentagePoint(point:Point):Point {
+    public getPixelFromPercentagePoint(point: Point): Point {
         return new Point({
             x: Math.round((this.windowWidth / 100) * point.x),
             y: Math.round((this.windowHeight / 100) * point.y),
         });
     }
-    public getPercentageFromPixelPoint({ x, y }:Point):Point {
+    public getPercentageFromPixelPoint({ x, y }: Point): Point {
         return new Point({
             // +8 because the line is always 16px wide.
             x: ((Math.round(x) + 8) / this.windowWidth) * 100,

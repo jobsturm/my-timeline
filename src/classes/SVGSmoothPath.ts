@@ -1,29 +1,27 @@
-import Point from './Point';
-import Path from './Path';
-import SmoothLineFactory from '@/factories/SmoothLineFactory';
-import Corner from './SmoothLines/Corner';
-import Zigzag from './SmoothLines/Zigzag';
+import Point from '@/classes/Point';
+import Path from '@/classes/Path';
+import SmoothLine from '@/classes/SmoothLines/SmoothLine';
+import Corner from '@/classes/SmoothLines/Corner';
+import Zigzag from '@/classes/SmoothLines/Zigzag';
 
 interface SVGSmoothPathInterface {
-    path:Path,
-    windowWidth:number,
-    windowHeight:number,
+    path: Path;
+    windowWidth: number;
+    windowHeight: number;
 }
 
 export default class SVGSmoothPath implements SVGSmoothPathInterface {
     path: Path;
-    windowWidth:number;
-    windowHeight:number;
-    SVGStringPath:string;
+    windowWidth: number;
+    windowHeight: number;
 
-    constructor({ path, windowWidth, windowHeight } : SVGSmoothPathInterface) {
+    constructor({ path, windowWidth, windowHeight }: SVGSmoothPathInterface) {
         this.path = path;
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
-        this.SVGStringPath = this.getSVGStringPath();
     }
 
-    private getPixelPath():Path {
+    private getPixelPath(): Path {
         const points = this.path.points.map(({ x, y }) => {
             const pixelX = (this.windowWidth / 100) * x;
             const pixelY = (this.windowHeight / 100) * y;
@@ -35,13 +33,13 @@ export default class SVGSmoothPath implements SVGSmoothPathInterface {
         return new Path({ points });
     }
 
-    private generateSmoothPath():Array<Corner|Zigzag> {
-        return new SmoothLineFactory({
+    private generateSmoothPath(): (Corner|Zigzag)[] {
+        return new SmoothLine({
             path: this.getPixelPath(),
         }).smoothLine;
     }
 
-    public getSVGStringPath():string {
+    get SVGStringPath(): string {
         const points = this.generateSmoothPath();
         const start = this.getPixelPath().points[0];
         let SVGStringPath = `M${start.x}, ${start.y}`;

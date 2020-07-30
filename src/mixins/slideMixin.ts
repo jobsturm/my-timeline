@@ -11,21 +11,21 @@ import Slide from '@/classes/Slide';
     mixins: [vueWindowSizeMixin],
 })
 export default class slideMixin extends Vue {
-    @State('getPreviousLinePosition') getPreviousLinePosition!:Number;
-    @State('slides') slides!:Array<Slide>;
-    @Mutation('registerSlide') registerSlide!:Function;
-    @Mutation('updateSlide') updateSlide!:Function;
+    @State('getPreviousLinePosition') getPreviousLinePosition!: number;
+    @State('slides') slides!: Slide[];
+    @Mutation('registerSlide') registerSlide!: Function;
+    @Mutation('updateSlide') updateSlide!: Function;
 
     entered = 0;
     exited = 0;
     height = 0;
     width = 0;
 
-    get windowSizeSum():number {
+    get windowSizeSum(): number {
         return this.windowWidth + this.windowHeight;
     }
 
-    handleScroll():void {
+    handleScroll(): void {
         window.requestAnimationFrame(() => {
             this.getInViewPercentage();
         });

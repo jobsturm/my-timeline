@@ -1,32 +1,27 @@
 import Point from '@/classes/Point';
+import Path from '@/classes/Path';
 import Corner from '@/classes/SmoothLines/Corner';
 import Zigzag from '@/classes/SmoothLines/Zigzag';
-import Path from '@/classes/Path';
 import Line from '@/classes/Line';
 import SmoothLineSegment from '@/classes/SmoothLines/SmoothLineSegment';
 
-// interface SmoothLineFactoryInterface {
-//     line:Line;
-//     nextLine: Line | null;
-//     previousLine: Line | null;
-// }
-interface SmoothPathFactoryInterface {
-    path:Path;
+interface SmoothLineInterface {
+    path: Path;
 }
 
-export default class SmoothLineFactory implements SmoothPathFactoryInterface {
-    path:Path;
-    lineSegments:Array<SmoothLineSegment>
-    smoothLine:Array<Corner|Zigzag>
+export default class SmoothLine implements SmoothLineInterface {
+    path: Path;
+    lineSegments: SmoothLineSegment[]
+    smoothLine: (Corner|Zigzag)[]
 
-    constructor({ path }: SmoothPathFactoryInterface) {
+    constructor({ path }: SmoothLineInterface) {
         this.path = path;
         this.lineSegments = this.getLineSegments();
         this.smoothLine = this.getSmoothLine();
     }
 
-    private getLineSegments():Array<SmoothLineSegment> {
-        return this.path.points.map((point:Point, index:number) => {
+    private getLineSegments(): SmoothLineSegment[] {
+        return this.path.points.map((point: Point, index: number) => {
             const line = new Line({
                 start: this.path.points[index - 1] || point,
                 end: point,
@@ -51,12 +46,18 @@ export default class SmoothLineFactory implements SmoothPathFactoryInterface {
             const toleranceUp = 90 + verticalTolerance;
             const toleranceDown = 90 - verticalTolerance;
 
-            if (previousLine && nextLine) console.log(nextLine, previousLine);
-
-            if (previousLine && (Math.abs(previousLine.angle) < toleranceUp && Math.abs(previousLine.angle) > toleranceDown)) {
+            if (
+                previousLine
+                && (Math.abs(previousLine.angle) < toleranceUp
+                && Math.abs(previousLine.angle) > toleranceDown)
+            ) {
                 directionIncoming.vertical = true;
             }
-            if (nextLine && (Math.abs(nextLine.angle) < toleranceUp && Math.abs(nextLine.angle) > toleranceDown)) {
+            if (
+                nextLine
+                && (Math.abs(nextLine.angle) < toleranceUp
+                && Math.abs(nextLine.angle) > toleranceDown)
+            ) {
                 directionOutgoing.vertical = true;
             }
             return new SmoothLineSegment({
@@ -67,8 +68,8 @@ export default class SmoothLineFactory implements SmoothPathFactoryInterface {
         });
     }
 
-    private getSmoothLine():Array<Corner|Zigzag> {
-        const smoothLine = [] as Array<Corner|Zigzag>;
+    private getSmoothLine(): (Corner|Zigzag)[] {
+        const smoothLine = [] as (Corner|Zigzag)[];
         const { lineSegments } = this;
         lineSegments.forEach((lineSegment, index) => {
             const { line } = lineSegment;
@@ -79,15 +80,15 @@ export default class SmoothLineFactory implements SmoothPathFactoryInterface {
                     directionOutgoing: { vertical: false },
                 }));
             } else {
-                const directionIncoming = lineSegment.directionIncoming;
-                const directionOutgoing = lineSegment.directionOutgoing;
+                const { directionIncoming } = lineSegment;
+                const { directionOutgoing } = lineSegment;
                 if (directionIncoming.vertical === directionOutgoing.vertical) {
                     smoothLine.push(new Zigzag({
                         line,
                         directionIncoming,
                         directionOutgoing,
                     }));
-                }  else {
+                } else {
                     smoothLine.push(new Corner({
                         line,
                         directionIncoming,
@@ -98,4 +99,4 @@ export default class SmoothLineFactory implements SmoothPathFactoryInterface {
         });
         return smoothLine;
     }
-};
+}

@@ -11,13 +11,13 @@ export default new Vuex.Store({
     mutations: {
         registerSlide(
             state,
-            slide:Slide,
+            slide: Slide,
         ) {
             state.slides.push(slide);
         },
         updateSlide(
             state,
-            slide:Slide,
+            slide: Slide,
         ) {
             const foundIndex = state.slides.findIndex(
                 arraySlide => arraySlide.index === slide.index,

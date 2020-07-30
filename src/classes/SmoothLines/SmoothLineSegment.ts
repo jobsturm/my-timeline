@@ -1,18 +1,18 @@
 import Line from '@/classes/Line';
 
 interface DirectionInterface {
-    vertical:boolean,
+    vertical: boolean;
 }
 interface SmoothLineSegmentInterface {
-    line:Line;
-    directionIncoming:DirectionInterface
-    directionOutgoing:DirectionInterface
+    line: Line;
+    directionIncoming: DirectionInterface;
+    directionOutgoing: DirectionInterface;
 }
 
 class SmoothLineSegment implements SmoothLineSegmentInterface {
-    line:Line;
-    directionIncoming:DirectionInterface;
-    directionOutgoing:DirectionInterface;
+    line: Line;
+    directionIncoming: DirectionInterface;
+    directionOutgoing: DirectionInterface;
 
     constructor({ line, directionIncoming, directionOutgoing }: SmoothLineSegmentInterface) {
         this.line = line;

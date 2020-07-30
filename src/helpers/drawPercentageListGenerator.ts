@@ -1,25 +1,25 @@
 import animationStep from '@/helpers/animationStep';
 
 interface timelineItem {
-    key:string,
-    start:number,
-    end:number,
+    key: string;
+    start: number;
+    end: number;
 }
-interface drawPercentageListParameters {
-    parentPercentage:number;
-    timeline:Array<timelineItem>,
+interface drawPercentageListInterface {
+    parentPercentage: number;
+    timeline: timelineItem[];
 }
 
 export default function ({
     parentPercentage,
     timeline,
-}:drawPercentageListParameters):object {
+}: drawPercentageListInterface): { [key: string]: number; } {
     return timeline.reduce((
-        drawPercentageList:any,
-        item:timelineItem,
+        drawPercentageList: any,
+        item: timelineItem,
     ) => {
         const { start, end } = item;
-        const mergeItem:any = {};
+        const mergeItem: any = {};
         mergeItem[item.key] = animationStep({ parentPercentage, start, end });
         return { ...drawPercentageList, ...mergeItem };
     }, {});

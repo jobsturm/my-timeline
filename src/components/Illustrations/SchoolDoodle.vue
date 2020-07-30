@@ -46,17 +46,19 @@
 </template>
 
 <script lang="ts">
-import { Vue, Component, Prop } from 'vue-property-decorator';
-import { mixins } from 'vue-class-component';
-import { vueWindowSizeMixin } from 'vue-window-size';
+import { Component } from 'vue-property-decorator';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
-import GraphicMixix from '@/mixins/GraphicMixin';
+import GraphicMixin from '@/mixins/GraphicMixin';
 
-@Component
-export default class SchoolDoodle extends GraphicMixix {
+@Component({
+    components: {
+        AnimationPath,
+    },
+})
+export default class SchoolDoodle extends GraphicMixin {
     graphicLayout = {
         house: new Point({ x: 35, y: 60 }),
         tree: new Point({ x: 55, y: 60 }),

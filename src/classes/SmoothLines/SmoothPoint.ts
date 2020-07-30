@@ -2,7 +2,7 @@ import Line from '@/classes/Line';
 import Point from '@/classes/Point';
 
 interface SmoothPointInterface {
-    line:Line;
+    line: Line;
     nextLine: Line | null;
     previousLine: Line | null;
 }
@@ -18,7 +18,7 @@ export default class SmoothPoint {
     startControlPoint: Point;
     endControlPoint: Point;
 
-    constructor({ line, nextLine, previousLine }:SmoothPointInterface) {
+    constructor({ line, nextLine, previousLine }: SmoothPointInterface) {
         this.line = line;
         this.nextLine = nextLine;
         this.previousLine = previousLine;
@@ -29,7 +29,7 @@ export default class SmoothPoint {
         this.endPoint = line.end;
     }
 
-    private getStartControlPoint():Point {
+    private getStartControlPoint(): Point {
         const { start, end } = this.line;
         const { nextAngle, previousAngle } = this;
         if (nextAngle > 20 && nextAngle < 160) {
@@ -50,15 +50,14 @@ export default class SmoothPoint {
                 x: start.x + (end.x - start.x),
                 y: start.y,
             });
-        } else {
-            return new Point({
-                x: start.x,
-                y: start.y + (end.y - start.y),
-            });
         }
+        return new Point({
+            x: start.x,
+            y: start.y + (end.y - start.y),
+        });
     }
 
-    private getEndControlPoint():Point {
+    private getEndControlPoint(): Point {
         const { start, end } = this.line;
         const { nextAngle, previousAngle } = this;
 
@@ -79,11 +78,10 @@ export default class SmoothPoint {
                 x: start.x + (end.x - start.x),
                 y: start.y,
             });
-        } else {
-            return new Point({
-                x: start.x,
-                y: start.y + (end.y - start.y),
-            });
         }
+        return new Point({
+            x: start.x,
+            y: start.y + (end.y - start.y),
+        });
     }
 }
