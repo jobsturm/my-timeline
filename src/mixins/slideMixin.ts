@@ -5,6 +5,7 @@ import {
     State,
     Mutation,
 } from 'vuex-class';
+import { Watch } from 'vue-property-decorator';
 import Slide from '@/classes/Slide';
 
 @Component({
@@ -25,13 +26,14 @@ export default class slideMixin extends Vue {
         return this.windowWidth + this.windowHeight;
     }
 
-    handleScroll(): void {
+    private handleScroll(): void {
         window.requestAnimationFrame(() => {
             this.getInViewPercentage();
         });
     }
 
-    getInViewPercentage() {
+    @Watch('windowSizeSum')
+    private getInViewPercentage(): void {
         // Get "in view" percentage of slide
         const element = this.$refs.slide as HTMLElement;
         const position = element.getBoundingClientRect();

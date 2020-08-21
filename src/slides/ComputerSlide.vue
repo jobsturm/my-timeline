@@ -6,8 +6,8 @@
         <DiscoverComputer
             class="slide__school_doodle"
             :animationPercentage="animationPercentage"
-            :start="lineStartPosition"
-            :end="lineStartPosition"
+            :start="timelinePosition.start"
+            :end="timelinePosition.end"
         />
     </section>
 </template>
@@ -36,7 +36,7 @@ import animationStep from '@/helpers/animationStep';
 export default class ComputerSlide extends mixins(slideMixin) {
     index = 2;
     animationState = 'start';
-    end:Point = new Point({ x: 20, y: 100 });
+    end:Point = new Point({ x: 40, y: 100 });
 
     get animationPercentage():number {
         return easingFunctions.linear(this.entered);
@@ -45,47 +45,21 @@ export default class ComputerSlide extends mixins(slideMixin) {
         return this.slides[this.index - 1];
     }
     get lineStartPosition():Point {
-        if (!this.previousSlide) {
-            return {
-                x: 0,
-                y: 0,
-            };
-        }
+        if (!this.previousSlide) return new Point({ x: 0, y: 0, });
         return this.previousSlide.line.end;
     }
-    @Watch('windowSizeSum')
-    updateLine() {
-        const { start, end } = this.getTimelinePosition();
-        this.updateSlide({
-            index: this.index,
-            line: new Line({ start, end }),
+    get timelinePosition(): Line {
+        return new Line({
+            start: this.lineStartPosition,
+            end: this.end,
         });
-    }
-    getTimelinePosition() {
-        if (!this.lineStartPosition) {
-            return {
-                start: new Point({ x: 0, y: 0 }),
-                end: new Point({ x: 0, y: 0 }),
-            };
-        }
-        const start = this.lineStartPosition;
-        const end = new Point({
-            x: 0,
-            y: 222,
-        });
-        return {
-            start,
-            end,
-        };
     }
 
     mounted() {
-        const { start, end } = this.getTimelinePosition();
-
         this.registerSlide(
             new Slide({
                 index: this.index,
-                line: new Line({ start, end }),
+                line: new Line({ ...this.timelinePosition }),
             }),
         );
     }

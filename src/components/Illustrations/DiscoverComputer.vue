@@ -3,12 +3,12 @@
         <svg class="discover_computer" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
             <AnimationPath :drawPercentage="as.timeline" :d="timelineSVGPath" id="general_path" stroke="#056CF2" stroke-width="16" fill="none"/>
             <g id="rainbows">
-                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(1)" class="rainbow" id="rainbow-1" stroke="#5EBD3E" stroke-width="16" fill="none"/>
-                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(2)" class="rainbow" id="rainbow-2" stroke="#FFB900" stroke-width="16" fill="none"/>
-                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(3)" class="rainbow" id="rainbow-3" stroke="#F78200" stroke-width="16" fill="none"/>
-                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(4)" class="rainbow" id="rainbow-4" stroke="#E23838" stroke-width="16" fill="none"/>
-                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(5)" class="rainbow" id="rainbow-5" stroke="#973999" stroke-width="16" fill="none"/>
-                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(6)" class="rainbow" id="rainbow-6" stroke="#009CDF" stroke-width="16" fill="none"/>
+                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(0)" class="rainbow" id="rainbow-1" stroke="#5EBD3E" stroke-width="16" fill="none"/>
+                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(1)" class="rainbow" id="rainbow-2" stroke="#FFB900" stroke-width="16" fill="none"/>
+                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(2)" class="rainbow" id="rainbow-3" stroke="#F78200" stroke-width="16" fill="none"/>
+                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(3)" class="rainbow" id="rainbow-4" stroke="#E23838" stroke-width="16" fill="none"/>
+                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(4)" class="rainbow" id="rainbow-5" stroke="#973999" stroke-width="16" fill="none"/>
+                <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(5)" class="rainbow" id="rainbow-6" stroke="#009CDF" stroke-width="16" fill="none"/>
             </g>
             <g id="computer_group" :transform="coords.computer.transform">
                 <defs>
@@ -119,15 +119,15 @@ export default class SchoolDoodle extends GraphicMixin {
         const relativeLineWidthHorizontal = 16 / this.windowWidth * 100;
         const computerCoords = this.graphicLayout.computer;
         const start = computerCoords.y + 14;
-        const endPointX = 40 + (index * relativeLineWidthHorizontal);
+        const endPointX = this.end.x + (index * relativeLineWidthHorizontal);
         const endPoint = new Point({ x: endPointX, y: this.end.y });
         const path = new Path({
             points: [
                 new Point({ x: computerCoords.x - 8, y: start }),
                 new Point({ x: 50, y: start - 22 + (index * relativeLineWidthVertical) }),
                 new Point({ x: 50, y: start - 22 + (index * relativeLineWidthVertical) }),
-                new Point({ x: 40 - (index * relativeLineWidthHorizontal), y: start }),
-                new Point({ x: 40 - (index * relativeLineWidthHorizontal), y: start + 1 }),
+                new Point({ x: this.end.x - (index * relativeLineWidthHorizontal), y: start }),
+                new Point({ x: this.end.x - (index * relativeLineWidthHorizontal), y: start + 1 }),
                 endPoint,
                 new Point({ x: endPoint.x, y: endPoint.y + 1 }),
             ],
