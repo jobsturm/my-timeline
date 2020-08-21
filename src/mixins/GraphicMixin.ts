@@ -19,11 +19,11 @@ export default class GraphicMixin extends Vue {
     graphicLayout = {};
     timeline: { key: string; start: number; end: number }[];
 
-    get coords(): object {
+    get coords(): {[key: string]: object} {
         const graphicsLocations: { [key: string]: object } = {};
-        Object.entries(this.graphicLayout).forEach((entrie) => {
-            const key = entrie[0];
-            const point = entrie[1] as Point;
+        Object.entries(this.graphicLayout).forEach((entry) => {
+            const key = entry[0];
+            const point = entry[1] as Point;
             const pixelPoint = this.createPixelPoint(point);
             const transform = this.createGraphicTransformProp(pixelPoint);
             graphicsLocations[key] = {
