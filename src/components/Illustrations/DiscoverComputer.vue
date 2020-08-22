@@ -10,7 +10,7 @@
                 <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(4)" class="rainbow" id="rainbow-5" stroke="#973999" stroke-width="16" fill="none"/>
                 <AnimationPath :drawPercentage="as.rainbow" :d="getRainbowPath(5)" class="rainbow" id="rainbow-6" stroke="#009CDF" stroke-width="16" fill="none"/>
             </g>
-            <g id="computer_group" :transform="coords.computer.transform">
+            <g id="computer_group" ref="computer" :transform="coords.computer.transform">
                 <defs>
                     <path d="M29,0 C29,0 28,14.6666667 26,44 L0,44 L0,57 L138,57 L138,44 L112,44 L109,0 C55.6666667,0 29,0 29,0 Z" id="path-1"></path>
                 </defs>
@@ -115,19 +115,19 @@ export default class SchoolDoodle extends GraphicMixin {
 
     @Watch('windowSizeSum')
     private getRainbowPath(index: number):string {
-        const relativeLineWidthVertical = 16 / this.windowHeight * 100;
-        const relativeLineWidthHorizontal = 16 / this.windowWidth * 100;
+        const relativeLineHeight = 16 / this.windowHeight * 100;
+        const relativeLineWidth = 16 / this.windowWidth * 100;
         const computerCoords = this.graphicLayout.computer;
         const start = computerCoords.y + 14;
-        const endPointX = this.end.x + (index * relativeLineWidthHorizontal);
+        const endPointX = this.end.x + (index * relativeLineWidth);
         const endPoint = new Point({ x: endPointX, y: this.end.y });
         const path = new Path({
             points: [
                 new Point({ x: computerCoords.x - 8, y: start }),
-                new Point({ x: 50, y: start - 22 + (index * relativeLineWidthVertical) }),
-                new Point({ x: 50, y: start - 22 + (index * relativeLineWidthVertical) }),
-                new Point({ x: this.end.x - (index * relativeLineWidthHorizontal), y: start }),
-                new Point({ x: this.end.x - (index * relativeLineWidthHorizontal), y: start + 1 }),
+                new Point({ x: 50, y: start - 22 + (index * relativeLineHeight) }),
+                new Point({ x: 50, y: start - 22 + (index * relativeLineHeight) }),
+                new Point({ x: this.end.x - 5 - (index * relativeLineWidth), y: start }),
+                new Point({ x: this.end.x - 5 - (index * relativeLineWidth), y: start + 1 }),
                 endPoint,
                 new Point({ x: endPoint.x, y: endPoint.y + 1 }),
             ],
@@ -140,6 +140,11 @@ export default class SchoolDoodle extends GraphicMixin {
     private fireConfettiCanon(val: boolean):void {
         if (!val) return;
         const computerCoords = this.graphicLayout.computer;
+        const computerElement = this.$refs.computer as SVGElement;
+        const confettiTop = (
+            (computerElement.getBoundingClientRect().height / 2)
+            / this.windowHeight
+        );
         this.shootConfetti({
             spread: 20,
             angle: 150,
@@ -147,7 +152,7 @@ export default class SchoolDoodle extends GraphicMixin {
             particleCount: this.smallModeEngaged ? 100 : 200,
             origin: {
                 x: computerCoords.x / 100,
-                y: (computerCoords.y + 20) / 100,
+                y: ((computerCoords.y) / 100) + confettiTop,
             },
         });
     }
@@ -197,5 +202,5 @@ export default class SchoolDoodle extends GraphicMixin {
 
     @media (max-width: 1000px)
         #computer
-            transform: scale(0.75) translate(-40%, -20%)
+            transform: scale(0.6) translate(-136.5px, -0px)
 </style>

@@ -33,7 +33,7 @@ import animationStep from '@/helpers/animationStep';
         DiscoverComputer,
     },
 })
-export default class ComputerSlide extends mixins(slideMixin) {
+export default class ComputerSlide extends slideMixin {
     index = 2;
     animationState = 'start';
     end:Point = new Point({ x: 40, y: 100 });

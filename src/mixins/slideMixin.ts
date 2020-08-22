@@ -6,6 +6,8 @@ import {
     Mutation,
 } from 'vuex-class';
 import { Watch } from 'vue-property-decorator';
+// It is used, but ESLint's regex doesn't recognize it
+// eslint-disable-next-line
 import Slide from '@/classes/Slide';
 
 @Component({

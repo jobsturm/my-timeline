@@ -22,61 +22,44 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import { mapMutations } from 'vuex';
-import Slide from '../classes/Slide';
-import Line from '../classes/Line';
-import Point from '../classes/Point';
-import slideMixin from '../mixins/slideMixin';
+import { Component, Watch } from 'vue-property-decorator';
+import Slide from '@/classes/Slide';
+import Line from '@/classes/Line';
+import Point from '@/classes/Point';
+import slideMixin from '@/mixins/slideMixin';
 
-export default Vue.extend({
-    name: 'Head',
-    mixins: [slideMixin],
-    data() {
-        return {
-            index: 0,
-            animationState: 'start',
-        };
-    },
-    computed: {
-        animationClass():string {
-            return `header--${this.animationState}`;
-        },
-    },
-    methods: {
-        ...mapMutations([
-            'registerSlide',
-            'updateSlide',
-        ]),
-        updateLine() {
-            const { start, end } = this.getTimelinePosition();
-            this.updateSlide({
-                index: this.index,
-                line: new Line({ start, end }),
-            });
-        },
-        getTimelinePosition() {
-            const timelineElement = this.$refs.timeline as HTMLElement;
-            const timelinePosition = timelineElement.getBoundingClientRect();
-            const start = new Point({
-                x: timelinePosition.left,
-                y: timelineElement.offsetTop,
-            });
-            const end = new Point({
-                x: timelinePosition.left,
-                y: timelineElement.offsetTop + timelinePosition.height,
-            });
-            return {
-                start,
-                end,
-            };
-        },
-    },
-    watch: {
-        windowSizeSum() {
-            this.updateLine();
-        },
-    },
+@Component
+export default class IntroSlide extends slideMixin {
+    index: number = 0;
+    animationState: string = 'start';
+
+    get animationClass():string {
+        return `header--${this.animationState}`;
+    }
+    @Watch('windowSizeSum')
+    updateLine(): void {
+        const { start, end } = this.getTimelinePosition();
+        this.updateSlide({
+            index: this.index,
+            line: new Line({ start, end }),
+        });
+    }
+    getTimelinePosition(): Line {
+        const timelineElement = this.$refs.timeline as HTMLElement;
+        const timelinePosition = timelineElement.getBoundingClientRect();
+        const start = new Point({
+            x: timelinePosition.left,
+            y: timelineElement.offsetTop,
+        });
+        const end = new Point({
+            x: timelinePosition.left,
+            y: timelineElement.offsetTop + timelinePosition.height,
+        });
+        return new Line({
+            start,
+            end,
+        });
+    }
     mounted() {
         setTimeout(() => {
             this.animationState = 'timeline-slid-in';
@@ -96,8 +79,8 @@ export default Vue.extend({
                 line: new Line({ start, end }),
             }),
         );
-    },
-});
+    }
+}
 </script>
 
 <style lang="sass" scoped>

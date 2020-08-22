@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-        <Head/>
+        <IntroSlide/>
         <SchoolSlide/>
         <ComputerSlide/>
     </div>
@@ -8,18 +8,19 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import Head from './slides/Head.vue';
+import { Component } from 'vue-property-decorator';
+import IntroSlide from './slides/IntroSlide.vue';
 import SchoolSlide from './slides/SchoolSlide.vue';
 import ComputerSlide from './slides/ComputerSlide.vue';
 
-export default Vue.extend({
-    name: 'App',
+@Component({
     components: {
-        Head,
+        IntroSlide,
         SchoolSlide,
         ComputerSlide,
     },
-});
+})
+export default class App extends Vue {}
 </script>
 
 <style lang="scss">
