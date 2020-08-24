@@ -13,20 +13,13 @@
 </template>
 
 <script lang="ts">
-import { mixins } from 'vue-class-component';
 import { Component, Watch } from 'vue-property-decorator';
-import {
-    State,
-    Mutation,
-} from 'vuex-class';
 import SchoolDoodle from '@/components/Illustrations/SchoolDoodle.vue';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import Point from '@/classes/Point';
 import slideMixin from '@/mixins/slideMixin';
 import easingFunctions from '@/helpers/easingFunctions';
-import minMax from '@/helpers/minMax';
-import animationStep from '@/helpers/animationStep';
 
 @Component({
     components: {

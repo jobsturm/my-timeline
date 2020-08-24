@@ -120,7 +120,7 @@ export default class SchoolDoodle extends GraphicMixin {
         const computerCoords = this.graphicLayout.computer;
         const start = computerCoords.y + 14;
         const endPointX = this.end.x + (index * relativeLineWidth);
-        const endPoint = new Point({ x: endPointX, y: this.end.y });
+        const endPoint = new Point({ x: endPointX, y: this.end.y - 1 });
         const path = new Path({
             points: [
                 new Point({ x: computerCoords.x - 8, y: start }),
@@ -148,6 +148,8 @@ export default class SchoolDoodle extends GraphicMixin {
         this.shootConfetti({
             spread: 20,
             angle: 150,
+            // Bonus points if you know where these colours are from ;)
+            colors: ['#5EBD3E', '#FFB900', '#F78200', '#E23838', '#973999', '#009CDF'],
             startVelocity: this.smallModeEngaged ? 30 : 60,
             particleCount: this.smallModeEngaged ? 100 : 200,
             origin: {
@@ -179,28 +181,27 @@ export default class SchoolDoodle extends GraphicMixin {
         height: 100vh
         position: relative
         z-index: 2
-
     #computer_screen
         fill: #263239
         transition: all 200ms
-
     #computer_screen[data-screen-on='true']
         fill: main.$primary
-
     .confetti_canvas
         position: absolute
         top: 0px
         left: 0px
         width: 100%
         height: 100%
-
     .discover_computer__title
         @extend %headline3_style
         text-align: right
         font-weight: 800
         font-size: max(min(44px, 3vw), 18px)
+        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff
 
     @media (max-width: 1000px)
         #computer
             transform: scale(0.6) translate(-136.5px, -0px)
+        .discover_computer__title
+            font-size: max(min(44px, 5vw), 18px)
 </style>

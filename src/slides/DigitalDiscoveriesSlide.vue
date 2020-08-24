@@ -1,36 +1,39 @@
 <template>
-    <section
-        class="slide"
-        ref="slide"
-    >
-        <DiscoverComputer
-            class="slide__graphic"
-            :animationPercentage="animationPercentage"
-            :start="timelinePosition.start"
-            :end="timelinePosition.end"
-        />
+    <section class="slide" ref="slide">
+        <div class="slide__illustration">
+            <DDIntro
+                :start="timelinePosition.start"
+                :end="timelinePosition.end"
+                :animationPercentage="animationPercentage"
+            />
+        </div>
+        <svg class="slide__triangle">
+            <polygon :points="trianglePoints"></polygon>
+        </svg>
     </section>
 </template>
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
-import DiscoverComputer from '@/components/Illustrations/DiscoverComputer.vue';
+import slideMixin from '@/mixins/slideMixin';
+import DDIntro from '@/components/Illustrations/DigitalDiscoveries/DDIntro.vue';
+import Point from '@/classes/Point';
+import easingFunctions from '@/helpers/easingFunctions';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import Point from '@/classes/Point';
-import slideMixin from '@/mixins/slideMixin';
-import easingFunctions from '@/helpers/easingFunctions';
 
 @Component({
     components: {
-        DiscoverComputer,
+        DDIntro,
     },
 })
-export default class ComputerSlide extends slideMixin {
-    index = 2;
-    animationState = 'start';
-    end:Point = new Point({ x: 40, y: 100 });
+export default class DigitalDiscoveriesSlide extends slideMixin {
+    index = 3;
+    end:Point = new Point({ x: 80, y: 100 });
 
+    get trianglePoints():string {
+        return `0,0 0,200 ${this.windowWidth},0`;
+    }
     get animationPercentage():number {
         return easingFunctions.linear(this.entered);
     }
@@ -57,6 +60,7 @@ export default class ComputerSlide extends slideMixin {
         );
     }
 }
+
 </script>
 
 <style lang="sass" scoped>
@@ -65,15 +69,19 @@ export default class ComputerSlide extends slideMixin {
     .slide
         width: 100vw
         height: 100vh
+        background: main.$grey_mineshaft
         position: relative
-        background: main.$grey_bg
-        display: flex
-        justify-content: center
-        align-items: center
-        overflow: hidden
-        flex-direction: column
 
-    .slide__graphic
+    .slide__triangle
+        width: 100%
+        height: 200px
+        background: main.$grey_mineshaft
+        fill: main.$grey_bg
+
+    .slide__illustration
+        position: absolute
         width: 100vw
         height: 100vh
+        top: 0
+        left: 0
 </style>

@@ -3,6 +3,7 @@
         <IntroSlide/>
         <SchoolSlide/>
         <ComputerSlide/>
+        <DigitalDiscoveriesSlide/>
     </div>
 </template>
 
@@ -12,12 +13,14 @@ import { Component } from 'vue-property-decorator';
 import IntroSlide from './slides/IntroSlide.vue';
 import SchoolSlide from './slides/SchoolSlide.vue';
 import ComputerSlide from './slides/ComputerSlide.vue';
+import DigitalDiscoveriesSlide from './slides/DigitalDiscoveriesSlide.vue';
 
 @Component({
     components: {
         IntroSlide,
         SchoolSlide,
         ComputerSlide,
+        DigitalDiscoveriesSlide,
     },
 })
 export default class App extends Vue {}
