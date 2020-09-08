@@ -9,11 +9,17 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
+import { vueWindowSizeMixin } from 'vue-window-size';
 import IntroSlide from './slides/IntroSlide.vue';
 import SchoolSlide from './slides/SchoolSlide.vue';
 import ComputerSlide from './slides/ComputerSlide.vue';
 import DigitalDiscoveriesSlide from './slides/DigitalDiscoveriesSlide.vue';
+
+// This is browser specific and thus default Window interface doesn't support it.
+interface Window {
+    visualViewport?: any;
+}
 
 @Component({
     components: {
@@ -22,8 +28,35 @@ import DigitalDiscoveriesSlide from './slides/DigitalDiscoveriesSlide.vue';
         ComputerSlide,
         DigitalDiscoveriesSlide,
     },
+    mixins: [vueWindowSizeMixin],
 })
-export default class App extends Vue {}
+export default class App extends Vue {
+    get windowSizeSum():number {
+        return this.windowWidth + this.windowHeight;
+    }
+
+    @Watch('windowSizeSum')
+    setViewportHeightCSSVar() {
+        let { windowHeight } = this;
+        const windowEl = window as Window;
+        if (windowEl.visualViewport) windowHeight = windowEl.visualViewport.height;
+        const vh = windowHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', `${vh}px`);
+    }
+
+    mounted() {
+        // Fix for consistent Viewport Height on Mobile,
+        // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+        this.setViewportHeightCSSVar();
+        window.addEventListener('resize', () => {
+            this.setViewportHeightCSSVar();
+            // iOS Safari Fix
+            window.requestAnimationFrame(() => {
+                this.setViewportHeightCSSVar();
+            });
+        });
+    }
+}
 </script>
 
 <style lang="scss">

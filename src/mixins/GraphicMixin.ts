@@ -25,7 +25,7 @@ export default class GraphicMixin extends Vue {
             const key = entry[0];
             const point = entry[1] as Point;
             const pixelPoint = this.createPixelPoint(point);
-            const transform = this.createGraphicTransformProp(pixelPoint);
+            const transform = `translate(${pixelPoint.x}, ${pixelPoint.y})`;
             graphicsLocations[key] = {
                 ...pixelPoint,
                 transform,
@@ -42,9 +42,6 @@ export default class GraphicMixin extends Vue {
         });
     }
 
-    public createGraphicTransformProp({ x, y }: Point): string {
-        return `translate(${x}, ${y})`;
-    }
     public createPixelPoint({ x, y }: Point): Point {
         return this.getPixelFromPercentagePoint(new Point({ x, y }));
     }

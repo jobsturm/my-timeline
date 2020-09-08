@@ -29,7 +29,7 @@ import easingFunctions from '@/helpers/easingFunctions';
 export default class ComputerSlide extends slideMixin {
     index = 2;
     animationState = 'start';
-    end:Point = new Point({ x: 40, y: 100 });
+    end:Point = new Point({ x: 45, y: 100 });
 
     get animationPercentage():number {
         return easingFunctions.linear(this.entered);
@@ -64,7 +64,7 @@ export default class ComputerSlide extends slideMixin {
 
     .slide
         width: 100vw
-        height: 100vh
+        @include main.viewportHeight(100, 0)
         position: relative
         background: main.$grey_bg
         display: flex
@@ -75,5 +75,5 @@ export default class ComputerSlide extends slideMixin {
 
     .slide__graphic
         width: 100vw
-        height: 100vh
+        @include main.viewportHeight(100, 0)
 </style>

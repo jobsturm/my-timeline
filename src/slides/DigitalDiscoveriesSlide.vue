@@ -68,7 +68,7 @@ export default class DigitalDiscoveriesSlide extends slideMixin {
 
     .slide
         width: 100vw
-        height: 100vh
+        @include main.viewportHeight(100, 0)
         background: main.$grey_mineshaft
         position: relative
 
@@ -81,7 +81,7 @@ export default class DigitalDiscoveriesSlide extends slideMixin {
     .slide__illustration
         position: absolute
         width: 100vw
-        height: 100vh
+        @include main.viewportHeight(100, 0)
         top: 0
         left: 0
 </style>

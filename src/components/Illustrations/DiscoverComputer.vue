@@ -126,8 +126,8 @@ export default class SchoolDoodle extends GraphicMixin {
                 new Point({ x: computerCoords.x - 8, y: start }),
                 new Point({ x: 50, y: start - 22 + (index * relativeLineHeight) }),
                 new Point({ x: 50, y: start - 22 + (index * relativeLineHeight) }),
-                new Point({ x: this.end.x - 5 - (index * relativeLineWidth), y: start }),
-                new Point({ x: this.end.x - 5 - (index * relativeLineWidth), y: start + 1 }),
+                new Point({ x: this.end.x - 10 - (index * relativeLineWidth), y: start }),
+                new Point({ x: this.end.x - 10 - (index * relativeLineWidth), y: start + 1 }),
                 endPoint,
                 new Point({ x: endPoint.x, y: endPoint.y + 1 }),
             ],
@@ -178,7 +178,7 @@ export default class SchoolDoodle extends GraphicMixin {
 
     .discover_computer
         width: 100vw
-        height: 100vh
+        @include main.viewportHeight(100, 0)
         position: relative
         z-index: 2
     #computer_screen

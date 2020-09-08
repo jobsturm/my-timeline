@@ -4,3 +4,7 @@
 h1, h2, h3, h4, h5, h6, p
     margin: 0px
     padding: 0px
+
+@mixin viewportHeight($vh, $subtractor:"0px")
+    height: calc(#{$vh}vh - #{$subtractor})
+    height: calc((var(--vh, 1vh) * #{$vh}) - #{$subtractor}px)

@@ -82,7 +82,7 @@ export default class SchoolSlide extends slideMixin {
 
     .slide
         width: 100vw
-        height: 100vh
+        @include main.viewportHeight(100, 0)
         position: relative
         background: main.$grey_bg
         display: flex

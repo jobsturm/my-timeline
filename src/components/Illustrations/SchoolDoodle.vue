@@ -131,7 +131,9 @@ export default class SchoolDoodle extends GraphicMixin {
 </script>
 
 <style lang="sass" scoped>
+    @use '@/styles/main'
+
     .school_doodle
         width: 100vw
-        height: 100vh
+        @include main.viewportHeight(100, 0)
 </style>
