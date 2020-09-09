@@ -22,8 +22,8 @@ export default class AnimationPath extends Vue {
 
     id = `path_${this.$attrs.id}`;
     pathLength = 0;
-    start:Point = { x: 0, y: 0 };
-    end:Point = { x: 0, y: 0 };
+    start:Point = new Point({ x: 0, y: 0 });
+    end:Point = new Point({ x: 0, y: 0 });
 
     get percentage():number {
         return 1 - (this.drawPercentage || 0);

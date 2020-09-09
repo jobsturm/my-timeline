@@ -39,7 +39,7 @@ export default class slideMixin extends Vue {
         // Get "in view" percentage of slide
         const element = this.$refs.slide as HTMLElement;
         const position = element.getBoundingClientRect();
-        const percentage = 1 - (position.top / window.innerHeight);
+        const percentage = 1 - (position.top / position.height);
         // Percentage of slide on screen, to two decimals
         const rounded = (Math.round((percentage + Number.EPSILON) * 10000) / 10000);
         let entered = rounded;

@@ -1,22 +1,19 @@
 <template>
     <section class="slide" ref="slide">
         <div class="slide__illustration">
-            <DDIntro
+            <DDUnleash
                 :start="timelinePosition.start"
                 :end="timelinePosition.end"
                 :animationPercentage="animationPercentage"
             />
         </div>
-        <svg class="slide__triangle">
-            <polygon :points="trianglePoints"></polygon>
-        </svg>
     </section>
 </template>
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
 import slideMixin from '@/mixins/slideMixin';
-import DDIntro from '@/components/Illustrations/DigitalDiscoveries/DDIntro.vue';
+import DDUnleash from '@/components/Illustrations/DigitalDiscoveries/DDUnleash.vue';
 import Point from '@/classes/Point';
 import easingFunctions from '@/helpers/easingFunctions';
 import Slide from '@/classes/Slide';
@@ -24,16 +21,13 @@ import Line from '@/classes/Line';
 
 @Component({
     components: {
-        DDIntro,
+        DDUnleash,
     },
 })
 export default class DigitalDiscoveriesSlide extends slideMixin {
     index = 3;
     end:Point = new Point({ x: 80, y: 100 });
 
-    get trianglePoints():string {
-        return `0,0 0,200 ${this.windowWidth},0`;
-    }
     get animationPercentage():number {
         return easingFunctions.linear(this.entered);
     }
@@ -69,7 +63,7 @@ export default class DigitalDiscoveriesSlide extends slideMixin {
     .slide
         width: 100vw
         @include main.viewportHeight(100, 0)
-        background: main.$grey_mineshaft
+        background: main.$black
         position: relative
 
     .slide__triangle

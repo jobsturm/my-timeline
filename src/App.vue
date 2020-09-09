@@ -3,7 +3,8 @@
         <IntroSlide/>
         <SchoolSlide/>
         <ComputerSlide/>
-        <DigitalDiscoveriesSlide/>
+        <DDIntroSlide/>
+        <DDUnleashSlide/>
     </div>
 </template>
 
@@ -14,7 +15,8 @@ import { vueWindowSizeMixin } from 'vue-window-size';
 import IntroSlide from './slides/IntroSlide.vue';
 import SchoolSlide from './slides/SchoolSlide.vue';
 import ComputerSlide from './slides/ComputerSlide.vue';
-import DigitalDiscoveriesSlide from './slides/DigitalDiscoveriesSlide.vue';
+import DDIntroSlide from './slides/DDIntroSlide.vue';
+import DDUnleashSlide from './slides/DDUnleashSlide.vue';
 
 // This is browser specific and thus default Window interface doesn't support it.
 interface Window {
@@ -26,7 +28,8 @@ interface Window {
         IntroSlide,
         SchoolSlide,
         ComputerSlide,
-        DigitalDiscoveriesSlide,
+        DDIntroSlide,
+        DDUnleashSlide,
     },
     mixins: [vueWindowSizeMixin],
 })
