@@ -28,7 +28,7 @@ import Line from '@/classes/Line';
     },
 })
 export default class DigitalDiscoveriesSlide extends slideMixin {
-    index = 3;
+    index:number = 3;
     end:Point = new Point({ x: 80, y: 100 });
 
     get trianglePoints():string {

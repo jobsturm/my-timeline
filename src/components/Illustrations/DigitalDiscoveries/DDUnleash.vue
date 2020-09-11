@@ -4,14 +4,14 @@
         <g id="dd_unleash__text_group" :transform="coords.introTextCoords.transform">
             <text
                 :style="getTextIntroStyle('textLine1')"
-                transform="translate(120, -20)"
+                transform="translate(60, -10)"
                 class="title"
             >
                 One with games
             </text>
             <text
                 :style="getTextIntroStyle('textLine2')"
-                transform="translate(120, 20)"
+                transform="translate(60, 30)"
                 class="title"
             >
                 and music
@@ -85,9 +85,9 @@ export default class DDUnleash extends GraphicMixin {
         dsotmCoords: new Point({ x: 46, y: 55 }),
     }
     timeline = [
-        { key: 'timeline', start: 0.35, end: 0.7 },
+        { key: 'timeline', start: 0.2, end: 0.7 },
         { key: 'timelinePrisma', start: 0.7, end: 1 },
-        { key: 'portalLine', start: 0.15, end: 0.35 },
+        { key: 'portalLine', start: 0.10, end: 0.2 },
         { key: 'textLine1', start: 0.35, end: 0.55 },
         { key: 'textLine2', start: 0.65, end: 0.8 },
         { key: 'textLine3', start: 0.7, end: 0.8 },

@@ -1,11 +1,6 @@
 <template>
     <section class="slide" ref="slide">
         <div class="slide__illustration">
-            <DDUnleash
-                :start="timelinePosition.start"
-                :end="timelinePosition.end"
-                :animationPercentage="animationPercentage"
-            />
         </div>
     </section>
 </template>
@@ -24,8 +19,8 @@ import Line from '@/classes/Line';
         DDUnleash,
     },
 })
-export default class DigitalDiscoveriesSlide extends slideMixin {
-    index:number = 4;
+export default class DDCreativeOutlets extends slideMixin {
+    index:number = 5;
     end:Point = new Point({ x: 80, y: 100 });
 
     get animationPercentage():number {

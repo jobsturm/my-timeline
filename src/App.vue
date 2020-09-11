@@ -5,6 +5,7 @@
         <ComputerSlide/>
         <DDIntroSlide/>
         <DDUnleashSlide/>
+        <DDCreativeOutletsSlide/>
     </div>
 </template>
 
@@ -17,6 +18,7 @@ import SchoolSlide from './slides/SchoolSlide.vue';
 import ComputerSlide from './slides/ComputerSlide.vue';
 import DDIntroSlide from './slides/DDIntroSlide.vue';
 import DDUnleashSlide from './slides/DDUnleashSlide.vue';
+import DDCreativeOutletsSlide from './slides/DDCreativeOutletsSlide.vue';
 
 // This is browser specific and thus default Window interface doesn't support it.
 interface Window {
@@ -30,6 +32,7 @@ interface Window {
         ComputerSlide,
         DDIntroSlide,
         DDUnleashSlide,
+        DDCreativeOutletsSlide,
     },
     mixins: [vueWindowSizeMixin],
 })
