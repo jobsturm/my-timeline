@@ -1,5 +1,5 @@
 <template>
-    <section
+    <Slide
         class="slide"
         ref="slide"
     >
@@ -9,7 +9,7 @@
             :start="timelinePosition.start"
             :end="timelinePosition.end"
         />
-    </section>
+    </Slide>
 </template>
 
 <script lang="ts">
@@ -18,7 +18,7 @@ import DiscoverComputer from '@/components/Illustrations/DiscoverComputer.vue';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import Point from '@/classes/Point';
-import slideMixin from '@/mixins/slideMixin';
+import SlideMixin from '@/mixins/SlideMixin';
 import easingFunctions from '@/helpers/easingFunctions';
 
 @Component({
@@ -26,7 +26,7 @@ import easingFunctions from '@/helpers/easingFunctions';
         DiscoverComputer,
     },
 })
-export default class ComputerSlide extends slideMixin {
+export default class ComputerSlide extends SlideMixin {
     index = 2;
     animationState = 'start';
     end:Point = new Point({ x: 45, y: 100 });
@@ -63,10 +63,6 @@ export default class ComputerSlide extends slideMixin {
     @use '@/styles/main'
 
     .slide
-        width: 100vw
-        @include main.viewportHeight(100, 0)
-        position: relative
-        background: main.$grey_bg
         display: flex
         justify-content: center
         align-items: center

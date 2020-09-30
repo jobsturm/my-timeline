@@ -50,7 +50,7 @@
             </filter>
         </defs>
         <g id="after_prisma" transform="translate(0, 40)">
-            <AnimationPath :drawPercentage="as.timelinePrisma" :d="prismaPath" class="dd_unleash_general_path" id="dd_unleash_general_path-6" stroke="#FFFFFF" stroke-width="16" fill="none"/>
+            <AnimationPath :drawPercentage="as.timelinePrisma" :d="prismaPath" class="dd_unleash_general_path" id="dd_unleash_general_path-6" stroke="#FFFFFF" stroke-width="4" fill="none"/>
         </g>
         <g id="dsotm" :transform="coords.dsotmCoords.transform" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="dsotm_transformer" transform="translate(-112, -60)">
@@ -102,7 +102,7 @@ export default class DDUnleash extends GraphicMixin {
                 new Point({ x: 46, y: 55 }),
                 new Point({ x: 66, y: 55 }),
                 new Point({ x: 76, y: 90 }),
-                new Point({ x: 76, y: 100 }),
+                this.end,
             ],
         });
         const { windowWidth, windowHeight } = this;

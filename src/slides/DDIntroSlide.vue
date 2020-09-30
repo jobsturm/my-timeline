@@ -1,5 +1,5 @@
 <template>
-    <section class="slide" ref="slide">
+    <Slide class="slide" ref="slide" background="#000000">
         <div class="slide__illustration">
             <DDIntro
                 :start="timelinePosition.start"
@@ -10,12 +10,12 @@
         <svg class="slide__triangle">
             <polygon :points="trianglePoints"></polygon>
         </svg>
-    </section>
+    </Slide>
 </template>
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
-import slideMixin from '@/mixins/slideMixin';
+import SlideMixin from '@/mixins/SlideMixin';
 import DDIntro from '@/components/Illustrations/DigitalDiscoveries/DDIntro.vue';
 import Point from '@/classes/Point';
 import easingFunctions from '@/helpers/easingFunctions';
@@ -27,7 +27,7 @@ import Line from '@/classes/Line';
         DDIntro,
     },
 })
-export default class DigitalDiscoveriesSlide extends slideMixin {
+export default class DigitalDiscoveriesSlide extends SlideMixin {
     index:number = 3;
     end:Point = new Point({ x: 80, y: 100 });
 
@@ -65,12 +65,6 @@ export default class DigitalDiscoveriesSlide extends slideMixin {
 
 <style lang="sass" scoped>
     @use '@/styles/main'
-
-    .slide
-        width: 100vw
-        @include main.viewportHeight(100, 0)
-        background: main.$black
-        position: relative
 
     .slide__triangle
         width: 100%

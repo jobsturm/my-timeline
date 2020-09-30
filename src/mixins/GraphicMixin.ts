@@ -15,7 +15,7 @@ export default class GraphicMixin extends Vue {
     @Prop({ required: true }) readonly start: Point
     @Prop({ required: true }) readonly end: Point
 
-    isMounted = false;
+    isMounted:boolean = false;
     graphicLayout = {};
     timeline: { key: string; start: number; end: number }[];
 

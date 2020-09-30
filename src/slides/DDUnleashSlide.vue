@@ -1,5 +1,5 @@
 <template>
-    <section class="slide" ref="slide">
+    <Slide class="slide" ref="slide" background="#000000">
         <div class="slide__illustration">
             <DDUnleash
                 :start="timelinePosition.start"
@@ -7,12 +7,12 @@
                 :animationPercentage="animationPercentage"
             />
         </div>
-    </section>
+    </Slide>
 </template>
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
-import slideMixin from '@/mixins/slideMixin';
+import SlideMixin from '@/mixins/SlideMixin';
 import DDUnleash from '@/components/Illustrations/DigitalDiscoveries/DDUnleash.vue';
 import Point from '@/classes/Point';
 import easingFunctions from '@/helpers/easingFunctions';
@@ -24,9 +24,9 @@ import Line from '@/classes/Line';
         DDUnleash,
     },
 })
-export default class DigitalDiscoveriesSlide extends slideMixin {
+export default class DigitalUnleashSlide extends SlideMixin {
     index:number = 4;
-    end:Point = new Point({ x: 80, y: 100 });
+    end:Point = new Point({ x: 76, y: 100 });
 
     get animationPercentage():number {
         return easingFunctions.linear(this.entered);

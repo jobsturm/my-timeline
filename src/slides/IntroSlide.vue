@@ -1,5 +1,5 @@
 <template>
-    <header
+    <Slide
         class="header"
         :class="animationClass"
         ref="slide"
@@ -18,7 +18,7 @@
         <div class="header__background_graphic">
             <div class="timeline_bar" ref="timeline"/>
         </div>
-    </header>
+    </Slide>
 </template>
 
 <script lang="ts">
@@ -26,10 +26,10 @@ import { Component, Watch } from 'vue-property-decorator';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import Point from '@/classes/Point';
-import slideMixin from '@/mixins/slideMixin';
+import SlideMixin from '@/mixins/SlideMixin';
 
 @Component
-export default class IntroSlide extends slideMixin {
+export default class IntroSlide extends SlideMixin {
     index: number = 0;
     animationState: string = 'start';
 

@@ -1,10 +1,10 @@
 <template>
     <Slide class="slide" ref="slide" background="#000000">
         <div class="slide__illustration">
-            <DDCreativeOutlets
+            <MusicCreation
+                :animationPercentage="animationPercentage"
                 :start="timelinePosition.start"
                 :end="timelinePosition.end"
-                :animationPercentage="animationPercentage"
             />
         </div>
     </Slide>
@@ -13,7 +13,7 @@
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
 import SlideMixin from '@/mixins/SlideMixin';
-import DDCreativeOutlets from '@/components/Illustrations/DigitalDiscoveries/DDCreativeOutlets.vue';
+import MusicCreation from '@/components/Illustrations/MusicCreation.vue';
 import Point from '@/classes/Point';
 import easingFunctions from '@/helpers/easingFunctions';
 import Slide from '@/classes/Slide';
@@ -21,12 +21,12 @@ import Line from '@/classes/Line';
 
 @Component({
     components: {
-        DDCreativeOutlets,
+        MusicCreation,
     },
 })
-export default class DDCreativeOutletsSlide extends SlideMixin {
-    index:number = 5;
-    end:Point = new Point({ x: 20, y: 100 });
+export default class MusicSlide extends SlideMixin {
+    index:number = 6;
+    end:Point = new Point({ x: 78, y: 100 });
 
     get animationPercentage():number {
         return easingFunctions.linear(this.entered);
@@ -36,12 +36,9 @@ export default class DDCreativeOutletsSlide extends SlideMixin {
     }
     get lineStartPosition():Point {
         if (!this.previousSlide) return new Point({ x: 0, y: 0 });
-        return new Point({
-            x: this.previousSlide.line.end.x,
-            y: 0,
-        });
+        return this.previousSlide.line.end;
     }
-    get timelinePosition(): Line {
+    get timelinePosition():Line {
         return new Line({
             start: this.lineStartPosition,
             end: this.end,
@@ -63,11 +60,12 @@ export default class DDCreativeOutletsSlide extends SlideMixin {
 <style lang="sass" scoped>
     @use '@/styles/main'
 
-    .slide__triangle
-        width: 100%
-        height: 200px
-        background: main.$grey_mineshaft
-        fill: main.$grey_bg
+    .slide
+        width: 100vw
+        @include main.viewportHeight(100, 0)
+        background: main.$black
+        position: relative
+
     .slide__illustration
         position: absolute
         width: 100vw

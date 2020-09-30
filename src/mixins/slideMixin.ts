@@ -9,11 +9,15 @@ import { Watch } from 'vue-property-decorator';
 // It is used, but ESLint's regex doesn't recognize it
 // eslint-disable-next-line
 import Slide from '@/classes/Slide';
+import SlideComponent from '@/components/Atoms/Slide.vue';
 
 @Component({
     mixins: [vueWindowSizeMixin],
+    components: {
+        Slide: SlideComponent,
+    },
 })
-export default class slideMixin extends Vue {
+export default class SlideMixin extends Vue {
     @State('getPreviousLinePosition') getPreviousLinePosition!: number;
     @State('slides') slides!: Slide[];
     @Mutation('registerSlide') registerSlide!: Function;
@@ -37,8 +41,8 @@ export default class slideMixin extends Vue {
     @Watch('windowSizeSum')
     private getInViewPercentage(): void {
         // Get "in view" percentage of slide
-        const element = this.$refs.slide as HTMLElement;
-        const position = element.getBoundingClientRect();
+        const component = this.$refs.slide as Vue;
+        const position = component.$el.getBoundingClientRect();
         const percentage = 1 - (position.top / position.height);
         // Percentage of slide on screen, to two decimals
         const rounded = (Math.round((percentage + Number.EPSILON) * 10000) / 10000);

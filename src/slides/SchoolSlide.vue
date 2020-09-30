@@ -1,5 +1,5 @@
 <template>
-    <section
+    <Slide
         class="slide"
         ref="slide"
     >
@@ -9,7 +9,7 @@
             :start="lineStart"
             :end="lineEnd"
         />
-    </section>
+    </Slide>
 </template>
 
 <script lang="ts">
@@ -18,7 +18,7 @@ import SchoolDoodle from '@/components/Illustrations/SchoolDoodle.vue';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import Point from '@/classes/Point';
-import slideMixin from '@/mixins/slideMixin';
+import SlideMixin from '@/mixins/SlideMixin';
 import easingFunctions from '@/helpers/easingFunctions';
 
 @Component({
@@ -26,7 +26,7 @@ import easingFunctions from '@/helpers/easingFunctions';
         SchoolDoodle,
     },
 })
-export default class SchoolSlide extends slideMixin {
+export default class SchoolSlide extends SlideMixin {
     index = 1;
     animationState = 'start';
     lineEnd:Point = new Point({
@@ -81,10 +81,6 @@ export default class SchoolSlide extends slideMixin {
     @use '@/styles/main'
 
     .slide
-        width: 100vw
-        @include main.viewportHeight(100, 0)
-        position: relative
-        background: main.$grey_bg
         display: flex
         justify-content: center
         align-items: center
