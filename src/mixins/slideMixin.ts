@@ -20,9 +20,8 @@ import SlideComponent from '@/components/Atoms/Slide.vue';
 export default class SlideMixin extends Vue {
     @State('getPreviousLinePosition') getPreviousLinePosition!: number;
     @State('slides') slides!: Slide[];
-    @Mutation('registerSlide') registerSlide!: Function;
-    @Mutation('updateSlide') updateSlide!: Function;
-
+    @Mutation('registerSlide') readonly registerSlide: CallableFunction;
+    @Mutation('updateSlide') readonly updateSlide: CallableFunction;
     entered = 0;
     exited = 0;
     height = 0;
@@ -56,15 +55,15 @@ export default class SlideMixin extends Vue {
         this.exited = exited;
     }
 
-    created() {
+    created():void {
         window.addEventListener('scroll', this.handleScroll);
     }
 
-    destroyed() {
+    destroyed():void {
         window.removeEventListener('scroll', this.handleScroll);
     }
 
-    mounted() {
+    mounted():void {
         this.getInViewPercentage();
     }
 }

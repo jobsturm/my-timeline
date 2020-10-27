@@ -46,7 +46,7 @@ export default class SchoolSlide extends SlideMixin {
     }
 
     @Watch('windowSizeSum')
-    updateLine() {
+    updateLine():void {
         const { start, end } = this.getLine();
         this.updateSlide({
             index: this.index,
@@ -65,7 +65,7 @@ export default class SchoolSlide extends SlideMixin {
         return new Line({ start, end });
     }
 
-    mounted() {
+    mounted():void {
         const { start, end } = this.getLine();
         this.registerSlide(
             new Slide({

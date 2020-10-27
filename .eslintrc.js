@@ -5,8 +5,8 @@ module.exports = {
     },
     extends: [
         'plugin:vue/essential',
-        'eslint:recommended',
         '@vue/airbnb',
+        '@vue/typescript/recommended',
     ],
     rules: {
         indent: ['error', 4],
@@ -17,7 +17,6 @@ module.exports = {
         'import/no-cycle': 'off',
         'lines-between-class-members': 'off',
         'no-array-constructor': 'off',
-        'no-param-reassign': 'off',
         'max-len': [
             'error',
             {

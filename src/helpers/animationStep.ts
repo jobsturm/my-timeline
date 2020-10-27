@@ -8,7 +8,7 @@ interface AnimationStepParameters {
     end: number;
 }
 
-export default function ({
+export default function animationSteps({
     parentPercentage,
     start,
     end,

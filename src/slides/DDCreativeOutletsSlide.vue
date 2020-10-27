@@ -25,7 +25,7 @@ import Line from '@/classes/Line';
     },
 })
 export default class DDCreativeOutletsSlide extends SlideMixin {
-    index:number = 5;
+    index = 5;
     end:Point = new Point({ x: 20, y: 100 });
 
     get animationPercentage():number {
@@ -48,7 +48,7 @@ export default class DDCreativeOutletsSlide extends SlideMixin {
         });
     }
 
-    mounted() {
+    mounted():void {
         this.registerSlide(
             new Slide({
                 index: this.index,

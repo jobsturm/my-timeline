@@ -3,6 +3,7 @@ import { vueWindowSizeMixin } from 'vue-window-size';
 import Point from '@/classes/Point';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import drawPercentageListGenerator from '@/helpers/drawPercentageListGenerator';
+import GraphicLocation from '@/classes/GraphicLocation';
 
 @Component({
     components: {
@@ -15,21 +16,22 @@ export default class GraphicMixin extends Vue {
     @Prop({ required: true }) readonly start: Point
     @Prop({ required: true }) readonly end: Point
 
-    isMounted:boolean = false;
+    isMounted = false;
     graphicLayout = {};
     timeline: { key: string; start: number; end: number }[];
 
-    get coords(): {[key: string]: object} {
-        const graphicsLocations: { [key: string]: object } = {};
+    get coords():Record<string, GraphicLocation> {
+        const graphicsLocations:Record<string, GraphicLocation> = {};
         Object.entries(this.graphicLayout).forEach((entry) => {
             const key = entry[0];
             const point = entry[1] as Point;
             const pixelPoint = this.createPixelPoint(point);
             const transform = `translate(${pixelPoint.x}, ${pixelPoint.y})`;
-            graphicsLocations[key] = {
-                ...pixelPoint,
+            graphicsLocations[key] = new GraphicLocation({
+                x: pixelPoint.x,
+                y: pixelPoint.y,
                 transform,
-            };
+            });
         });
         return graphicsLocations;
     }
@@ -59,7 +61,7 @@ export default class GraphicMixin extends Vue {
         });
     }
 
-    mounted() {
+    mounted():void {
         this.isMounted = true;
     }
 }

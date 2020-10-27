@@ -49,11 +49,11 @@ import {
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
+import GraphicLocation from '@/classes/GraphicLocation';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import GraphicMixin from '@/mixins/GraphicMixin';
 import easingFunctions from '@/helpers/easingFunctions';
-
-const ConfettiGenerator = require('canvas-confetti');
+import ConfettiGenerator from 'canvas-confetti';
 
 @Component({
     components: {
@@ -93,12 +93,12 @@ export default class SchoolDoodle extends GraphicMixin {
     get confettiActivated():boolean {
         return (this.animationPercentage > 0.58);
     }
-    get textCoords():object {
+    get textCoords():GraphicLocation {
         let coords = this.coords.computer;
         if (this.smallModeEngaged) coords = this.coords.textCoordsMobile;
         return coords;
     }
-    get textStyle():object {
+    get textStyle():Record<string, string|number> {
         const percentage = easingFunctions.easeOutQuad(this.as.textTransform);
         const translateTopBase = 65;
         const translateTop = translateTopBase + (120 * percentage);
@@ -163,9 +163,9 @@ export default class SchoolDoodle extends GraphicMixin {
     // eslint-disable-next-line
     private shootConfetti({}) {}
 
-    mounted() {
+    mounted():void {
         this.shootConfetti = ConfettiGenerator.create(
-            document.querySelector('.confetti_canvas'),
+            document.querySelector('.confetti_canvas') as HTMLCanvasElement,
             { resize: true },
         );
         this.fireConfettiCanon(true);

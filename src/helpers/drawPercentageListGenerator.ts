@@ -10,16 +10,16 @@ interface drawPercentageListInterface {
     timeline: timelineItem[];
 }
 
-export default function ({
+export default function drawPercentageListGenerator({
     parentPercentage,
     timeline,
 }: drawPercentageListInterface): { [key: string]: number; } {
     return timeline.reduce((
-        drawPercentageList: any,
+        drawPercentageList: Record<string, number>,
         item: timelineItem,
     ) => {
         const { start, end } = item;
-        const mergeItem: any = {};
+        const mergeItem: Record<string, number> = {};
         mergeItem[item.key] = animationStep({ parentPercentage, start, end });
         return { ...drawPercentageList, ...mergeItem };
     }, {});

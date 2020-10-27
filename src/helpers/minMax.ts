@@ -4,7 +4,7 @@ interface MinMaxParameters {
     max: number;
 }
 
-export default function ({
+export default function minMax({
     number,
     min,
     max,

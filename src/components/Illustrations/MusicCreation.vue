@@ -19,13 +19,13 @@
             </filter>
         </defs>
         <g id="ddc__line">
-            <AnimationPath ref="musicalScale0" :drawPercentage="as.timeline" :d="generateTimeLinePath(0)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath ref="musicalScale1" :drawPercentage="as.timeline" :d="generateTimeLinePath(2)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath ref="musicalScale2" :drawPercentage="as.timeline" :d="generateTimeLinePath(4)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath ref="musicalScale3" :drawPercentage="as.timeline" :d="generateTimeLinePath(6)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath ref="musicalScale4" :drawPercentage="as.timeline" :d="generateTimeLinePath(8)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="generateTimeLinePath(0)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="generateTimeLinePath(2)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="generateTimeLinePath(4)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="generateTimeLinePath(6)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="generateTimeLinePath(8)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
         </g>
-        <g id="ddc__text" :transform="coords.noteGroupCoords.transform">
+        <g id="ddc__text" :transform="coords.musicalIndication.transform">
             <g id="𝄞" fill="#FFFFFF">
                 <use filter="url(#blue_glow)" xlink:href="#musical_indication"></use>
                 <use xlink:href="#musical_indication"></use>
@@ -33,9 +33,12 @@
         </g>
         <g id="ddc__notes">
             <MusicNote
-                v-for="noteCoords in getNotesCoords()"
+                v-for="noteCoords in notesCoords"
                 :key="noteCoords.x + noteCoords.y"
-                :transform="`translate(${noteCoords.x}, ${noteCoords.y})`"
+                :transform="`
+                    translate(${noteCoords.x}, ${noteCoords.y})
+                    rotate(${noteCoords.degrees}, 0, 0)
+                `"
             />
         </g>
     </svg>
@@ -47,6 +50,7 @@ import GraphicMixin from '@/mixins/GraphicMixin';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
+import RotationPoint from '@/classes/RotationPoint';
 import Path from '@/classes/Path';
 import MusicNote from '@/components/Atoms/MusicNote.vue';
 
@@ -57,10 +61,21 @@ import MusicNote from '@/components/Atoms/MusicNote.vue';
     },
 })
 export default class MusicCreation extends GraphicMixin {
+    notes:Record<string, RotationPoint> = {
+        note1: new RotationPoint({ x: 20, y: 32, degrees: 90 }),
+        note2: new RotationPoint({ x: 30, y: 42, degrees: 50 }),
+        note3: new RotationPoint({ x: 50, y: 48, degrees: 0 }),
+        note4: new RotationPoint({ x: 66, y: 48, degrees: 25 }),
+        note5: new RotationPoint({ x: 77, y: 58, degrees: 78 }),
+        note6: new RotationPoint({ x: 79, y: 76, degrees: 90 }),
+        note7: new RotationPoint({ x: 82, y: 92, degrees: 90 }),
+    }
+
     constructor() {
         super();
         this.graphicLayout = {
-            noteGroupCoords: new Point({ x: 20, y: 12 }),
+            musicalIndication: new Point({ x: 20, y: 12 }),
+            ...this.notes,
         };
         this.timeline = [
             { key: 'timeline', start: 0, end: 1 },
@@ -70,33 +85,17 @@ export default class MusicCreation extends GraphicMixin {
     get relativeLineWidth():number {
         return 16 / this.windowWidth * 100;
     }
-    get musicScaleLineElements():Array<SVGPathElement>|null {
-        if (!this.isMounted) return null;
-        return [
-            // Hopefully Vue 3 doesn't require these inline "as" statements anymore :/
-            ((this.$refs.musicalScale0 as Vue).$el as SVGPathElement),
-            ((this.$refs.musicalScale1 as Vue).$el as SVGPathElement),
-            ((this.$refs.musicalScale2 as Vue).$el as SVGPathElement),
-            ((this.$refs.musicalScale3 as Vue).$el as SVGPathElement),
-            ((this.$refs.musicalScale4 as Vue).$el as SVGPathElement),
-        ];
-    }
 
     @Watch('windowSizeSum')
-    getNotesCoords():any {
-        if (!this.musicScaleLineElements) return null;
-        const { musicScaleLineElements } = this;
-        const noteFrequency = 250; // amount of pixels after which a new note is placed
-        const noteCount = Math.floor(musicScaleLineElements[3].getTotalLength() / noteFrequency);
-        let musicScaleIndex = 0;
-        const noteCoords = [];
-
-        for (let i = 0; i < noteCount; i += 1) {
-            const musicScaleElement = musicScaleLineElements[musicScaleIndex];
-            musicScaleIndex += 1;
-            if (musicScaleIndex > 4) musicScaleIndex = 0;
-            noteCoords.push(musicScaleElement.getPointAtLength((i * noteFrequency) + 250));
-        }
+    get notesCoords():Array<RotationPoint> {
+        const noteCoordIDs = ['note1', 'note2', 'note3', 'note4', 'note5', 'note6', 'note7'];
+        const noteCoords:Array<RotationPoint> = [];
+        noteCoordIDs.forEach((ID) => {
+            noteCoords.push({
+                ...this.notes[ID],
+                ...this.coords[ID],
+            });
+        });
         return noteCoords;
     }
 

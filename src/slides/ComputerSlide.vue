@@ -48,7 +48,7 @@ export default class ComputerSlide extends SlideMixin {
         });
     }
 
-    mounted() {
+    mounted():void {
         this.registerSlide(
             new Slide({
                 index: this.index,

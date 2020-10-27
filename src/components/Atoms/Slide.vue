@@ -13,7 +13,7 @@ import {
 export default class Slide extends Vue {
     @Prop({ default: '#F9F9F9' }) readonly background: string
 
-    get slideStyle():object {
+    get slideStyle():Record<string, string> {
         return {
             'background-color': this.background,
         };

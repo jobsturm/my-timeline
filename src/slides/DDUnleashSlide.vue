@@ -25,7 +25,7 @@ import Line from '@/classes/Line';
     },
 })
 export default class DigitalUnleashSlide extends SlideMixin {
-    index:number = 4;
+    index = 4;
     end:Point = new Point({ x: 76, y: 100 });
 
     get animationPercentage():number {
@@ -45,7 +45,7 @@ export default class DigitalUnleashSlide extends SlideMixin {
         });
     }
 
-    mounted() {
+    mounted():void {
         this.registerSlide(
             new Slide({
                 index: this.index,

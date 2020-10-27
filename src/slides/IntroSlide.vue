@@ -30,8 +30,8 @@ import SlideMixin from '@/mixins/SlideMixin';
 
 @Component
 export default class IntroSlide extends SlideMixin {
-    index: number = 0;
-    animationState: string = 'start';
+    index = 0;
+    animationState = 'start';
 
     get animationClass():string {
         return `header--${this.animationState}`;
@@ -60,7 +60,7 @@ export default class IntroSlide extends SlideMixin {
             end,
         });
     }
-    mounted() {
+    mounted():void {
         setTimeout(() => {
             this.animationState = 'timeline-slid-in';
         }, 750);

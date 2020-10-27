@@ -78,7 +78,7 @@ export default class SVGPortal extends Vue {
     @Prop({ default: 1 }) readonly openPercentage: number
     @Prop({ default: false }) readonly blue: boolean
 
-    id:String;
+    id:string;
 
     constructor() {
         super();
@@ -88,7 +88,7 @@ export default class SVGPortal extends Vue {
     get portalTransform():string {
         return `scale(${this.openPercentage})`;
     }
-    get portalStyle():object {
+    get portalStyle():Record<'opacity', number> {
         return { opacity: this.openPercentage };
     }
     get portalColorModifier():'blue' | 'orange' {

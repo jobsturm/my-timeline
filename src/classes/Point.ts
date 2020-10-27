@@ -4,8 +4,8 @@ interface PointInterface {
 }
 
 export default class Point {
-    x: any;
-    y: any;
+    x: number;
+    y: number;
 
     constructor({ x, y }: PointInterface) {
         this.x = x;

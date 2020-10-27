@@ -31,7 +31,7 @@ export default class MusicNote extends Vue {
 
     constructor() {
         super();
-        const noteOptions = ['♪', '𝅳♩', '♫𝅳'];
+        const noteOptions = ['♪', '♬', '♫𝅳'];
         this.id = Math.random().toString(36).substr(2, 11);
         this.note = noteOptions[Math.floor(Math.random() * noteOptions.length)];
     }

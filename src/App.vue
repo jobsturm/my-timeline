@@ -24,6 +24,7 @@ import MusicSlide from './slides/MusicSlide.vue';
 
 // This is browser specific and thus default Window interface doesn't support it.
 interface Window {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     visualViewport?: any;
 }
 
@@ -45,7 +46,7 @@ export default class App extends Vue {
     }
 
     @Watch('windowSizeSum')
-    setViewportHeightCSSVar() {
+    setViewportHeightCSSVar():void {
         let { windowHeight } = this;
         const windowEl = window as Window;
         if (windowEl.visualViewport) windowHeight = windowEl.visualViewport.height;
@@ -53,7 +54,7 @@ export default class App extends Vue {
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
 
-    mounted() {
+    mounted():void {
         // Fix for consistent Viewport Height on Mobile,
         // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
         this.setViewportHeightCSSVar();

@@ -40,7 +40,7 @@ export default class AnimationPath extends Vue {
     get strokeDashoffset():number {
         return Math.ceil(this.pathLength * (this.percentage || 0));
     }
-    get pathProperties():object {
+    get pathProperties():Record<string, number|string> {
         const { strokeDasharray, strokeDashoffset } = this;
         return {
             ...this.$attrs,
@@ -50,14 +50,14 @@ export default class AnimationPath extends Vue {
     }
 
     @Watch('windowSizeSum')
-    setPathLength() {
+    setPathLength():void {
         const { pathElement } = this;
         this.pathLength = pathElement.getTotalLength();
         this.start = pathElement.getPointAtLength(0);
         this.end = pathElement.getPointAtLength(this.pathLength);
     }
 
-    mounted() {
+    mounted():void {
         window.requestAnimationFrame(() => {
             this.setPathLength();
         });

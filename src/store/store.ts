@@ -12,13 +12,13 @@ export default new Vuex.Store({
         registerSlide(
             state,
             slide: Slide,
-        ) {
+        ):void {
             state.slides.push(slide);
         },
         updateSlide(
             state,
             slide: Slide,
-        ) {
+        ):void {
             const foundIndex = state.slides.findIndex(
                 arraySlide => arraySlide.index === slide.index,
             );
