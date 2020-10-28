@@ -1,6 +1,13 @@
 <template>
     <svg class="dd__creative_outlets" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-        <g id="ddc__text" :transform="coords.textCoords.transform">
+        <g id="ddc__line">
+            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(0)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(2)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(4)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(6)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(8)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+        </g>
+        <g id="ddc__text" :transform="textCoords.transform">
             <text
                 class="ddc__text--one"
                 text-anchor="end"
@@ -20,13 +27,6 @@
                 I could explore
             </text>
         </g>
-        <g id="ddc__line">
-            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(0)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(2)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(4)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(6)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath :drawPercentage="as.timeline" :d="getTimelinePath(8)" class="dd__creative_outlets_general_path" id="dd__creative_outlets_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-        </g>
     </svg>
 </template>
 
@@ -38,6 +38,7 @@ import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import SVGPortal from '@/components/Atoms/SVGPortal.vue';
+import GraphicLocation from '@/classes/GraphicLocation';
 
 @Component({
     components: {
@@ -48,6 +49,8 @@ import SVGPortal from '@/components/Atoms/SVGPortal.vue';
 export default class DDIntro extends GraphicMixin {
     graphicLayout = {
         textCoords: new Point({ x: 65, y: 43 }),
+        textCoordsB500: new Point({ x: 90, y: 30 }),
+        textCoordsB400: new Point({ x: 95, y: 30 }),
     }
     timeline = [
         { key: 'timeline', start: 0, end: 1 },
@@ -55,6 +58,11 @@ export default class DDIntro extends GraphicMixin {
 
     get relativeLineWidth():number {
         return 16 / this.windowWidth * 100;
+    }
+    get textCoords():GraphicLocation {
+        if (this.windowWidth < 400) return this.coords.textCoordsB400;
+        if (this.windowWidth < 500) return this.coords.textCoordsB500;
+        return this.coords.textCoords;
     }
 
     getTimelinePath(lineOffsetCount:number):string {
@@ -89,10 +97,12 @@ export default class DDIntro extends GraphicMixin {
         z-index: 2
     #ddc__text
         @extend %headline3_style
+        position: relative
+        z-index: 500000
         fill: #36C7FF
-        font-size: max(min(32px, 3vw), 18px)
+        font-size: max(min(32px, 3vw), 17px)
     .ddc__text--two
-        transform: translateY(max(min(42px, 4vw), 18px))
+        transform: translateY(max(min(42px, 4vw), 22px))
     .ddc__text--three
-        transform: translateY(max(min(84px, 8vw), 36px))
+        transform: translateY(max(min(84px, 8vw), 44px))
 </style>
