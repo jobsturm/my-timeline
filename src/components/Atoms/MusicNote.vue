@@ -4,7 +4,7 @@
     <!-- eslint-disable -->
     <g @mousedown="startNote" class="music_note">
         <defs>
-            <text :id="id" class="ddc__music_note" text-anchor="middle" :font-size="size" font-weight="normal" fill="#FFFFFF">
+            <text :id="id" class="ddc__music_note" text-anchor="middle" :font-size="size" font-weight="normal" fill="#000">
                 <tspan>{{ note }}</tspan>
             </text>
         </defs>

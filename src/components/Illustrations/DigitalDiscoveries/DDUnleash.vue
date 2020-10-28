@@ -20,7 +20,7 @@
         <g :transform="coords.portalInCoords.transform">
             <SVGPortal
                 :blue="false"
-                transform="translate(-160, 0)"
+                transform="translate(-160, 10)"
             >
                 <g transform="translate(28, 0)">
                     <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(0)" class="dd_unleash_portal_path" id="dd_unleash_portal_path-6" stroke="#009CDF" stroke-width="16" fill="none"/>

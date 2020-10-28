@@ -30,7 +30,7 @@
         </g>
         <g :transform="coords.portalInCoords.transform">
             <SVGPortal
-                transform="translate(-160, -120)"
+                transform="translate(-160, -130)"
                 :openPercentage="as.portalIntro"
                 :blue="true"
             >
