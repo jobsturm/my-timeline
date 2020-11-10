@@ -37,13 +37,11 @@ import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
-import SVGPortal from '@/components/Atoms/SVGPortal.vue';
 import GraphicLocation from '@/classes/GraphicLocation';
 
 @Component({
     components: {
         AnimationPath,
-        SVGPortal,
     },
 })
 export default class DDIntro extends GraphicMixin {

@@ -4,7 +4,7 @@
     <!-- eslint-disable -->
     <g @mousedown="startNote" class="music_note">
         <defs>
-            <text :id="id" class="ddc__music_note" text-anchor="middle" :font-size="size" font-weight="normal" fill="#000">
+            <text :id="id" class="ddc__music_note" text-anchor="middle" :font-size="size" font-weight="normal" fill="#fff">
                 <tspan>{{ note }}</tspan>
             </text>
         </defs>
@@ -42,7 +42,6 @@ export default class MusicNote extends Vue {
         this.note = noteOptions[random];
         this.frequency = frequencyOptions[random];
         this.enableSound = true;
-        this.audioContext = new AudioContext();
     }
 
     get size():number {
@@ -57,6 +56,7 @@ export default class MusicNote extends Vue {
 
     startNote():void {
         if (!this.enableSound) return;
+        if (!this.audioContext) this.audioContext = new AudioContext();
         const oscillator = this.audioContext.createOscillator();
         const gain = this.audioContext.createGain();
         oscillator.frequency.value = this.frequency;
