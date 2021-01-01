@@ -92,9 +92,9 @@ export default class MusicCreation extends GraphicMixin {
         note2: new RotationPoint({ x: 30, y: 44, degrees: 30 }),
         note3: new RotationPoint({ x: 50, y: 48, degrees: 0 }),
         note4: new RotationPoint({ x: 66, y: 48, degrees: 25 }),
-        note5: new RotationPoint({ x: 77, y: 58, degrees: 78 }),
-        note6: new RotationPoint({ x: 79, y: 76, degrees: 90 }),
-        note7: new RotationPoint({ x: 77, y: 95, degrees: 90 }),
+        note5: new RotationPoint({ x: 82, y: 58, degrees: 78 }),
+        note6: new RotationPoint({ x: 88, y: 76, degrees: 90 }),
+        note7: new RotationPoint({ x: 87, y: 95, degrees: 90 }),
     }
 
     constructor() {

@@ -43,6 +43,7 @@ module.exports = {
                     'res',
                     'response',
                     '$scope',
+                    'context',
                 ],
             },
         ],

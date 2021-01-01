@@ -1,29 +1,38 @@
 <template>
     <div class="audio_visualizer">
-        <button @click="audioVisualizer.play()">Play</button>
-        <button @click="audioVisualizer.pause()">Pause</button>
-        <h1 class="headline01">
-            {{ this.audioDataArray[39] }}
-        </h1>
-        <h1 class="headline01">
-            active:
-            <span v-if="kickIsActive">KICK</span>
-            <span v-if="hiHatIsActive">HI-HAT</span>
-        </h1>
-        <input v-model="testFreq"/>
-        <div class="audio_bars">
-            <div
-                v-for="(audioBar, index) in audioDataArray"
-                :key="`audio_visualizer_bar_${index}`"
-                :style="{
-                    height: `${audioBar}px`,
-                    background: color,
-                }"
-                class="audio_bar"
-            >
-                {{ index }}
+        <div class="audio_visualizer__gradient_in"/>
+        <div class="audio_visualizer__gradient_out"/>
+        <MusicNotesCanvas
+            class="audio_visualizer__canvas"
+            :kickIsActive="kickIsActive"
+            :hiHatIsActive="hiHatIsActive"
+        />
+        <!-- <div class="debug">
+            <button @click="audioVisualizer.play()">Play</button>
+            <button @click="audioVisualizer.pause()">Pause</button>
+            <h1 class="headline01">
+                {{ this.audioDataArray[39] }}
+            </h1>
+            <h1 class="headline01">
+                active:
+                <span v-if="kickIsActive">KICK</span>
+                <span v-if="hiHatIsActive">HI-HAT</span>
+            </h1>
+            <input v-model="testFreq"/>
+            <div class="audio_bars">
+                <div
+                    v-for="(audioBar, index) in audioDataArray"
+                    :key="`audio_visualizer_bar_${index}`"
+                    :style="{
+                        height: `${audioBar}px`,
+                        background: color,
+                    }"
+                    class="audio_bar"
+                >
+                    {{ index }} - {{ audioBar }}
+                </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </template>
 
@@ -31,12 +40,17 @@
 import { Component, Prop, Watch } from 'vue-property-decorator';
 import GraphicMixin from '@/mixins/GraphicMixin';
 import Point from '@/classes/Point';
+import MusicNotesCanvas from '@/components/Illustrations/MusicNotesCanvas.vue';
 import AudioVisualizer from '@/helpers/AudioVisualizer';
-import Tune from '@/assets/sounds/android52 - ANDROID52 COLLECT - 09 The Story of the Girl That Fell from the Sky.mp3';
 
-@Component
+@Component({
+    components: {
+        MusicNotesCanvas,
+    },
+})
 export default class AudioAnimation extends GraphicMixin {
-    @Prop({ required: true }) readonly isPlayingAudio: boolean
+    @Prop({ required: true }) readonly audioVisualizer: AudioVisualizer
+    @Prop({ required: true }) readonly audioDataArray: Uint8Array
 
     graphicLayout = {
         textCoords: new Point({ x: 65, y: 43 }),
@@ -46,18 +60,12 @@ export default class AudioAnimation extends GraphicMixin {
     timeline = [
         { key: 'timeline', start: 0, end: 1 },
     ]
-    audioVisualizer:AudioVisualizer;
-    audioDataArray:Uint8Array = new Uint8Array();
     colors:Array<string>;
     colorIndex:number;
     testFreq:number;
 
     constructor() {
         super();
-        this.audioVisualizer = new AudioVisualizer(
-            Tune,
-            this.setAudioData,
-        );
         this.colors = ['red', 'yellow', 'green', 'blue'];
         this.colorIndex = 0;
         this.testFreq = 160;
@@ -75,15 +83,10 @@ export default class AudioAnimation extends GraphicMixin {
     private get color():string {
         return this.colors[this.colorIndex];
     }
+    private get isPlaying():boolean {
+        return this.audioVisualizer.isPlaying;
+    }
 
-    public setAudioData(dataArray:Uint8Array):void {
-        this.audioDataArray = dataArray.slice();
-    }
-    @Watch('isPlayingAudio')
-    private startPlaying():void {
-        if (!this.isPlayingAudio) return;
-        this.audioVisualizer.play();
-    }
     @Watch('kickIsActive')
     private onKick():void {
         if (!this.kickIsActive) return;
@@ -104,13 +107,42 @@ export default class AudioAnimation extends GraphicMixin {
         position: relative
         background: main.$black
         z-index: 2
+    .audio_visualizer__canvas
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0px
+        left: 0px
+    .audio_visualizer__gradient_in,
+    .audio_visualizer__gradient_out
+        position: absolute
+        width: 100%
+        height: 144px
+        left: 0px
+        z-index: 3
+
+    .audio_visualizer__gradient_in
+        background: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 11%, rgba(0,0,0,0) 92%)
+        top: 0px
+    .audio_visualizer__gradient_out
+        background: linear-gradient(0deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 11%, rgba(0,0,0,0) 92%)
+        bottom: 0px
+
+    .debug
+        position: absolute
+        width: 100%
+        height: 100%
+        top: 0px
+        left: 0px
+        opacity: 0.9
+        z-index: 4
         .headline01
             color: white
-
     .audio_bars
         display: flex
         width: 100vw
-
+        overflow: auto
+        white-space: nowrap
     .audio_bar
         width: 100px
         height: 15px
