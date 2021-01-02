@@ -143,7 +143,7 @@ export default class AudioVisualization extends GraphicMixin {
                 new Point({ x: 70, y: 62 }),
                 ...musicCurve,
                 new Point({ x: this.end.x, y: this.end.y - 1 }),
-                new Point({ x: this.end.x, y: this.end.y + 8 }),
+                new Point({ x: this.end.x, y: this.end.y + 10 }),
             ],
         });
         const { windowWidth, windowHeight } = this;
