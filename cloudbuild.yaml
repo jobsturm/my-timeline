@@ -1,7 +1,7 @@
 steps:
 - name: mikefarah/yq
   id: Update service name
-  args: [ 'eval', '-i', '.service = "customer-portal-$_ENV"', '/workspace/app.yaml']
+  args: [ 'eval', '-i', '.service = "jobsturm-portfolio"', '/workspace/app.yaml']
 - name: node:14.15.0
   id: Npm install @vue/cli
   entrypoint: npm
@@ -13,7 +13,7 @@ steps:
 - name: node:14.15.0
   id: NPM Run Build
   entrypoint: npm
-  args: ["run", "build_$_ENV"]
+  args: ["run", "build"]
 - name: "gcr.io/cloud-builders/gcloud"
   id: Gcloud app deploy
   args: ["app", "deploy"]
