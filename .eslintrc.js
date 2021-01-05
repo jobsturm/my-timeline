@@ -17,6 +17,7 @@ module.exports = {
         'import/no-cycle': 'off',
         'lines-between-class-members': 'off',
         'no-array-constructor': 'off',
+        'import/no-webpack-loader-syntax': 'off',
         'max-len': [
             'error',
             {

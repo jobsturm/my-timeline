@@ -8,6 +8,7 @@
         <DDCreativeOutletsSlide/>
         <MusicSlide/>
         <MusicVisualisationSlide/>
+        <DiscoverFrontend/>
     </div>
 </template>
 
@@ -23,6 +24,7 @@ import DDUnleashSlide from './slides/DDUnleashSlide.vue';
 import DDCreativeOutletsSlide from './slides/DDCreativeOutletsSlide.vue';
 import MusicSlide from './slides/MusicSlide.vue';
 import MusicVisualisationSlide from './slides/MusicVisualisationSlide.vue';
+import DiscoverFrontend from './slides/DiscoverFrontend.vue';
 
 // This is browser specific and thus default Window interface doesn't support it.
 interface Window {
@@ -40,6 +42,7 @@ interface Window {
         DDCreativeOutletsSlide,
         MusicSlide,
         MusicVisualisationSlide,
+        DiscoverFrontend,
     },
     mixins: [vueWindowSizeMixin],
 })

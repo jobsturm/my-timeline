@@ -20,7 +20,7 @@
             :style="textStyle"
         >
             <div id="ddc__text" xmlns="http://www.w3.org/1999/xhtml">
-                And visualizing music!
+                and visualizing it!
             </div>
         </foreignObject>
     </svg>
