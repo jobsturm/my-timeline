@@ -1,4 +1,4 @@
-// This helper takes a animation percentage, a startpoint and a duration.
+// This helper takes an animation percentage, a startpoint and a duration.
 // It returns the percentage of an animation step.
 import minMax from '@/helpers/minMax';
 

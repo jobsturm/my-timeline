@@ -10,6 +10,7 @@
             :audioDataArray="audioDataArray"
             :start="timelinePosition.start"
             :end="end"
+            :exited="exited"
         />
         <AudioAnimation
             :audioVisualizer="audioVisualizer"

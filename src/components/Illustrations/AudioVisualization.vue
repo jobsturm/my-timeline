@@ -6,11 +6,11 @@
         xmlns:xlink="http://www.w3.org/1999/xlink"
     >
         <g id="ddc__line">
-            <AnimationPath :drawPercentage="as.timeline" :d="pathOne" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath :drawPercentage="as.timeline" :d="pathTwo" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath :drawPercentage="as.timeline" :d="pathThree" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath :drawPercentage="as.timeline" :d="pathFour" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
-            <AnimationPath :drawPercentage="as.timeline" :d="pathFive" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" stroke-width="4" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="pathOne" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" :stroke-width="strokeWidth" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="pathTwo" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" :stroke-width="strokeWidth" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="pathThree" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" :stroke-width="strokeWidth" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="pathFour" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" :stroke-width="strokeWidth" fill="none"/>
+            <AnimationPath :drawPercentage="as.timeline" :d="pathFive" class="audio_visualization_general_path" id="audio_visualization_general_path" stroke="#FFFFFF" :stroke-width="strokeWidth" fill="none"/>
         </g>
         <foreignObject
             :x="textTransform.x"
@@ -19,7 +19,7 @@
             height="200"
             :style="textStyle"
         >
-            <div id="ddc__text" xmlns="http://www.w3.org/1999/xhtml">
+            <div id="mv_text" xmlns="http://www.w3.org/1999/xhtml">
                 and visualizing it!
             </div>
         </foreignObject>
@@ -34,6 +34,7 @@ import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import GraphicLocation from '@/classes/GraphicLocation';
+import animationStep from '@/helpers/animationStep';
 
 @Component({
     components: {
@@ -42,6 +43,7 @@ import GraphicLocation from '@/classes/GraphicLocation';
 })
 export default class AudioVisualization extends GraphicMixin {
     @Prop({ required: true }) readonly audioDataArray: Uint8Array
+    @Prop({ required: true }) readonly exited: number
 
     graphicLayout = {
         textCoords: new Point({ x: 0, y: 38 }),
@@ -122,6 +124,14 @@ export default class AudioVisualization extends GraphicMixin {
             opacity: this.as.textIntro,
         };
     }
+    get strokeWidth():number {
+        const percentage = animationStep({
+            parentPercentage: this.exited,
+            start: 0.6,
+            end: 0.8,
+        });
+        return 4 + (16 * percentage);
+    }
 
     getTimelinePath(lineOffsetCount:number, variant:Array<Point>):string {
         const relativeLineWidth = 8 / this.windowWidth * 100;
@@ -143,7 +153,7 @@ export default class AudioVisualization extends GraphicMixin {
                 new Point({ x: 70, y: 62 }),
                 ...musicCurve,
                 new Point({ x: this.end.x, y: this.end.y - 1 }),
-                new Point({ x: this.end.x, y: this.end.y + 10 }),
+                new Point({ x: this.end.x, y: this.end.y + 15 }),
             ],
         });
         const { windowWidth, windowHeight } = this;
@@ -160,11 +170,11 @@ export default class AudioVisualization extends GraphicMixin {
         @include main.viewportHeight(100, 0)
         position: relative
         z-index: 2
-    #ddc__text
+    #mv_text
         @extend %headline3_style
         position: relative
         text-align: center
-        z-index: 500000
+        z-index: 5
         color: main.$white
         padding: 0 40px
         font-size: 40px

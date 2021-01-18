@@ -7,9 +7,7 @@
                 :animationPercentage="animationPercentage"
             />
         </div>
-        <svg class="slide__triangle">
-            <polygon :points="trianglePoints"></polygon>
-        </svg>
+        <SlideTriangle :height="200" :background="colors.$grey_bg"/>
     </Slide>
 </template>
 
@@ -21,19 +19,20 @@ import Point from '@/classes/Point';
 import easingFunctions from '@/helpers/easingFunctions';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
+import colors from '@/helpers/colors';
+import SlideTriangle from '@/components/Atoms/SlideTriangle.vue';
 
 @Component({
     components: {
         DDIntro,
+        SlideTriangle,
     },
 })
 export default class DigitalDiscoveriesSlide extends SlideMixin {
     index = 3;
     end:Point = new Point({ x: 80, y: 100 });
+    colors:Record<string, string> = colors;
 
-    get trianglePoints():string {
-        return `0,0 0,200 ${this.windowWidth},0`;
-    }
     get animationPercentage():number {
         return easingFunctions.linear(this.entered);
     }

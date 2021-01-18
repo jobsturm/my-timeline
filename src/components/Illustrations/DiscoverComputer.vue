@@ -197,7 +197,7 @@ export default class SchoolDoodle extends GraphicMixin {
         text-align: right
         font-weight: 800
         font-size: max(min(44px, 3vw), 18px)
-        text-shadow: -1px -1px 0 #fff, 1px -1px 0 #fff, -1px 1px 0 #fff, 1px 1px 0 #fff
+        text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.5)
 
     @media (max-width: 1000px)
         #computer

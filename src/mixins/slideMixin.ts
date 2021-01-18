@@ -10,6 +10,7 @@ import { Watch } from 'vue-property-decorator';
 // eslint-disable-next-line
 import Slide from '@/classes/Slide';
 import SlideComponent from '@/components/Atoms/Slide.vue';
+import drawPercentageListGenerator from '@/helpers/drawPercentageListGenerator';
 
 @Component({
     mixins: [vueWindowSizeMixin],
@@ -26,9 +27,18 @@ export default class SlideMixin extends Vue {
     exited = 0;
     height = 0;
     width = 0;
+    timeline: { key: string; start: number; end: number }[];
 
     get windowSizeSum(): number {
         return this.windowWidth + this.windowHeight;
+    }
+    // Animation Steps
+    get as(): { [key: string]: number; } {
+        const { timeline } = this;
+        return drawPercentageListGenerator({
+            parentPercentage: this.entered,
+            timeline,
+        });
     }
 
     private handleScroll(): void {

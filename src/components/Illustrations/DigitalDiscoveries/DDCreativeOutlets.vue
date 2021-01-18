@@ -97,7 +97,7 @@ export default class DDIntro extends GraphicMixin {
         @extend %headline3_style
         position: relative
         z-index: 500000
-        fill: #36C7FF
+        fill: main.$white
         font-size: max(min(32px, 3vw), 17px)
     .ddc__text--two
         transform: translateY(max(min(42px, 4vw), 22px))
