@@ -24,14 +24,16 @@ export default class GraphicMixin extends Vue {
         const graphicsLocations:Record<string, GraphicLocation> = {};
         Object.entries(this.graphicLayout).forEach((entry) => {
             const key = entry[0];
-            const point = entry[1] as Point;
-            const pixelPoint = this.createPixelPoint(point);
-            const transform = `translate(${pixelPoint.x}, ${pixelPoint.y})`;
-            graphicsLocations[key] = new GraphicLocation({
-                x: pixelPoint.x,
-                y: pixelPoint.y,
-                transform,
-            });
+            const value = entry[1] as Point|Record<'desktop'|'mobile', Point>;
+            if (value.constructor.name === 'Object') {
+                const pointList = value as Record<'desktop'|'mobile', Point>;
+                let point = pointList.desktop;
+                if (this.windowWidth < 769) point = pointList.mobile;
+                graphicsLocations[key] = this.getGraphicsLocation(point);
+            } else {
+                const percentagePoint = value as Point;
+                graphicsLocations[key] = this.getGraphicsLocation(percentagePoint);
+            }
         });
         return graphicsLocations;
     }
@@ -58,6 +60,15 @@ export default class GraphicMixin extends Vue {
             // +8 because the line is always 16px wide.
             x: ((Math.round(x) + 8) / this.windowWidth) * 100,
             y: ((Math.round(y)) / this.windowWidth) * 100,
+        });
+    }
+    private getGraphicsLocation(percentagePoint: Point): GraphicLocation {
+        const pixelPoint = this.createPixelPoint(percentagePoint);
+        const transform = `translate(${pixelPoint.x}, ${pixelPoint.y})`;
+        return new GraphicLocation({
+            x: pixelPoint.x,
+            y: pixelPoint.y,
+            transform,
         });
     }
 
