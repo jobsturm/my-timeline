@@ -9,6 +9,7 @@
         <MusicSlide/>
         <MusicVisualisationSlide/>
         <DiscoverFrontend/>
+        <WorkSlide/>
     </div>
 </template>
 
@@ -25,6 +26,7 @@ import DDCreativeOutletsSlide from './slides/DDCreativeOutletsSlide.vue';
 import MusicSlide from './slides/MusicSlide.vue';
 import MusicVisualisationSlide from './slides/MusicVisualisationSlide.vue';
 import DiscoverFrontend from './slides/DiscoverFrontend.vue';
+import WorkSlide from './slides/WorkSlide.vue';
 
 // This is browser specific and thus default Window interface doesn't support it.
 interface Window {
@@ -43,6 +45,7 @@ interface Window {
         MusicSlide,
         MusicVisualisationSlide,
         DiscoverFrontend,
+        WorkSlide,
     },
     mixins: [vueWindowSizeMixin],
 })
@@ -82,18 +85,5 @@ export default class App extends Vue {
         font-size: 16px;
         overflow-x: hidden;
         scroll-behavior: smooth;
-    }
-
-    .debug_point {
-        width: 10px;
-        height: 10px;
-        position: absolute;
-        background: red;
-        position: absolute;
-        z-index: 9999;
-        opacity: 0.5;
-        &.debug_point--end {
-            background: yellow;
-        }
     }
 </style>

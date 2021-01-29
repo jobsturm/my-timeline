@@ -13,12 +13,16 @@ import GraphicLocation from '@/classes/GraphicLocation';
 })
 export default class GraphicMixin extends Vue {
     @Prop({ default: 0 }) readonly animationPercentage: number
-    @Prop({ required: true }) readonly start: Point
-    @Prop({ required: true }) readonly end: Point
+    @Prop({ default: () => new Point({ x: 0, y: 0 }) }) readonly start: Point
+    @Prop({ default: () => new Point({ x: 0, y: 100 }) }) readonly end: Point
 
     isMounted = false;
     graphicLayout = {};
     timeline: { key: string; start: number; end: number }[];
+
+    get windowSizeSum(): number {
+        return this.windowWidth + this.windowHeight;
+    }
 
     get coords():Record<string, GraphicLocation> {
         const graphicsLocations:Record<string, GraphicLocation> = {};

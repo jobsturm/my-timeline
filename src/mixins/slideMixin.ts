@@ -11,6 +11,7 @@ import { Watch } from 'vue-property-decorator';
 import Slide from '@/classes/Slide';
 import SlideComponent from '@/components/Atoms/Slide.vue';
 import drawPercentageListGenerator from '@/helpers/drawPercentageListGenerator';
+import colors from '@/helpers/colors';
 
 @Component({
     mixins: [vueWindowSizeMixin],
@@ -23,11 +24,21 @@ export default class SlideMixin extends Vue {
     @State('slides') slides!: Slide[];
     @Mutation('registerSlide') readonly registerSlide: CallableFunction;
     @Mutation('updateSlide') readonly updateSlide: CallableFunction;
-    entered = 0;
-    exited = 0;
-    height = 0;
-    width = 0;
+    entered:number;
+    exited:number;
+    height:number;
+    width:number;
     timeline: { key: string; start: number; end: number }[];
+    colors: Record<string, string>;
+
+    constructor() {
+        super();
+        this.colors = colors;
+        this.entered = 0;
+        this.exited = 0;
+        this.height = 0;
+        this.width = 0;
+    }
 
     get windowSizeSum(): number {
         return this.windowWidth + this.windowHeight;

@@ -10,22 +10,32 @@
         <foreignObject
             :x="coords.text.x"
             :y="coords.text.y"
-            :width="0.96 * windowWidth"
-            height="400"
+            :width="titleElementWidth"
+            height="500"
         >
-            <div class="discover_frontend_graphic__sub_title" xmlns="http://www.w3.org/1999/xhtml">
+            <h2 class="discover_frontend_graphic__sub_title" xmlns="http://www.w3.org/1999/xhtml">
                 And most importantly
-            </div>
-            <div class="discover_frontend_graphic__title" xmlns="http://www.w3.org/1999/xhtml">
+            </h2>
+            <h1
+                class="discover_frontend_graphic__title"
+                xmlns="http://www.w3.org/1999/xhtml"
+                ref="title"
+            >
                 Frontend
                 <br/> Development
-            </div>
+            </h1>
+            <main class="discover_frontend_graphic__main">
+                <p>
+                    Which really helped me combine my love for puzzle solving
+                    and creativity to rapidly output cool projects!
+                </p>
+            </main>
         </foreignObject>
     </svg>
 </template>
 
 <script lang="ts">
-import { Component } from 'vue-property-decorator';
+import { Component, Watch } from 'vue-property-decorator';
 import GraphicMixin from '@/mixins/GraphicMixin';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
@@ -38,6 +48,8 @@ import Path from '@/classes/Path';
     },
 })
 export default class DiscoverFrontendGraphic extends GraphicMixin {
+    titleElementWidth: number;
+
     constructor() {
         super();
         this.graphicLayout = {
@@ -50,6 +62,7 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
             { key: 'timeline', start: 0, end: 1 },
             { key: 'strokeWidening', start: 0.6, end: 0.8 },
         ];
+        this.titleElementWidth = 600;
     }
 
     get relativeLineWidth():number {
@@ -85,6 +98,18 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
         const { windowWidth, windowHeight } = this;
         return new SVGSmoothPath({ path, windowWidth, windowHeight }).SVGStringPath;
     }
+
+    getTitleElementWidth():number {
+        const titleElement = this.$refs.title as HTMLElement;
+        return titleElement.offsetWidth;
+    }
+    @Watch('windowWidth')
+    setTitleElementWidth():void {
+        this.titleElementWidth = this.getTitleElementWidth();
+    }
+    mounted():void {
+        this.setTitleElementWidth();
+    }
 }
 </script>
 
@@ -106,6 +131,7 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
             text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.2)
     .discover_frontend_graphic__title
         @extend %headline1_style
+        display: inline-block
         margin-top: 16px
         color: main.$white
         text-shadow: 4px 4px 0px rgba(255, 255, 255, 0.2)
@@ -115,5 +141,13 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
             font-size: min(70px, 11vw)
             margin-top: min(10px, 11vw)
             text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.2)
-
+    .discover_frontend_graphic__main
+        @extend %body1_style
+        color: main.$white
+        font-size: max(min(1.5em, 8vw), 12px)
+        // font-size: 1.5em
+        line-height: 1.5em
+        margin-top: max(min(10px, 11vw), 16px)
+        width: 600px
+        max-width: 70vw
 </style>

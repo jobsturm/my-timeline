@@ -7,50 +7,40 @@
             :animationPercentage="entered"
         />
         <SlideTriangle class="overlay_triangle" :height="triangeHeight"/>
-        <div class="rainbow_holder">
-            <div class="rainbow rainbow--part_1" :style="getRainbowStyle(0)"/>
-            <div class="rainbow rainbow--part_2" :style="getRainbowStyle(1)"/>
-            <div class="rainbow rainbow--part_3" :style="getRainbowStyle(2)"/>
-            <div class="rainbow rainbow--part_4" :style="getRainbowStyle(3)"/>
-            <div class="rainbow rainbow--part_5" :style="getRainbowStyle(4)"/>
-            <div class="rainbow rainbow--part_6" :style="getRainbowStyle(5)"/>
-        </div>
+        <RainbowBackground
+            :animationPercentage="as.rainbow"
+            effectType="grow"
+        />
     </Slide>
 </template>
 
 <script lang="ts">
-import { Component, Watch } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import SlideMixin from '@/mixins/SlideMixin';
 import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import colors from '@/helpers/colors';
 import SlideTriangle from '@/components/Atoms/SlideTriangle.vue';
 import DiscoverFrontendGraphic from '@/components/Illustrations/DiscoverFrontendGraphic.vue';
+import RainbowBackground from '@/components/Molecules/RainbowBackground.vue';
 import easingFunctions from '@/helpers/easingFunctions';
 
 @Component({
     components: {
         SlideTriangle,
         DiscoverFrontendGraphic,
+        RainbowBackground,
     },
 })
-
 export default class DiscoverFrontend extends SlideMixin {
     index = 8;
     end:Point = new Point({ x: 90, y: 100 });
-    colors:Record<string, string> = colors;
 
     constructor() {
         super();
         this.timeline = [
             { key: 'triangle_size', start: 0, end: 2 },
-            { key: 'rainbow_block_0', start: 0.10, end: 0.6 },
-            { key: 'rainbow_block_1', start: 0.12, end: 0.6 },
-            { key: 'rainbow_block_2', start: 0.14, end: 0.6 },
-            { key: 'rainbow_block_3', start: 0.16, end: 0.6 },
-            { key: 'rainbow_block_4', start: 0.18, end: 0.6 },
-            { key: 'rainbow_block_5', start: 0.20, end: 0.6 },
+            { key: 'rainbow', start: 0.1, end: 0.6 },
         ];
     }
     get triangeHeight():number {
@@ -70,19 +60,6 @@ export default class DiscoverFrontend extends SlideMixin {
         });
     }
 
-    @Watch('windowSizeSum')
-    getRainbowStyle(index:number):Record<string, string> {
-        const animationPercentage = this.as[`rainbow_block_${index}`];
-        const borderRadius = 32 - (32 * this.as[`rainbow_block_${index}`]);
-        const margin = 16 - (16 * this.as[`rainbow_block_${index}`]);
-        return {
-            height: `${this.windowHeight * animationPercentage}px`,
-            marginLeft: `${margin}px`,
-            marginRight: `${margin}px`,
-            borderBottomLeftRadius: `${borderRadius}px`,
-            borderBottomRightRadius: `${borderRadius}px`,
-        };
-    }
     mounted():void {
         this.registerSlide(
             new Slide({
