@@ -24,12 +24,12 @@
         >
             <main class="here_now_graphic__text">
                 <h2 ref="title" class="here_now_graphic__title" xmlns="http://www.w3.org/1999/xhtml">
-                    The future
+                    So there you are!
                 </h2>
                 <p class="here_now_graphic__main">
-                    I've been working at Feedback Company for more than three years now
-                    and after some reflection, I've come to the conclusion I want a new challenge
-                    to broaden my horizons!
+                    I've been working as a Frontend Dev for three years now, learned a lot,
+                    and grew a lot as a developer, but also as a person profssionally wise!
+                    </br><strong>But what a about the future?</strong>
                 </p>
             </main>
         </foreignObject>
