@@ -148,6 +148,5 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
         // font-size: 1.5em
         line-height: 1.5em
         margin-top: max(min(10px, 11vw), 16px)
-        width: 600px
-        max-width: 70vw
+        width: 100%
 </style>

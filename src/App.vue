@@ -10,6 +10,7 @@
         <MusicVisualisationSlide/>
         <DiscoverFrontend/>
         <WorkSlide/>
+        <HereNowSlide/>
     </div>
 </template>
 
@@ -27,6 +28,7 @@ import MusicSlide from './slides/MusicSlide.vue';
 import MusicVisualisationSlide from './slides/MusicVisualisationSlide.vue';
 import DiscoverFrontend from './slides/DiscoverFrontend.vue';
 import WorkSlide from './slides/WorkSlide.vue';
+import HereNowSlide from './slides/HereNowSlide.vue';
 
 // This is browser specific and thus default Window interface doesn't support it.
 interface Window {
@@ -46,6 +48,7 @@ interface Window {
         MusicVisualisationSlide,
         DiscoverFrontend,
         WorkSlide,
+        HereNowSlide,
     },
     mixins: [vueWindowSizeMixin],
 })
@@ -64,8 +67,7 @@ export default class App extends Vue {
     }
 
     mounted():void {
-        // Fix for consistent Viewport Height on Mobile,
-        // https://css-tricks.com/the-trick-to-viewport-units-on-mobile/
+        // Fix for consistent Viewport Height on Mobile.
         this.setViewportHeightCSSVar();
         window.addEventListener('resize', () => {
             this.setViewportHeightCSSVar();

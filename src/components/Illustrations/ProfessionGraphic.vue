@@ -1,7 +1,7 @@
 <template>
-    <span class="proffesion_graphic">
+    <span class="profession_graphic">
         <svg
-            class="proffesion_graphic__text_layer"
+            class="profession_graphic__text_layer"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -12,21 +12,21 @@
                 :style="{ opacity: as.textOpacity }"
                 :width="titleElementWidth"
                 height="500"
-                class="proffesion_graphic__text"
+                class="profession_graphic__text"
             >
-                <h2 ref="title" class="proffesion_graphic__title" xmlns="http://www.w3.org/1999/xhtml">
-                    So I made it my proffesion!
+                <h2 ref="title" class="profession_graphic__title" xmlns="http://www.w3.org/1999/xhtml">
+                    So I made it my profession!
                 </h2>
-                <main class="proffesion_graphic__main">
+                <main class="profession_graphic__main">
                     <p>
-                        And I started working at Feedback Company 3 years ago.
-                        Building the frontend a large scale web app in Vue, basically on my own!
+                        And I started working at Feedback Company three years ago.
+                        Building the frontend for a large scale web app in Vue, basically on my own!
                     </p>
                 </main>
             </foreignObject>
         </svg>
         <svg
-            class="proffesion_graphic__upper_layer"
+            class="profession_graphic__upper_layer"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -40,12 +40,12 @@
             />
         </svg>
         <RainbowBackground
-            class="proffesion_graphic__rainbow"
+            class="profession_graphic__rainbow"
             :animationPercentage="0.4"
             effectType="stretch"
         />
         <svg
-            class="proffesion_graphic__lower_layer"
+            class="profession_graphic__lower_layer"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -206,25 +206,25 @@ export default class ProfessionGraphic extends GraphicMixin {
 <style lang="sass" scoped>
     @use '@/styles/main'
 
-    .proffesion_graphic
+    .profession_graphic
         width: 100vw
         @include main.viewportHeight(100, 0)
         position: relative
-    .proffesion_graphic__rainbow
+    .profession_graphic__rainbow
         position: absolute
         z-index: 2
-    .proffesion_graphic__upper_layer
+    .profession_graphic__upper_layer
         width: 100vw
         @include main.viewportHeight(100, 0)
         position: absolute
         z-index: 3
-    .proffesion_graphic__lower_layer
+    .profession_graphic__lower_layer
         width: 100vw
         @include main.viewportHeight(100, 0)
         position: absolute
         z-index: 1
         opacity: 0.2
-    .proffesion_graphic__title
+    .profession_graphic__title
         @extend %headline2_style
         display: inline-block
         margin-top: 16px
@@ -236,18 +236,17 @@ export default class ProfessionGraphic extends GraphicMixin {
             font-size: min(70px, 11vw)
             margin-top: min(10px, 11vw)
             text-shadow: 3px 3px 0px #3A5F6B
-    .proffesion_graphic__main
+    .profession_graphic__main
         @extend %body1_style
         color: main.$white
         font-size: max(min(1.5em, 8vw), 12px)
         line-height: 1.5em
         margin-top: max(min(10px, 11vw), 16px)
-        width: 600px
-        max-width: 70vw
+        width: 100%
         text-shadow: 2px 2px 0px #3A5F6B
         @media (max-width: 620px)
         max-width: 95vw
-    .proffesion_graphic__text_layer
+    .profession_graphic__text_layer
         width: 100vw
         @include main.viewportHeight(100, 0)
         position: absolute
