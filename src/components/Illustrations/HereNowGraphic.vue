@@ -28,8 +28,8 @@
                 </h2>
                 <p class="here_now_graphic__main">
                     I've been working as a Frontend Dev for three years now, learned a lot,
-                    and grew a lot as a developer, but also as a person profssionally wise!
-                    <br/><strong>But what a about the future?</strong>
+                    and grew alot as a developer, but also as a person professionally wise!
+                    <br/><strong>But what about the future?</strong>
                 </p>
             </main>
         </foreignObject>
