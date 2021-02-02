@@ -1,36 +1,14 @@
 <template>
     <svg class="discover_frontend_graphic" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <AnimationPath
+            v-for="(timelinePath, index) in timelinePaths"
+            :key="`discover_frontend_graphic__timelinePath_${index}`"
             :drawPercentage="as.timeline"
             :d="timelinePath"
-            stroke="#FFFFFF"
-            :stroke-width="strokeWidth"
+            stroke="rgba(255,255,255, 0.2)"
+            stroke-width="20"
             fill="none"
         />
-        <foreignObject
-            :x="coords.text.x"
-            :y="coords.text.y"
-            :width="titleElementWidth"
-            height="500"
-        >
-            <h2 class="discover_frontend_graphic__sub_title" xmlns="http://www.w3.org/1999/xhtml">
-                And most importantly
-            </h2>
-            <h1
-                class="discover_frontend_graphic__title"
-                xmlns="http://www.w3.org/1999/xhtml"
-                ref="title"
-            >
-                Frontend
-                <br/> Development
-            </h1>
-            <main class="discover_frontend_graphic__main">
-                <p>
-                    Which really helped me combine my love for puzzle solving
-                    and creativity to rapidly output cool projects!
-                </p>
-            </main>
-        </foreignObject>
     </svg>
 </template>
 
@@ -49,9 +27,11 @@ import Path from '@/classes/Path';
 })
 export default class TheFutureGraphic extends GraphicMixin {
     titleElementWidth: number;
+    timelineCount: number;
 
     constructor() {
         super();
+        this.timelineCount = 8;
         this.graphicLayout = {
             text: {
                 desktop: new Point({ x: 24, y: 32 }),
@@ -65,38 +45,30 @@ export default class TheFutureGraphic extends GraphicMixin {
         this.titleElementWidth = 600;
     }
 
-    get relativeLineWidth():number {
-        return 16 / this.windowWidth * 100;
-    }
-    get strokeWidth():number {
-        const baseStrokeWidth = 4;
-        return baseStrokeWidth + (16 * this.as.strokeWidening);
-    }
-    get timelinePath():string {
-        const endX:number = this.end.x;
-        let path = new Path({
-            points: [
-                new Point({ x: this.start.x, y: -1 }),
-                new Point({ x: this.start.x, y: 0 }),
-                new Point({ x: 50, y: 20 }),
-                new Point({ x: endX, y: this.end.y - 1 }),
-                new Point({ x: endX, y: this.end.y }),
-            ],
-        });
-        if (this.windowWidth < 969) {
-            path = new Path({
+    get timelinePaths():Array<string> {
+        const timelineCount = this.timelineCount + 1;
+        const distance = 100;
+        const spacing = distance / timelineCount;
+        // const margin = spacing / 2;
+        const outoPaths:Array<string> = [];
+
+        for (let index = 1; index < timelineCount; index += 1) {
+            // const element = array[index];
+            const x:number = spacing * index;
+            const path = new Path({
                 points: [
-                    new Point({ x: this.start.x, y: -1 }),
-                    new Point({ x: this.start.x, y: 0 }),
-                    new Point({ x: 50, y: 20 }),
-                    new Point({ x: 50, y: 20 }),
-                    new Point({ x: endX, y: this.end.y - 1 }),
-                    new Point({ x: endX, y: this.end.y }),
+                    new Point({ x, y: 0 }),
+                    new Point({ x, y: 0 }),
+                    new Point({ x, y: 50 }),
+                    new Point({ x, y: 100 - 1 }),
+                    new Point({ x, y: 100 }),
                 ],
             });
+            const { windowWidth, windowHeight } = this;
+            outoPaths.push(new SVGSmoothPath({ path, windowWidth, windowHeight }).SVGStringPath);
         }
-        const { windowWidth, windowHeight } = this;
-        return new SVGSmoothPath({ path, windowWidth, windowHeight }).SVGStringPath;
+
+        return outoPaths;
     }
 
     getTitleElementWidth():number {
