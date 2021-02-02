@@ -1,16 +1,17 @@
 <template>
     <div id="app">
-        <IntroSlide/>
-        <SchoolSlide/>
-        <ComputerSlide/>
-        <DDIntroSlide/>
-        <DDUnleashSlide/>
-        <DDCreativeOutletsSlide/>
-        <MusicSlide/>
-        <MusicVisualisationSlide/>
-        <DiscoverFrontend/>
-        <WorkSlide/>
-        <HereNowSlide/>
+        <IntroSlide :index="0"/>
+        <SchoolSlide :index="1"/>
+        <ComputerSlide :index="2"/>
+        <DDIntroSlide :index="3"/>
+        <DDUnleashSlide :index="4"/>
+        <DDCreativeOutletsSlide :index="5"/>
+        <MusicSlide :index="6"/>
+        <MusicVisualisationSlide :index="7"/>
+        <DiscoverFrontend :index="8"/>
+        <WorkSlide :index="9"/>
+        <HereNowSlide :index="10"/>
+        <TheFutureSlide :index="11"/>
     </div>
 </template>
 
@@ -29,6 +30,7 @@ import MusicVisualisationSlide from './slides/MusicVisualisationSlide.vue';
 import DiscoverFrontend from './slides/DiscoverFrontend.vue';
 import WorkSlide from './slides/WorkSlide.vue';
 import HereNowSlide from './slides/HereNowSlide.vue';
+import TheFutureSlide from './slides/TheFutureSlide.vue';
 
 // This is browser specific and thus default Window interface doesn't support it.
 interface Window {
@@ -49,6 +51,7 @@ interface Window {
         DiscoverFrontend,
         WorkSlide,
         HereNowSlide,
+        TheFutureSlide,
     },
     mixins: [vueWindowSizeMixin],
 })

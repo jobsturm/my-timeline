@@ -27,7 +27,6 @@ import easingFunctions from '@/helpers/easingFunctions';
     },
 })
 export default class SchoolSlide extends SlideMixin {
-    index = 1;
     animationState = 'start';
     lineEnd:Point = new Point({
         x: 90,

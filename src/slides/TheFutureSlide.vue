@@ -1,40 +1,36 @@
 <template>
-    <Slide class="slide" ref="slide" background="#000000">
-        <div class="slide__illustration">
-            <DDIntro
-                :start="timelinePosition.start"
-                :end="timelinePosition.end"
-                :animationPercentage="animationPercentage"
-            />
-        </div>
-        <SlideTriangle :height="200" :background="colors.$grey_bg"/>
+    <Slide class="slide" ref="slide" :background="colors.$marine_dark">
+        <TheFutureGraphic
+            class="illustration"
+            :animationPercentage="entered"
+            :start="timelinePosition.start"
+            :end="end"
+        />
     </Slide>
 </template>
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
 import SlideMixin from '@/mixins/SlideMixin';
-import DDIntro from '@/components/Illustrations/DigitalDiscoveries/DDIntro.vue';
 import Point from '@/classes/Point';
-import easingFunctions from '@/helpers/easingFunctions';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import colors from '@/helpers/colors';
-import SlideTriangle from '@/components/Atoms/SlideTriangle.vue';
+import TheFutureGraphic from '@/components/Illustrations/TheFutureGraphic.vue';
 
 @Component({
     components: {
-        DDIntro,
-        SlideTriangle,
+        TheFutureGraphic,
     },
 })
-export default class DigitalDiscoveriesSlide extends SlideMixin {
-    end:Point = new Point({ x: 80, y: 100 });
-    colors:Record<string, string> = colors;
 
-    get animationPercentage():number {
-        return easingFunctions.linear(this.entered);
+export default class TheFutureSlide extends SlideMixin {
+    end:Point;
+
+    constructor() {
+        super();
+        this.end = new Point({ x: 50, y: 100 });
     }
+
     get previousSlide():Slide|null {
         return this.slides[this.index - 1];
     }
@@ -58,17 +54,16 @@ export default class DigitalDiscoveriesSlide extends SlideMixin {
         );
     }
 }
-
 </script>
 
 <style lang="sass" scoped>
     @use '@/styles/main'
 
-    .slide__triangle
-        width: 100%
-        height: 200px
+    .slide
+        width: 100vw
+        @include main.viewportHeight(100, 0)
         background: main.$black
-        fill: main.$grey_bg
+        position: relative
 
     .slide__illustration
         position: absolute

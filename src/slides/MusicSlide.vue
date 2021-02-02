@@ -25,7 +25,6 @@ import Line from '@/classes/Line';
     },
 })
 export default class MusicSlide extends SlideMixin {
-    index = 6;
     end:Point = new Point({ x: 87, y: 100 });
 
     get animationPercentage():number {

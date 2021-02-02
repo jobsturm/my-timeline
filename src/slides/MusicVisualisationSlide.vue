@@ -42,7 +42,6 @@ import AudioControls from '@/components/Molecules/AudioControls.vue';
     },
 })
 export default class MusicVisualisationSlide extends SlideMixin {
-    index:number;
     end:Point;
     playing:boolean;
     audioVisualizer:AudioVisualizer;
@@ -50,7 +49,6 @@ export default class MusicVisualisationSlide extends SlideMixin {
 
     constructor() {
         super();
-        this.index = 7;
         this.audioVisualizer = new AudioVisualizer(
             Tune,
             this.setAudioData,

@@ -30,7 +30,6 @@ import SlideMixin from '@/mixins/SlideMixin';
 
 @Component
 export default class IntroSlide extends SlideMixin {
-    index = 0;
     animationState = 'start';
 
     get animationClass():string {

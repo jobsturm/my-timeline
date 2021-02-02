@@ -33,7 +33,6 @@ import easingFunctions from '@/helpers/easingFunctions';
     },
 })
 export default class DiscoverFrontend extends SlideMixin {
-    index = 8;
     end:Point = new Point({ x: 90, y: 100 });
 
     constructor() {

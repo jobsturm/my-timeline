@@ -25,7 +25,6 @@ import Line from '@/classes/Line';
     },
 })
 export default class DigitalUnleashSlide extends SlideMixin {
-    index = 4;
     end:Point = new Point({ x: 76, y: 100 });
 
     get animationPercentage():number {

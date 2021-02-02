@@ -5,7 +5,7 @@ import {
     State,
     Mutation,
 } from 'vuex-class';
-import { Watch } from 'vue-property-decorator';
+import { Watch, Prop } from 'vue-property-decorator';
 // It is used, but ESLint's regex doesn't recognize it
 // eslint-disable-next-line
 import Slide from '@/classes/Slide';
@@ -20,6 +20,7 @@ import colors from '@/helpers/colors';
     },
 })
 export default class SlideMixin extends Vue {
+    @Prop({ required: true }) readonly index: number
     @State('getPreviousLinePosition') getPreviousLinePosition!: number;
     @State('slides') slides!: Slide[];
     @Mutation('registerSlide') readonly registerSlide: CallableFunction;

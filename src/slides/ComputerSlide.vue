@@ -27,7 +27,6 @@ import easingFunctions from '@/helpers/easingFunctions';
     },
 })
 export default class ComputerSlide extends SlideMixin {
-    index = 2;
     animationState = 'start';
     end:Point = new Point({ x: 45, y: 100 });
 

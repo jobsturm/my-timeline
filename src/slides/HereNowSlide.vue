@@ -24,12 +24,10 @@ import HereNowGraphic from '@/components/Illustrations/HereNowGraphic.vue';
 })
 
 export default class HereNowSlide extends SlideMixin {
-    index:number;
     end:Point;
 
     constructor() {
         super();
-        this.index = 10;
         this.end = new Point({ x: 50, y: 30 });
     }
 
