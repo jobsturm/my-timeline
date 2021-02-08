@@ -1,19 +1,29 @@
 <template>
-    <svg class="discover_frontend_graphic" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg class="the_future_graphic" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <AnimationPath
-            v-for="(timelinePath, index) in timelinePaths"
-            :key="`discover_frontend_graphic__timelinePath_${index}`"
+            v-for="(timelinePath, index) in timelinePathAsStrings"
+            :key="`the_future_graphic__timelinePath_${index}`"
             :drawPercentage="as.timeline"
             :d="timelinePath"
             stroke="rgba(255,255,255, 0.2)"
             stroke-width="20"
             fill="none"
+            stroke-linecap="round"
+        />
+        <circle
+            v-for="(endPoint, index) in endPoints"
+            :key="`the_future_graphic__end_circle_${index}`"
+            :id="`the_future_graphic__end_circle_${index}`"
+            fill="white"
+            :cx="windowWidth / 100 * endPoint.x"
+            :cy="windowHeight / 100 * endPoint.y"
+            :r="20 * as.circleIntro"
         />
     </svg>
 </template>
 
 <script lang="ts">
-import { Component, Watch } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import GraphicMixin from '@/mixins/GraphicMixin';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
@@ -27,11 +37,9 @@ import Path from '@/classes/Path';
 })
 export default class TheFutureGraphic extends GraphicMixin {
     titleElementWidth: number;
-    timelineCount: number;
 
     constructor() {
         super();
-        this.timelineCount = 8;
         this.graphicLayout = {
             text: {
                 desktop: new Point({ x: 24, y: 32 }),
@@ -39,18 +47,20 @@ export default class TheFutureGraphic extends GraphicMixin {
             },
         };
         this.timeline = [
-            { key: 'timeline', start: 0, end: 1 },
-            { key: 'strokeWidening', start: 0.6, end: 0.8 },
+            { key: 'timeline', start: 0, end: 0.6 },
+            { key: 'circleIntro', start: 0.6, end: 0.7 },
         ];
         this.titleElementWidth = 600;
     }
 
-    get timelinePaths():Array<string> {
+    get timelineCount():number {
+        return this.windowWidth < 1000 ? 4 : 8;
+    }
+    get timelinePaths():Array<SVGSmoothPath> {
         const timelineCount = this.timelineCount + 1;
-        const distance = 100;
-        const spacing = distance / timelineCount;
-        // const margin = spacing / 2;
-        const outoPaths:Array<string> = [];
+        const spacing = 100 / timelineCount;
+        const outroPaths:Array<SVGSmoothPath> = [];
+        const endPointYs = [15, 25, 22, 10, 35, 25, 15, 30];
 
         for (let index = 1; index < timelineCount; index += 1) {
             // const element = array[index];
@@ -59,28 +69,24 @@ export default class TheFutureGraphic extends GraphicMixin {
                 points: [
                     new Point({ x, y: 0 }),
                     new Point({ x, y: 0 }),
-                    new Point({ x, y: 50 }),
-                    new Point({ x, y: 100 - 1 }),
-                    new Point({ x, y: 100 }),
+                    new Point({ x, y: endPointYs[index - 1] - 1 }),
+                    new Point({ x, y: endPointYs[index - 1] }),
                 ],
             });
             const { windowWidth, windowHeight } = this;
-            outoPaths.push(new SVGSmoothPath({ path, windowWidth, windowHeight }).SVGStringPath);
+            outroPaths.push(new SVGSmoothPath({ path, windowWidth, windowHeight }));
         }
-
-        return outoPaths;
+        console.log(outroPaths);
+        return outroPaths;
     }
-
-    getTitleElementWidth():number {
-        const titleElement = this.$refs.title as HTMLElement;
-        return titleElement.offsetWidth;
+    get timelinePathAsStrings():Array<string> {
+        return this.timelinePaths.map(timelinePath => timelinePath.SVGStringPath);
     }
-    @Watch('windowWidth')
-    setTitleElementWidth():void {
-        this.titleElementWidth = this.getTitleElementWidth();
-    }
-    mounted():void {
-        this.setTitleElementWidth();
+    get endPoints():Array<Point> {
+        return this.timelinePaths.map((timelinePath:SVGSmoothPath) => {
+            const { points } = timelinePath.path;
+            return points[points.length - 1];
+        });
     }
 }
 </script>
@@ -88,11 +94,11 @@ export default class TheFutureGraphic extends GraphicMixin {
 <style lang="sass" scoped>
     @use '@/styles/main'
 
-    .discover_frontend_graphic
+    .the_future_graphic
         width: 100vw
         @include main.viewportHeight(100, 0)
         position: relative
-    .discover_frontend_graphic__sub_title
+    .the_future_graphic__sub_title
         @extend %headline4_style
         color: main.$white
         text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.2)
@@ -101,7 +107,7 @@ export default class TheFutureGraphic extends GraphicMixin {
         @media (max-width: 620px)
             font-size: min(28px, 5.5vw)
             text-shadow: 2px 2px 0px rgba(255, 255, 255, 0.2)
-    .discover_frontend_graphic__title
+    .the_future_graphic__title
         @extend %headline1_style
         display: inline-block
         margin-top: 16px
@@ -113,7 +119,7 @@ export default class TheFutureGraphic extends GraphicMixin {
             font-size: min(70px, 11vw)
             margin-top: min(10px, 11vw)
             text-shadow: 3px 3px 0px rgba(255, 255, 255, 0.2)
-    .discover_frontend_graphic__main
+    .the_future_graphic__main
         @extend %body1_style
         color: main.$white
         font-size: max(min(1.5em, 8vw), 12px)
