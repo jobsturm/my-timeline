@@ -76,7 +76,6 @@ export default class TheFutureGraphic extends GraphicMixin {
             const { windowWidth, windowHeight } = this;
             outroPaths.push(new SVGSmoothPath({ path, windowWidth, windowHeight }));
         }
-        console.log(outroPaths);
         return outroPaths;
     }
     get timelinePathAsStrings():Array<string> {
