@@ -15,16 +15,17 @@
             stroke="rgba(255,255,255, 0.2)"
             stroke-width="20"
             fill="none"
+            stroke-linecap="round"
         />
         <foreignObject
             :x="coords.text.x"
-            :y="coords.text.y"
+            :y="coords.text.y + circleSize.radius"
             :width="windowWidth"
             height="500"
         >
             <main class="here_now_graphic__text">
                 <h2 ref="title" class="here_now_graphic__title" xmlns="http://www.w3.org/1999/xhtml">
-                    So there you are!
+                    That's the story
                 </h2>
                 <p class="here_now_graphic__main">
                     I've been working as a Frontend Dev for three years now, learned a lot,
@@ -39,18 +40,29 @@
             fill-rule="evenodd"
             :transform="coords.endOfLineCircle.transform"
         >
-            <g id="portrait__centerer" transform="translate(-148, -20)">
+            <g id="portrait__centerer" :transform="`translate(-${circleSize.radius}, -${circleSize.radius})`">
                 <mask id="portrait_mask">
-                    <circle id="portrait_mask__circle" fill="white" cx="150.5" cy="150" r="144"/>
+                    <circle
+                        id="portrait_mask__circle"
+                        fill="white"
+                        :cx="circleSize.radius + 5"
+                        :cy="circleSize.radius + 5"
+                        :r="circleSize.radius"
+                    />
                 </mask>
                 <image
                     href="@/assets/portrait.jpg"
                     mask="url(#portrait_mask)"
-                    width="420"
-                    x="-30"
-                    y="-80"
+                    :width="circleSize.diameter"
                 />
-                <circle id="portrait_border" stroke="#FFFFFF" stroke-width="12" cx="150.5" cy="150" r="144"/>
+                <circle
+                    id="portrait_border"
+                    stroke="#FFFFFF"
+                    stroke-width="12"
+                    :cx="circleSize.radius + 5"
+                    :cy="circleSize.radius + 5"
+                    :r="circleSize.radius"
+                />
             </g>
         </g>
 </svg>
@@ -64,6 +76,11 @@ import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 
+interface CircleSizeInterface {
+    radius: number;
+    diameter: number;
+}
+
 @Component({
     components: {
         AnimationPath,
@@ -71,14 +88,12 @@ import Path from '@/classes/Path';
 })
 export default class HereNowGraphic extends GraphicMixin {
     titleElementWidth:number;
-    outroPathsCount:number
 
     constructor() {
         super();
-        this.outroPathsCount = 8;
         this.graphicLayout = {
             endOfLineCircle: new Point({ x: 50, y: this.end.y - 4 }),
-            text: new Point({ x: 0, y: 54 }),
+            text: new Point({ x: 0, y: this.end.y - 4 }),
         };
         this.timeline = [
             { key: 'introTimeline', start: 0, end: 0.3 },
@@ -87,6 +102,9 @@ export default class HereNowGraphic extends GraphicMixin {
         this.titleElementWidth = 600;
     }
 
+    get outroPathsCount():number {
+        return this.windowWidth < 1000 ? 4 : 8;
+    }
     get introTimelinePath():string {
         const endX:number = this.end.x;
         const path = new Path({
@@ -101,6 +119,15 @@ export default class HereNowGraphic extends GraphicMixin {
         const { windowWidth, windowHeight } = this;
         return new SVGSmoothPath({ path, windowWidth, windowHeight }).SVGStringPath;
     }
+    get circleSize():CircleSizeInterface {
+        const radius = this.windowWidth < 1000 ? 100 : 144;
+        const diameter = radius * 2;
+
+        return {
+            radius,
+            diameter,
+        };
+    }
     get outroPaths():Array<string> {
         const outroPathsCount = this.outroPathsCount + 1;
         const distance = 100;
@@ -113,9 +140,9 @@ export default class HereNowGraphic extends GraphicMixin {
             const endX:number = spacing * index;
             const path = new Path({
                 points: [
-                    new Point({ x: this.start.x, y: this.end.y + 20 }),
-                    new Point({ x: this.start.x, y: this.end.y + 21 }),
-                    new Point({ x: 50, y: this.end.y }),
+                    new Point({ x: this.start.x, y: this.end.y + 0 }),
+                    new Point({ x: this.start.x, y: this.end.y + 1 }),
+                    new Point({ x: 50, y: this.end.y + 4 }),
                     new Point({ x: endX, y: 100 - 1 }),
                     new Point({ x: endX, y: 100 }),
                 ],
@@ -155,6 +182,7 @@ export default class HereNowGraphic extends GraphicMixin {
         display: inline-block
         margin-top: 16px
         color: main.$white
+        text-align: center
         @media (max-width: 1068px)
             font-size: 70px
         @media (max-width: 620px)

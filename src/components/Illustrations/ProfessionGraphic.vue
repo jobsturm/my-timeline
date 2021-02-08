@@ -15,7 +15,7 @@
                 class="profession_graphic__text"
             >
                 <h2 ref="title" class="profession_graphic__title" xmlns="http://www.w3.org/1999/xhtml">
-                    So I made it my profession!
+                    And I made it my profession!
                 </h2>
                 <main class="profession_graphic__main">
                     <p>
@@ -230,6 +230,7 @@ export default class ProfessionGraphic extends GraphicMixin {
         margin-top: 16px
         color: main.$white
         text-shadow: 4px 4px 0px #3A5F6B
+        max-width: 100vw
         @media (max-width: 1068px)
             font-size: 70px
         @media (max-width: 620px)
