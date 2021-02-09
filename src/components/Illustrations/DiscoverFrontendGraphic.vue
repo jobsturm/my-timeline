@@ -145,7 +145,6 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
         @extend %body1_style
         color: main.$white
         font-size: max(min(1.5em, 8vw), 12px)
-        // font-size: 1.5em
         line-height: 1.5em
         margin-top: max(min(10px, 11vw), 16px)
         width: 100%

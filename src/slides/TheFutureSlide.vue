@@ -1,5 +1,5 @@
 <template>
-    <Slide class="slide" ref="slide" :background="colors.$marine_dark">
+    <Slide class="slide" ref="slide" :background="backgroundColor">
         <div class="slide__centerer">
             <main class="slide__content">
                 <h1 class="slide__title">Job's looking for a job!</h1>
@@ -12,19 +12,33 @@
                     at how I work and build projects, you can check out the repository on Github.
                 </p>
                 <a
-                    class="slide__button"
+                    class="slide_button"
                     target="_blank"
                     title="Job Sturm's LinkedIn Page"
                     role="button"
                     href="https://www.linkedin.com/in/job-sturm/"
-                >My LinkedIn</a>
+                >
+                    <img
+                        class="slide_button__logo"
+                        alt="LinkedIn logo"
+                        src="@/assets/logos/linkedin-brands.svg"
+                    />
+                    My LinkedIn
+                </a>
                 <a
-                    class="slide__button"
+                    class="slide_button"
                     target="_blank"
                     title="Job Sturm's Portfolio's repository"
                     role="button"
                     href="https://github.com/jobsturm/portfolio-2020/"
-                >The repo</a>
+                >
+                    <img
+                        class="slide_button__logo"
+                        alt="Github's logo"
+                        src="@/assets/logos/github-brands.svg"
+                    />
+                    The repo
+                </a>
             </main>
         </div>
         <TheFutureGraphic
@@ -43,6 +57,7 @@ import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import TheFutureGraphic from '@/components/Illustrations/TheFutureGraphic.vue';
+import Color from 'color';
 
 @Component({
     components: {
@@ -56,6 +71,9 @@ export default class TheFutureSlide extends SlideMixin {
     constructor() {
         super();
         this.end = new Point({ x: 50, y: 100 });
+        this.timeline = [
+            { key: 'background', start: 0, end: 1 },
+        ];
     }
 
     get previousSlide():Slide|null {
@@ -70,6 +88,12 @@ export default class TheFutureSlide extends SlideMixin {
             start: this.lineStartPosition,
             end: this.end,
         });
+    }
+    get backgroundColor(): string {
+        const startColor = Color(this.colors.$marine_dark);
+        const endColor = Color(this.colors.$marine_light);
+        const color = startColor.mix(endColor, this.as.background);
+        return color;
     }
 
     mounted():void {
@@ -114,12 +138,24 @@ export default class TheFutureSlide extends SlideMixin {
     .slide__message
         @extend %body1_style
         color: main.$white
-    .slide__button
+        margin-bottom: 16px
+    .slide_button
         @extend %body1_style
-        display: inline-block
+        transition: all 100ms
+        display: inline-flex
+        align-items: center
         padding: 16px
-        border: 1px solid main.$white
+        border-radius: 4px
+        border: 1px solid lighten(main.$primary, 8)
         color: main.$white
         text-decoration: none
+        background: main.$primary
         margin: $button_spacing $button_spacing 0px 0px
+        &:hover
+            transition: all 170ms
+            border: 1px solid main.$white
+    .slide_button__logo
+        height: 24px
+        margin: 0px 12px 0px 0px
+        padding: 0px
 </style>

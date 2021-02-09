@@ -1,5 +1,5 @@
 <template>
-    <Slide class="slide" ref="slide" :background="colors.$marine_dark">
+    <Slide class="slide" ref="slide" :background="backgroundColor">
         <HereNowGraphic
             class="illustration"
             :animationPercentage="entered"
@@ -16,6 +16,8 @@ import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import HereNowGraphic from '@/components/Illustrations/HereNowGraphic.vue';
+import animationStep from '@/helpers/animationStep';
+import Color from 'color';
 
 @Component({
     components: {
@@ -44,6 +46,18 @@ export default class HereNowSlide extends SlideMixin {
             end: this.end,
         });
     }
+    get backgroundColor(): string {
+        const percentage = animationStep({
+            parentPercentage: this.exited,
+            start: 0,
+            end: 1,
+        });
+        const startColor = Color(this.colors.$marine_dark);
+        const endColor = Color(this.colors.$marine_light);
+        const color = startColor.mix(endColor, percentage);
+        return color;
+    }
+
 
     mounted():void {
         this.registerSlide(

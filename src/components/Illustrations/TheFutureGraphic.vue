@@ -10,15 +10,17 @@
             fill="none"
             stroke-linecap="round"
         />
-        <circle
-            v-for="(endPoint, index) in endPoints"
-            :key="`the_future_graphic__end_circle_${index}`"
-            :id="`the_future_graphic__end_circle_${index}`"
-            fill="white"
-            :cx="windowWidth / 100 * endPoint.x"
-            :cy="windowHeight / 100 * endPoint.y"
-            :r="20 * as.circleIntro"
-        />
+        <g id="the_future_graphic__circles" v-if="windowWidth > 768">
+            <circle
+                v-for="(endPoint, index) in endPoints"
+                :key="`the_future_graphic__end_circle_${index}`"
+                :id="`the_future_graphic__end_circle_${index}`"
+                fill="white"
+                :cx="windowWidth / 100 * endPoint.x"
+                :cy="windowHeight / 100 * endPoint.y"
+                :r="20 * as.circleIntro"
+            />
+        </g>
     </svg>
 </template>
 
