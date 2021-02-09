@@ -60,7 +60,7 @@ export default class TheFutureGraphic extends GraphicMixin {
         const timelineCount = this.timelineCount + 1;
         const spacing = 100 / timelineCount;
         const outroPaths:Array<SVGSmoothPath> = [];
-        const endPointYs = [15, 25, 22, 10, 35, 25, 15, 30];
+        const endPointYs = [15, 25, 22, 10, 28, 25, 15, 30];
 
         for (let index = 1; index < timelineCount; index += 1) {
             // const element = array[index];

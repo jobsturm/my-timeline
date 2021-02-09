@@ -9,10 +9,22 @@
                     should contain a partnership,
                     feel free to send me a message on LinkedIn!
                     Furthermore, this project is open source, so if you want to look
-                    at how I work and build projects, you shoud check out the GitHub repo.
+                    at how I work and build projects, you can check out the repository on Github.
                 </p>
-                <a title="Job Sturm's LinkedIn Page" role="button" href="https://www.linkedin.com/in/job-sturm/">My LinkedIn</a>
-                <a title="Job Sturm's Portfolio's repository" role="button" href="https://github.com/jobsturm/portfolio-2020/">The repo</a>
+                <a
+                    class="slide__button"
+                    target="_blank"
+                    title="Job Sturm's LinkedIn Page"
+                    role="button"
+                    href="https://www.linkedin.com/in/job-sturm/"
+                >My LinkedIn</a>
+                <a
+                    class="slide__button"
+                    target="_blank"
+                    title="Job Sturm's Portfolio's repository"
+                    role="button"
+                    href="https://github.com/jobsturm/portfolio-2020/"
+                >The repo</a>
             </main>
         </div>
         <TheFutureGraphic
@@ -73,13 +85,13 @@ export default class TheFutureSlide extends SlideMixin {
 
 <style lang="sass" scoped>
     @use '@/styles/main'
+    $button_spacing: 12px
 
     .slide
         width: 100vw
         @include main.viewportHeight(100, 0)
         background: main.$black
         position: relative
-
     .slide__illustration,
     .slide__centerer
         position: absolute
@@ -92,11 +104,9 @@ export default class TheFutureSlide extends SlideMixin {
         display: flex
         justify-content: center
         align-items: center
-
     .slide__content
         max-width: 600px
         padding: 8px
-
     .slide__title
         @extend %headline3_style
         color: main.$white
@@ -104,4 +114,12 @@ export default class TheFutureSlide extends SlideMixin {
     .slide__message
         @extend %body1_style
         color: main.$white
+    .slide__button
+        @extend %body1_style
+        display: inline-block
+        padding: 16px
+        border: 1px solid main.$white
+        color: main.$white
+        text-decoration: none
+        margin: $button_spacing $button_spacing 0px 0px
 </style>
