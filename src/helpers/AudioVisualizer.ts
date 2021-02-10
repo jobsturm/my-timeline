@@ -9,6 +9,7 @@ export default class AudioVisualiser {
     dataArray:Uint8Array;
     isSetup:boolean;
     isPlaying:boolean;
+    autoplayAllowed:boolean;
     onStep:CallableFunction;
     volume:number;
 
@@ -16,6 +17,7 @@ export default class AudioVisualiser {
         this.mp3Path = mp3Path;
         this.isSetup = false;
         this.isPlaying = false;
+        this.autoplayAllowed = false;
         this.volume = volume;
         if (onStep) this.onStep = onStep;
     }
@@ -59,8 +61,12 @@ export default class AudioVisualiser {
     }
     public play():void {
         this.setup();
-        this.audio.play();
-        this.step();
+        this.audio.play().then(() => {
+            this.autoplayAllowed = true;
+            this.step();
+        }).catch(() => {
+            this.autoplayAllowed = false;
+        });
     }
     public pause():void {
         this.audio.pause();
