@@ -35,12 +35,13 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import GraphicMixin from '@/mixins/GraphicMixin';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
+import minMax from '@/helpers/minMax';
 
 @Component({
     components: {
@@ -48,8 +49,6 @@ import Path from '@/classes/Path';
     },
 })
 export default class DiscoverFrontendGraphic extends GraphicMixin {
-    titleElementWidth: number;
-
     constructor() {
         super();
         this.graphicLayout = {
@@ -57,12 +56,12 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
                 desktop: new Point({ x: 24, y: 32 }),
                 mobile: new Point({ x: 4, y: 40 }),
             },
+            textEndPoint: new Point({ x: this.end.x, y: this.end.y }),
         };
         this.timeline = [
             { key: 'timeline', start: 0, end: 1 },
             { key: 'strokeWidening', start: 0.6, end: 0.8 },
         ];
-        this.titleElementWidth = 600;
     }
 
     get relativeLineWidth():number {
@@ -73,14 +72,13 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
         return baseStrokeWidth + (16 * this.as.strokeWidening);
     }
     get timelinePath():string {
-        const endX:number = this.end.x;
         let path = new Path({
             points: [
                 new Point({ x: this.start.x, y: -1 }),
                 new Point({ x: this.start.x, y: 0 }),
                 new Point({ x: 50, y: 20 }),
-                new Point({ x: endX, y: this.end.y - 1 }),
-                new Point({ x: endX, y: this.end.y }),
+                new Point({ x: this.end.x, y: this.end.y - 1 }),
+                new Point({ x: this.end.x, y: this.end.y }),
             ],
         });
         if (this.windowWidth < 969) {
@@ -90,25 +88,19 @@ export default class DiscoverFrontendGraphic extends GraphicMixin {
                     new Point({ x: this.start.x, y: 0 }),
                     new Point({ x: 50, y: 20 }),
                     new Point({ x: 50, y: 20 }),
-                    new Point({ x: endX, y: this.end.y - 1 }),
-                    new Point({ x: endX, y: this.end.y }),
+                    new Point({ x: this.end.x, y: this.end.y - 1 }),
+                    new Point({ x: this.end.x, y: this.end.y }),
                 ],
             });
         }
         const { windowWidth, windowHeight } = this;
         return new SVGSmoothPath({ path, windowWidth, windowHeight }).SVGStringPath;
     }
-
-    getTitleElementWidth():number {
-        const titleElement = this.$refs.title as HTMLElement;
-        return titleElement.offsetWidth;
-    }
-    @Watch('windowWidth')
-    setTitleElementWidth():void {
-        this.titleElementWidth = this.getTitleElementWidth();
-    }
-    mounted():void {
-        this.setTitleElementWidth();
+    get titleElementWidth():number {
+        const maxWidth = 700;
+        const padding = 16;
+        const width = this.coords.textEndPoint.x - this.coords.text.x - padding;
+        return minMax({ number: width, min: 0, max: maxWidth });
     }
 }
 </script>

@@ -202,7 +202,7 @@ export default class HereNowGraphic extends GraphicMixin {
         width: 100vw
         max-width: 600px
         @include main.viewportHeight(100, 0)
-        position: absolute
+        position: relative
         z-index: 10
         left: 50%
         transform: translateX(-50%)

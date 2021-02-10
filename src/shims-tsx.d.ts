@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import Vue, { VNode } from 'vue';
 
 declare global {

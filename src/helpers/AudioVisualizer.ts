@@ -28,6 +28,7 @@ export default class AudioVisualiser {
         this.audio.load();
         this.audio.addEventListener('play', () => { this.setPlaying(); });
         this.audio.addEventListener('pause', () => { this.setPause(); });
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
         this.audioContext = new AudioContext();
         this.source = this.audioContext.createMediaElementSource(this.audio);
 

@@ -20,6 +20,7 @@
                 >
                     <img
                         class="slide_button__logo"
+                        aria-hidden
                         alt="LinkedIn logo"
                         src="@/assets/logos/linkedin-brands.svg"
                     />
@@ -34,6 +35,7 @@
                 >
                     <img
                         class="slide_button__logo"
+                        aria-hidden
                         alt="Github's logo"
                         src="@/assets/logos/github-brands.svg"
                     />
@@ -150,6 +152,7 @@ export default class TheFutureSlide extends SlideMixin {
         color: main.$white
         text-decoration: none
         background: main.$primary
+        white-space: nowrap
         margin: $button_spacing $button_spacing 0px 0px
         &:hover
             transition: all 170ms

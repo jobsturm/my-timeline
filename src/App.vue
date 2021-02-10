@@ -32,12 +32,6 @@ import WorkSlide from './slides/WorkSlide.vue';
 import HereNowSlide from './slides/HereNowSlide.vue';
 import TheFutureSlide from './slides/TheFutureSlide.vue';
 
-// This is browser specific and thus default Window interface doesn't support it.
-interface Window {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    visualViewport?: any;
-}
-
 @Component({
     components: {
         IntroSlide,
@@ -63,8 +57,7 @@ export default class App extends Vue {
     @Watch('windowSizeSum')
     setViewportHeightCSSVar():void {
         let { windowHeight } = this;
-        const windowEl = window as Window;
-        if (windowEl.visualViewport) windowHeight = windowEl.visualViewport.height;
+        if (window.visualViewport) windowHeight = window.visualViewport.height;
         const vh = windowHeight * 0.01;
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
