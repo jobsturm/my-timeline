@@ -29,7 +29,7 @@
         <g id="Portals" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g id="Portal-Orange" transform="translate(-3.000000, 14.000000)">
                 <g id="Portal" transform="translate(43.000000, 0.000000)">
-                    <g id="graphical_portal" :style="portalStyle" :transform="portalTransform">
+                    <g id="graphical_portal" :style="portalStyle">
                         <g transform="translate(0.000000, 26.000000)">
                             <mask id="mask-3" fill="white">
                                 <use xlink:href="#portal_path-1"></use>
