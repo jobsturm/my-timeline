@@ -19,8 +19,8 @@
             height="200"
             :style="textStyle"
         >
-            <div id="mv_text" xmlns="http://www.w3.org/1999/xhtml">
-                and visualizing it!
+            <div id="av_text" xmlns="http://www.w3.org/1999/xhtml">
+                And visualizing it!
             </div>
         </foreignObject>
     </svg>
@@ -46,7 +46,10 @@ export default class AudioVisualization extends GraphicMixin {
     @Prop({ required: true }) readonly exited: number
 
     graphicLayout = {
-        textCoords: new Point({ x: 0, y: 38 }),
+        textCoords: {
+            desktop: new Point({ x: 0, y: 38 }),
+            mobile: new Point({ x: -3, y: 50 }),
+        },
     }
     timeline = [
         { key: 'textIntro', start: 0.5, end: 0.8 },
@@ -59,13 +62,19 @@ export default class AudioVisualization extends GraphicMixin {
     get textCoords():GraphicLocation {
         return this.coords.textCoords;
     }
+    get baseCurveSize():number {
+        return (this.windowWidth < 768) ? 62 : 58;
+    }
+    get curveSize():number {
+        return (this.windowWidth < 768) ? 5 : 10;
+    }
     get pathOne():string {
         let audioPercentage = (this.audioDataArray[36] || 0) / 180;
         if (audioPercentage < 0) audioPercentage = 0;
-        const topOffset = 10 * audioPercentage;
+        const topOffset = this.curveSize * audioPercentage;
         const baseCurve = [
             new Point({ x: 70, y: 62 }),
-            new Point({ x: 62, y: 58 - topOffset }),
+            new Point({ x: 62, y: this.baseCurveSize - topOffset }),
             new Point({ x: 54, y: 62 }),
         ];
         return this.getTimelinePath(0, baseCurve);
@@ -74,10 +83,10 @@ export default class AudioVisualization extends GraphicMixin {
         //  Range of audio bar 44 is 0 - 180
         let audioPercentage = (this.audioDataArray[39] || 0) / 180;
         if (audioPercentage < 0) audioPercentage = 0;
-        const topOffset = 10 * audioPercentage;
+        const topOffset = this.curveSize * audioPercentage;
         const baseCurve = [
             new Point({ x: 62, y: 62 }),
-            new Point({ x: 54, y: 58 - topOffset }),
+            new Point({ x: 54, y: this.baseCurveSize - topOffset }),
             new Point({ x: 46, y: 62 }),
         ];
         return this.getTimelinePath(2, baseCurve);
@@ -85,10 +94,10 @@ export default class AudioVisualization extends GraphicMixin {
     get pathThree():string {
         let audioPercentage = (this.audioDataArray[44] || 0) / 180;
         if (audioPercentage < 0) audioPercentage = 0;
-        const topOffset = 10 * audioPercentage;
+        const topOffset = this.curveSize * audioPercentage;
         const baseCurve = [
             new Point({ x: 54, y: 62 }),
-            new Point({ x: 46, y: 58 - topOffset }),
+            new Point({ x: 46, y: this.baseCurveSize - topOffset }),
             new Point({ x: 38, y: 62 }),
         ];
         return this.getTimelinePath(4, baseCurve);
@@ -96,10 +105,10 @@ export default class AudioVisualization extends GraphicMixin {
     get pathFour():string {
         let audioPercentage = (this.audioDataArray[48] || 0) / 180;
         if (audioPercentage < 0) audioPercentage = 0;
-        const topOffset = 10 * audioPercentage;
+        const topOffset = this.curveSize * audioPercentage;
         const baseCurve = [
             new Point({ x: 46, y: 62 }),
-            new Point({ x: 38, y: 58 - topOffset }),
+            new Point({ x: 38, y: this.baseCurveSize - topOffset }),
             new Point({ x: 30, y: 62 }),
         ];
         return this.getTimelinePath(6, baseCurve);
@@ -107,10 +116,10 @@ export default class AudioVisualization extends GraphicMixin {
     get pathFive():string {
         let audioPercentage = (this.audioDataArray[55] || 0) / 180;
         if (audioPercentage < 0) audioPercentage = 0;
-        const topOffset = 10 * audioPercentage;
+        const topOffset = this.curveSize * audioPercentage;
         const baseCurve = [
             new Point({ x: 38, y: 62 }),
-            new Point({ x: 30, y: 58 - topOffset }),
+            new Point({ x: 30, y: this.baseCurveSize - topOffset }),
             new Point({ x: 22, y: 62 }),
         ];
         return this.getTimelinePath(8, baseCurve);
@@ -170,7 +179,7 @@ export default class AudioVisualization extends GraphicMixin {
         @include main.viewportHeight(100, 0)
         position: relative
         z-index: 2
-    #mv_text
+    #av_text
         @extend %headline3_style
         position: relative
         text-align: center
@@ -179,4 +188,6 @@ export default class AudioVisualization extends GraphicMixin {
         padding: 0 40px
         font-size: 40px
         text-shadow: 4px 4px 8px main.$primary
+        @media (max-width: 620px)
+            font-size: max(min(2em, 5vw), 24px)
 </style>
