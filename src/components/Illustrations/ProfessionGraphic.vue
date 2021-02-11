@@ -10,7 +10,6 @@
                 :x="coords.text.x"
                 :y="coords.text.y"
                 :style="{ opacity: as.textOpacity }"
-                :width="titleElementWidth"
                 height="500"
                 class="profession_graphic__text"
             >
@@ -83,7 +82,7 @@
 </template>
 
 <script lang="ts">
-import { Component, Watch } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import GraphicMixin from '@/mixins/GraphicMixin';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
@@ -188,18 +187,6 @@ export default class ProfessionGraphic extends GraphicMixin {
         const { windowWidth, windowHeight } = this;
         return new SVGSmoothPath({ path, windowWidth, windowHeight }).SVGStringPath;
     }
-
-    getTitleElementWidth():number {
-        const titleElement = this.$refs.title as HTMLElement;
-        return titleElement.offsetWidth;
-    }
-    @Watch('windowWidth')
-    setTitleElementWidth():void {
-        this.titleElementWidth = this.getTitleElementWidth();
-    }
-    mounted():void {
-        this.setTitleElementWidth();
-    }
 }
 </script>
 
@@ -246,7 +233,13 @@ export default class ProfessionGraphic extends GraphicMixin {
         width: 100%
         text-shadow: 2px 2px 0px #3A5F6B
         @media (max-width: 620px)
-        max-width: 95vw
+            font-size: max(min(1.3em, 5vw), 12px)
+    .profession_graphic__text
+        width: 600px
+        @media (max-width: 620px)
+            padding: 0 12px
+            width: 92vw
+            font-size: max(min(1.3em, 5vw), 12px)
     .profession_graphic__text_layer
         width: 100vw
         @include main.viewportHeight(100, 0)
