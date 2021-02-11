@@ -187,7 +187,7 @@ export default class HereNowGraphic extends GraphicMixin {
             font-size: 70px
         @media (max-width: 620px)
             font-size: min(70px, 11vw)
-            margin-top: min(10px, 11vw)
+            margin-top: min(24px, 11vw)
     .here_now_graphic__main
         @extend %body1_style
         color: main.$white
@@ -197,7 +197,9 @@ export default class HereNowGraphic extends GraphicMixin {
         width: 100%
         text-align: inherit
         @media (max-width: 620px)
-            max-width: 95vw
+            max-width: calc(100vw - 24px)
+            padding: 0 12px
+            font-size: max(min(1.3em, 5vw), 12px)
     .here_now_graphic__text
         width: 100vw
         max-width: 600px
