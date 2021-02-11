@@ -137,6 +137,8 @@ export default class TheFutureSlide extends SlideMixin {
         @extend %headline3_style
         color: main.$white
         margin-bottom: 16px
+        @media (max-width: 368px)
+            font-size: min(70px, 11vw)
     .slide__message
         @extend %body1_style
         color: main.$white
@@ -157,8 +159,12 @@ export default class TheFutureSlide extends SlideMixin {
         &:hover
             transition: all 170ms
             border: 1px solid main.$white
+        @media (max-width: 368px)
+            font-size: 14px
     .slide_button__logo
         height: 24px
         margin: 0px 12px 0px 0px
         padding: 0px
+        @media (max-width: 368px)
+            height: 18px
 </style>

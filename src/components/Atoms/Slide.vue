@@ -28,4 +28,5 @@ export default class Slide extends Vue {
         width: 100vw
         @include main.viewportHeight(100, 0)
         position: relative
+        overflow: hidden
 </style>
