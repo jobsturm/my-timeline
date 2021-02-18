@@ -5,6 +5,15 @@ import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import drawPercentageListGenerator from '@/helpers/drawPercentageListGenerator';
 import GraphicLocation from '@/classes/GraphicLocation';
 
+interface ResponsivePointsInterface {
+    desktop: Point,
+    mobile: Point,
+}
+
+// interface GraphicLayoutInterface {
+//     [propName: string]: ResponsivePointsInterface | Point,
+// }
+
 @Component({
     components: {
         AnimationPath,
@@ -17,7 +26,7 @@ export default class GraphicMixin extends Vue {
     @Prop({ default: () => new Point({ x: 0, y: 100 }) }) readonly end: Point
 
     isMounted = false;
-    graphicLayout = {};
+    graphicLayout:Record<string, Point | ResponsivePointsInterface> = {};
     timeline: { key: string; start: number; end: number }[];
 
     get windowSizeSum(): number {

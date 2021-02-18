@@ -7,32 +7,6 @@
             :kickIsActive="kickIsActive"
             :hiHatIsActive="hiHatIsActive"
         />
-        <!-- <div class="debug">
-            <button @click="audioVisualizer.play()">Play</button>
-            <button @click="audioVisualizer.pause()">Pause</button>
-            <h1 class="headline01">
-                {{ this.audioDataArray[39] }}
-            </h1>
-            <h1 class="headline01">
-                active:
-                <span v-if="kickIsActive">KICK</span>
-                <span v-if="hiHatIsActive">HI-HAT</span>
-            </h1>
-            <input v-model="testFreq"/>
-            <div class="audio_bars">
-                <div
-                    v-for="(audioBar, index) in audioDataArray"
-                    :key="`audio_visualizer_bar_${index}`"
-                    :style="{
-                        height: `${audioBar}px`,
-                        background: color,
-                    }"
-                    class="audio_bar"
-                >
-                    {{ index }} - {{ audioBar }}
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>
 
