@@ -8,6 +8,22 @@
             <AnimationPath :drawPercentage="as.timeline" :d="getTimeLinePath(1)" class="dd_intro_general_path" id="dd_intro_general_path-2" stroke="#FFB900" stroke-width="16" fill="none"/>
             <AnimationPath :drawPercentage="as.timeline" :d="getTimeLinePath(0)" class="dd_intro_general_path" id="dd_intro_general_path-1" stroke="#5EBD3E" stroke-width="16" fill="none"/>
         </g>
+        <g :transform="coords.portalInCoords.transform">
+            <SVGPortal
+                transform="translate(-160, -130)"
+                :openPercentage="as.portalIntro"
+                :blue="true"
+            >
+                <g transform="translate(28, 0)">
+                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(0)" class="dd_intro_portal_path" id="dd_intro_portal_path-6" stroke="#009CDF" stroke-width="16" fill="none"/>
+                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(1)" class="dd_intro_portal_path" id="dd_intro_portal_path-5" stroke="#973999" stroke-width="16" fill="none"/>
+                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(2)" class="dd_intro_portal_path" id="dd_intro_portal_path-4" stroke="#E23838" stroke-width="16" fill="none"/>
+                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(3)" class="dd_intro_portal_path" id="dd_intro_portal_path-3" stroke="#F78200" stroke-width="16" fill="none"/>
+                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(4)" class="dd_intro_portal_path" id="dd_intro_portal_path-2" stroke="#FFB900" stroke-width="16" fill="none"/>
+                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(5)" class="dd_intro_portal_path" id="dd_intro_portal_path-1" stroke="#5EBD3E" stroke-width="16" fill="none"/>
+                </g>
+            </SVGPortal>
+        </g>
         <g id="text_group" :transform="coords.introTextCoords.transform">
             <text
                 :style="getTextIntroStyle('textLine1')"
@@ -27,22 +43,6 @@
             >
                 opened up
             </text>
-        </g>
-        <g :transform="coords.portalInCoords.transform">
-            <SVGPortal
-                transform="translate(-160, -130)"
-                :openPercentage="as.portalIntro"
-                :blue="true"
-            >
-                <g transform="translate(28, 0)">
-                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(0)" class="dd_intro_portal_path" id="dd_intro_portal_path-6" stroke="#009CDF" stroke-width="16" fill="none"/>
-                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(1)" class="dd_intro_portal_path" id="dd_intro_portal_path-5" stroke="#973999" stroke-width="16" fill="none"/>
-                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(2)" class="dd_intro_portal_path" id="dd_intro_portal_path-4" stroke="#E23838" stroke-width="16" fill="none"/>
-                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(3)" class="dd_intro_portal_path" id="dd_intro_portal_path-3" stroke="#F78200" stroke-width="16" fill="none"/>
-                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(4)" class="dd_intro_portal_path" id="dd_intro_portal_path-2" stroke="#FFB900" stroke-width="16" fill="none"/>
-                    <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(5)" class="dd_intro_portal_path" id="dd_intro_portal_path-1" stroke="#5EBD3E" stroke-width="16" fill="none"/>
-                </g>
-            </SVGPortal>
         </g>
     </svg>
 </template>

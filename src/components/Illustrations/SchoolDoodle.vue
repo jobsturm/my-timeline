@@ -1,7 +1,7 @@
 <template>
     <svg class="school_doodle" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g
-            id="SchoolDoodle"
+            id="school_doodle"
             stroke="none"
             stroke-width="1"
             fill="none"
@@ -40,6 +40,18 @@
                     <AnimationPath :drawPercentage="as.tree2" id="tree_outline" d="M32,195 L35.8118229,163.091785 L41.6757143,108.106017 C31.7135455,110.836216 26.3991278,107.894682 25.7324611,99.2814139 C25.4956551,99.0217291 7.1726731,97.9690903 11.1580153,82.3592775 C0.0356106881,78.0502584 -2.3503944,70.7351967 4,60.4140924 C-2,51.4713641 -1,44.3333333 7,39 C4.33333333,27.6666667 9,20.6666667 21,18 C23,6 30,2.33333333 42,7 C52,-1.66666667 61,-1.66666667 69,7 C80.3333333,4.33333333 87,8 89,18 C100.333333,20 105.333333,27 104,39 C113.333333,49.6666667 114.333333,59.6666667 107,69 C109,81 104.666667,88.6666667 94,92 C88,102.666667 80,107.333333 70,106 L83,195" stroke-width="8" stroke-linejoin="round"/>
                 </g>
             </g>
+            <foreignObject
+                :x="coords.text.x + 16"
+                :y="coords.text.y + 8"
+                :width="textWidth"
+                height="300"
+                :style="{ opacity: as.text }"
+            >
+                <p class="school_doodle__text">
+                    I was always a really creative kid, to the detriment of my poor notebooks,
+                    which luckily didn't have to suffer for long.
+                </p>
+            </foreignObject>
         </g>
         <AnimationPath :drawPercentage="as.timeline" :d="timelinePath" id="general_path" stroke="#056CF2" stroke-width="16" fill="none"/>
     </svg>
@@ -63,8 +75,13 @@ export default class SchoolDoodle extends GraphicMixin {
         house: new Point({ x: 35, y: 60 }),
         tree: new Point({ x: 55, y: 60 }),
         copybook: new Point({ x: 35, y: 60 }),
+        text: {
+            mobile: new Point({ x: 20, y: 60 }),
+            desktop: new Point({ x: 33, y: 60 }),
+        },
     }
     timeline = [
+        { key: 'text', start: 0.5, end: 0.9 },
         { key: 'redCopybookLine', start: 0, end: 1 },
         { key: 'noteLine1', start: 0.42, end: 0.88 },
         { key: 'noteLine2', start: 0.42, end: 0.86 },
@@ -86,38 +103,14 @@ export default class SchoolDoodle extends GraphicMixin {
     get timelinePath():string {
         const path = new Path({
             points: [
-                this.getPercentageFromPixelPoint({
-                    x: this.start.x,
-                    y: -1,
-                }),
-                this.getPercentageFromPixelPoint({
-                    x: this.start.x,
-                    y: 0,
-                }),
-                new Point({
-                    x: 10,
-                    y: 40,
-                }),
-                new Point({
-                    x: 10,
-                    y: 41,
-                }),
-                new Point({
-                    x: 30,
-                    y: 60,
-                }),
-                new Point({
-                    x: 60,
-                    y: 60,
-                }),
-                new Point({
-                    x: this.end.x,
-                    y: 100,
-                }),
-                new Point({
-                    x: this.end.x,
-                    y: 101,
-                }),
+                this.getPercentageFromPixelPoint({ x: this.start.x, y: -1 }),
+                this.getPercentageFromPixelPoint({ x: this.start.x, y: 0 }),
+                new Point({ x: 10, y: 40 }),
+                new Point({ x: 10, y: 41 }),
+                new Point({ x: 30, y: 60 }),
+                new Point({ x: 60, y: 60 }),
+                new Point({ x: this.end.x, y: 100 }),
+                new Point({ x: this.end.x, y: 101 }),
             ],
         });
         const SVGPath = new SVGSmoothPath({
@@ -126,6 +119,17 @@ export default class SchoolDoodle extends GraphicMixin {
             windowHeight: this.windowHeight,
         }).SVGStringPath;
         return SVGPath;
+    }
+    get textWidth():number {
+        let start = this.getPixelFromPercentagePoint(new Point({ x: 10, y: 40 }));
+        let end = this.getPixelFromPercentagePoint(new Point({ x: 45, y: 60 }));
+        if (this.windowWidth < 768) {
+            end = this.getPixelFromPercentagePoint(new Point({ x: 55, y: 60 }));
+        }
+        if (this.windowWidth < 550) {
+            start = this.getPixelFromPercentagePoint(new Point({ x: 4, y: 40 }));
+        }
+        return end.x - start.x;
     }
 }
 </script>
@@ -136,4 +140,9 @@ export default class SchoolDoodle extends GraphicMixin {
     .school_doodle
         width: 100vw
         @include main.viewportHeight(100, 0)
+    .school_doodle__text
+        line-height: 40px
+        font-size: max(min(1.5em, 2.5vw), 20px)
+        font-weight: 400
+        color: main.$grey_abbey
 </style>

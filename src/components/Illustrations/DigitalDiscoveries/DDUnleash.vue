@@ -1,6 +1,17 @@
 <template>
     <!-- eslint-disable max-len -->
     <svg class="dd_unleash">
+        <foreignObject
+            :x="coords.introTextCoords.x"
+            :y="coords.introTextCoords.y"
+            :width="0.96 * windowWidth"
+            height="200"
+        >
+            <div id="av_text" xmlns="http://www.w3.org/1999/xhtml">
+                One with games <br/>
+                and music!
+            </div>
+        </foreignObject>
         <g id="dd_unleash__text_group" :transform="coords.introTextCoords.transform">
             <text
                 :style="getTextIntroStyle('textLine1')"
@@ -158,4 +169,6 @@ export default class DDUnleash extends GraphicMixin {
         @extend %headline3_style
         fill: main.$white
         font-size: max(min(44px, 1vw), 32px)
+        @media (max-width: 450px)
+            font-size: max(min(1.5em, 6vw), 12px)
 </style>

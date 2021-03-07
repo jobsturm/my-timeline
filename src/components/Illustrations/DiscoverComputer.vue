@@ -36,7 +36,7 @@
                 :style="textStyle"
             >
                 <h2 ref="title" class="discover_computer__title">
-                    But then I discovered computers
+                    Because I discovered computers!
                 </h2>
             </foreignObject>
         </svg>
