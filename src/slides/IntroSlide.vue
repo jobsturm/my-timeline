@@ -18,11 +18,24 @@
         <div class="header__background_graphic">
             <div class="timeline_bar" ref="timeline"/>
         </div>
+        <div class="header__audio_consent_prompt">
+            <label for="audio_allow_checkbox">Allow audio to be played later on?</label>
+            <input
+                id="audio_allow_checkbox"
+                :checked="audioPermission"
+                @input="setAudioPermission(!audioPermission)"
+                type="checkbox"
+            />
+        </div>
     </Slide>
 </template>
 
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator';
+import {
+    State,
+    Mutation,
+} from 'vuex-class';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import Point from '@/classes/Point';
@@ -30,8 +43,14 @@ import SlideMixin from '@/mixins/SlideMixin';
 
 @Component
 export default class IntroSlide extends SlideMixin {
-    animationState = 'start';
+    @State('audioPermission') audioPermission: boolean;
+    @Mutation('setAudioPermission') readonly setAudioPermission: CallableFunction;
+    animationState:string;
 
+    constructor() {
+        super();
+        this.animationState = 'start';
+    }
     get animationClass():string {
         return `header--${this.animationState}`;
     }
@@ -164,6 +183,18 @@ export default class IntroSlide extends SlideMixin {
                 width: 60px
                 height: 60px
                 transform: translate(-50%, -55px)
+
+    .header__audio_consent_prompt
+        @extend %body1_style
+        display: inline-block;
+        position: absolute
+        height: 48px;
+        bottom: 20px
+        left: calc(50% - 200px)
+        @media (max-width: 768px)
+            left: calc(50% - 80px)
+        @media (max-width: 400px)
+            left: calc(50% - 48px)
 
     // Animations
     .header--timeline-slid-in,

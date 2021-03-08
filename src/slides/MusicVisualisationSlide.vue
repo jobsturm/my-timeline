@@ -19,8 +19,8 @@
             :end="end"
         />
         <!--
-            This exists because of the browser autoplay policies
-            There hasn't been interaction with the page before this point
+            This exists because of the browser autoplay policies -
+            there hasn't been interaction with the page before this point
         -->
         <button
             v-if="!audioVisualizer.autoplayAllowed"
@@ -40,6 +40,11 @@
 
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator';
+import {
+    State,
+    Mutation,
+} from 'vuex-class';
+
 import SlideMixin from '@/mixins/SlideMixin';
 import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
@@ -47,7 +52,6 @@ import Line from '@/classes/Line';
 import AudioAnimation from '@/components/Molecules/AudioAnimation.vue';
 import AudioVizualization from '@/components/Illustrations/AudioVisualization.vue';
 import easingFunctions from '@/helpers/easingFunctions';
-import Tune from '@/assets/sounds/android52 - ANDROID52 COLLECT - 09 The Story of the Girl That Fell from the Sky.mp3';
 import AudioVisualizer from '@/helpers/AudioVisualizer';
 import AudioControls from '@/components/Molecules/AudioControls.vue';
 
@@ -59,6 +63,8 @@ import AudioControls from '@/components/Molecules/AudioControls.vue';
     },
 })
 export default class MusicVisualisationSlide extends SlideMixin {
+    @State('audioPermission') audioPermission: boolean;
+    @Mutation('setAudioPermission') readonly setAudioPermission: CallableFunction;
     end:Point;
     playing:boolean;
     audioVisualizer:AudioVisualizer;
@@ -67,7 +73,7 @@ export default class MusicVisualisationSlide extends SlideMixin {
     constructor() {
         super();
         this.audioVisualizer = new AudioVisualizer(
-            Tune,
+            'assets/sounds/android52 - ANDROID52 COLLECT - 09 The Story of the Girl That Fell from the Sky.mp3',
             this.setAudioData,
             50,
         );
@@ -97,9 +103,13 @@ export default class MusicVisualisationSlide extends SlideMixin {
     public setAudioData(dataArray:Uint8Array):void {
         this.audioDataArray = dataArray.slice();
     }
+    public playButtonClickHandler():void {
+        this.setAudioPermission(true);
+        this.startPlaying();
+    }
     @Watch('startTresholdPassed')
     public startPlaying():void {
-        if (!this.startTresholdPassed) return;
+        if (!this.startTresholdPassed || !this.audioPermission) return;
         this.audioVisualizer.play();
     }
 

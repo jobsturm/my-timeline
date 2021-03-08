@@ -21,32 +21,39 @@ export default class AudioVisualiser {
         this.volume = volume;
         if (onStep) this.onStep = onStep;
     }
-    private setup():void {
+    private getAudio():Promise<Record<'default', string>> {
+        return import(/* webpackMode: "eager" */`@/${this.mp3Path}`);
+    }
+    private async setup():Promise<void> {
         if (this.isSetup) return;
-        this.isSetup = true;
-        this.audio = new Audio(this.mp3Path);
-        this.audio.load();
-        this.audio.addEventListener('play', () => { this.setPlaying(); });
-        this.audio.addEventListener('pause', () => { this.setPause(); });
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        this.audioContext = new AudioContext();
-        this.source = this.audioContext.createMediaElementSource(this.audio);
+        const audio = await this.getAudio();
+        return new Promise((resolve) => {
+            this.isSetup = true;
+            this.audio = new Audio(audio.default);
+            this.audio.load();
+            this.audio.addEventListener('play', () => { this.setPlaying(); });
+            this.audio.addEventListener('pause', () => { this.setPause(); });
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            this.audioContext = new AudioContext();
+            this.source = this.audioContext.createMediaElementSource(this.audio);
 
-        // Analyzer Node
-        this.analyser = this.audioContext.createAnalyser();
-        this.analyser.smoothingTimeConstant = 0.5;
+            // Analyzer Node
+            this.analyser = this.audioContext.createAnalyser();
+            this.analyser.smoothingTimeConstant = 0.5;
 
-        // Gain Node (for Volume)
-        this.gainNode = this.audioContext.createGain();
-        this.setVolume(this.volume);
+            // Gain Node (for Volume)
+            this.gainNode = this.audioContext.createGain();
+            this.setVolume(this.volume);
 
-        this.gainNode.connect(this.audioContext.destination);
-        this.analyser.connect(this.gainNode);
+            this.gainNode.connect(this.audioContext.destination);
+            this.analyser.connect(this.gainNode);
 
-        this.source.connect(this.analyser);
-        this.analyser.fftSize = 256;
-        this.bufferLength = this.analyser.frequencyBinCount;
-        this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+            this.source.connect(this.analyser);
+            this.analyser.fftSize = 256;
+            this.bufferLength = this.analyser.frequencyBinCount;
+            this.dataArray = new Uint8Array(this.analyser.frequencyBinCount);
+            resolve();
+        });
     }
     private setPlaying():void {
         this.isPlaying = true;
@@ -60,8 +67,8 @@ export default class AudioVisualiser {
         this.analyser.getByteFrequencyData(this.dataArray);
         if (this.onStep) this.onStep(this.dataArray);
     }
-    public play():void {
-        this.setup();
+    public async play():Promise<void> {
+        await this.setup();
         this.audio.play().then(() => {
             this.autoplayAllowed = true;
             this.step();

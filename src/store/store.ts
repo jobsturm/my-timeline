@@ -7,6 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         slides: new Array<Slide>(),
+        audioPermission: false,
     },
     mutations: {
         registerSlide(
@@ -23,6 +24,9 @@ export default new Vuex.Store({
                 arraySlide => arraySlide.index === slide.index,
             );
             Vue.set(state.slides, foundIndex, slide);
+        },
+        setAudioPermission(state, audioPermission:boolean):void {
+            state.audioPermission = audioPermission;
         },
     },
     actions: {
