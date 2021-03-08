@@ -186,7 +186,7 @@ export default class IntroSlide extends SlideMixin {
 
     .header__audio_consent_prompt
         @extend %body1_style
-        display: inline-block;
+        display: inline-block
         position: absolute
         height: 48px;
         bottom: 20px
