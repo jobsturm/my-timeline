@@ -188,7 +188,7 @@ export default class IntroSlide extends SlideMixin {
         @extend %body1_style
         display: inline-block
         position: absolute
-        height: 48px;
+        height: 48px
         bottom: 20px
         left: calc(50% - 200px)
         @media (max-width: 768px)
