@@ -70,8 +70,7 @@ export default class GraphicMixin extends Vue {
     }
     public getPercentageFromPixelPoint({ x, y }: Point): Point {
         return new Point({
-            // +8 because the line is always 16px wide.
-            x: ((Math.round(x) + 8) / this.windowWidth) * 100,
+            x: ((Math.round(x)) / this.windowWidth) * 100,
             y: ((Math.round(y)) / this.windowHeight) * 100,
         });
     }

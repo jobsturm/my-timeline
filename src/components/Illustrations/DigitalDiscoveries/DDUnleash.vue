@@ -130,7 +130,6 @@ export default class DDUnleash extends GraphicMixin {
         const midPointY = 40 - (index * relativeLineHeight * 2);
         const endPointY = 55 + (index * relativeLineHeight);
         const startY = this.getPercentageFromPixelPoint(new Point({ x: 0, y: 80 })).y;
-        console.log(index, startY);
 
         const path = new Path({
             points: [

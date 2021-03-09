@@ -66,11 +66,11 @@ export default class IntroSlide extends SlideMixin {
         const timelineElement = this.$refs.timeline as HTMLElement;
         const timelinePosition = timelineElement.getBoundingClientRect();
         const start = new Point({
-            x: timelinePosition.left,
+            x: timelinePosition.left + 8,
             y: timelineElement.offsetTop,
         });
         const end = new Point({
-            x: timelinePosition.left,
+            x: timelinePosition.left + 8,
             y: timelineElement.offsetTop + timelinePosition.height,
         });
         return new Line({
