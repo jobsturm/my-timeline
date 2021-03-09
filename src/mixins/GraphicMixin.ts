@@ -72,7 +72,7 @@ export default class GraphicMixin extends Vue {
         return new Point({
             // +8 because the line is always 16px wide.
             x: ((Math.round(x) + 8) / this.windowWidth) * 100,
-            y: ((Math.round(y)) / this.windowWidth) * 100,
+            y: ((Math.round(y)) / this.windowHeight) * 100,
         });
     }
     private getGraphicsLocation(percentagePoint: Point): GraphicLocation {
@@ -85,7 +85,7 @@ export default class GraphicMixin extends Vue {
         });
     }
 
-    mounted():void {
+    public mounted():void {
         this.isMounted = true;
     }
 }

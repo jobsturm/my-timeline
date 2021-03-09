@@ -1,6 +1,5 @@
 <template>
-    <!-- ESlint isn't dealing with SVGs nicely and since it's exported anyway -->
-    <!-- maintainability isn't a big concern. -->
+    <!-- ESlint isn't dealing with SVGs nicely -->
     <!-- eslint-disable -->
     <g>
         <defs>

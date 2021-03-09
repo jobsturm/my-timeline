@@ -31,7 +31,7 @@
         <g :transform="coords.portalInCoords.transform">
             <SVGPortal
                 :blue="false"
-                transform="translate(-160, 10)"
+                transform="translate(-160, 0)"
             >
                 <g transform="translate(28, 0)">
                     <AnimationPath :drawPercentage="as.portalLine" :d="getportalLinePath(0)" class="dd_unleash_portal_path" id="dd_unleash_portal_path-6" stroke="#009CDF" stroke-width="16" fill="none"/>
@@ -90,19 +90,22 @@ import SVGPortal from '@/components/Atoms/SVGPortal.vue';
     },
 })
 export default class DDUnleash extends GraphicMixin {
-    graphicLayout = {
-        introTextCoords: new Point({ x: 20, y: 33 }),
-        portalInCoords: new Point({ x: 20, y: 0 }),
-        dsotmCoords: new Point({ x: 46, y: 55 }),
+    constructor() {
+        super();
+        this.graphicLayout = {
+            introTextCoords: new Point({ x: 20, y: 33 }),
+            portalInCoords: new Point({ x: 20, y: 0 }),
+            dsotmCoords: new Point({ x: 46, y: 55 }),
+        };
+        this.timeline = [
+            { key: 'timeline', start: 0.16, end: 0.7 },
+            { key: 'timelinePrisma', start: 0.7, end: 1 },
+            { key: 'portalLine', start: 0.10, end: 0.2 },
+            { key: 'textLine1', start: 0.35, end: 0.55 },
+            { key: 'textLine2', start: 0.65, end: 0.8 },
+            { key: 'textLine3', start: 0.7, end: 0.8 },
+        ];
     }
-    timeline = [
-        { key: 'timeline', start: 0.2, end: 0.7 },
-        { key: 'timelinePrisma', start: 0.7, end: 1 },
-        { key: 'portalLine', start: 0.10, end: 0.2 },
-        { key: 'textLine1', start: 0.35, end: 0.55 },
-        { key: 'textLine2', start: 0.65, end: 0.8 },
-        { key: 'textLine3', start: 0.7, end: 0.8 },
-    ]
 
     get relativeLineWidth():number {
         return 16 / this.windowWidth * 100;
@@ -126,11 +129,13 @@ export default class DDUnleash extends GraphicMixin {
         const midPointX = 20 - (index * this.relativeLineWidth);
         const midPointY = 40 - (index * relativeLineHeight * 2);
         const endPointY = 55 + (index * relativeLineHeight);
+        const startY = this.getPercentageFromPixelPoint(new Point({ x: 0, y: 80 })).y;
+        console.log(index, startY);
 
         const path = new Path({
             points: [
-                new Point({ x: startPointX, y: 15 }),
-                new Point({ x: startPointX, y: 16 }),
+                new Point({ x: startPointX, y: startY }),
+                new Point({ x: startPointX, y: startY + 1 }),
                 new Point({ x: midPointX, y: midPointY }),
                 new Point({ x: midPointX, y: midPointY + 1 }),
                 new Point({ x: 45, y: endPointY }),
@@ -141,11 +146,12 @@ export default class DDUnleash extends GraphicMixin {
         return new SVGSmoothPath({ path, windowWidth, windowHeight }).SVGStringPath;
     }
     getportalLinePath(index:number):string {
-        const X = 0 + (index * this.relativeLineWidth);
+        const x = 0 + (index * this.relativeLineWidth);
+        const endY = this.getPercentageFromPixelPoint(new Point({ x: 0, y: 80 })).y;
         const path = new Path({
             points: [
-                new Point({ x: X, y: 0 }),
-                new Point({ x: X, y: 10 }),
+                new Point({ x, y: 0 }),
+                new Point({ x, y: endY }),
             ],
         });
         const { windowWidth, windowHeight } = this;

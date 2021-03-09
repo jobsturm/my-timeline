@@ -10,7 +10,7 @@
         </g>
         <g :transform="coords.portalInCoords.transform">
             <SVGPortal
-                transform="translate(-160, -130)"
+                transform="translate(-160, -20)"
                 :openPercentage="as.portalIntro"
                 :blue="true"
             >
@@ -90,7 +90,7 @@ export default class DDIntro extends GraphicMixin {
                 new Point({ x: startPointX, y: 0 }),
                 new Point({ x: endPointX, y: 56 }),
                 new Point({ x: endPointX, y: 57 }),
-                new Point({ x: endPointX, y: 66.5 }),
+                new Point({ x: endPointX, y: 77 }),
             ],
         });
         const { windowWidth, windowHeight } = this;
