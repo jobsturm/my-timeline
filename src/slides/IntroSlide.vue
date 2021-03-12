@@ -18,7 +18,7 @@
         <div class="header__background_graphic">
             <div class="timeline_bar" ref="timeline"/>
         </div>
-        <div class="header__audio_consent_prompt">
+        <div class="header__audio_consent_prompt" @click="setAudioPermission(!audioPermission)">
             <label for="audio_allow_checkbox">Allow audio to be played later on?</label>
             <input
                 id="audio_allow_checkbox"
@@ -26,6 +26,12 @@
                 @input="setAudioPermission(!audioPermission)"
                 type="checkbox"
             />
+            <div
+                class="toggle"
+                :class="{
+                    'toggle--toggled': audioPermission,
+                }"
+            ></div>
         </div>
     </Slide>
 </template>
@@ -86,6 +92,7 @@ export default class IntroSlide extends SlideMixin {
             this.animationState = 'timeline-showing';
         }, 750 + 900);
         setTimeout(() => {
+            this.animationState = 'timeline-animation-complete';
             this.updateLine();
         }, 750 + 900 + 900);
 
@@ -185,18 +192,53 @@ export default class IntroSlide extends SlideMixin {
                 transform: translate(-50%, -55px)
 
     .header__audio_consent_prompt
-        @extend %body1_style
+        @extend %body2_style
+        opacity: 0
+        transition: all 180ms cubic-bezier(0.7,0,0.3,1)
         display: inline-block
         position: absolute
-        height: 48px
         bottom: 20px
         left: calc(50% - 200px)
+        right: 12px
+
         @media (max-width: 768px)
             left: calc(50% - 80px)
         @media (max-width: 400px)
             left: calc(50% - 48px)
 
+        :hover
+            cursor: pointer
+        input
+            display: none
+        label
+            display: block
+    .toggle
+        width: 32px
+        height: 12px
+        border-radius: 8px
+        margin-top: 8px
+        background: rgba(#C24242, 0.2)
+        position: relative
+        transition: all 180ms cubic-bezier(0.7,0,0.3,1)
+        &:before
+            display: block
+            position: relative
+            content: ''
+            height: 16px
+            width: 16px
+            background: #C24242
+            top: -2px
+            border-radius: 16px
+            transition: all 180ms cubic-bezier(0.7,0,0.3,1)
+            transform: translateX(0px)
+    .toggle--toggled
+        background: rgba(main.$primary, 0.2)
+        &:before
+            background: main.$primary
+            transform: translateX(16px)
+
     // Animations
+    .header--timeline-animation-complete,
     .header--timeline-slid-in,
     .header--timeline-showing
         .header__intro
@@ -206,6 +248,7 @@ export default class IntroSlide extends SlideMixin {
         .timeline_bar
             transform: translateY(0%)
 
+    .header--timeline-animation-complete,
     .header--timeline-showing
         .timeline_bar
             height: 50vh
@@ -213,5 +256,9 @@ export default class IntroSlide extends SlideMixin {
             transform: translateY(60vh)
         .header__subtitle_transition--end
             transform: translateY(0px)
+            opacity: 1
+
+    .header--timeline-animation-complete
+        .header__audio_consent_prompt
             opacity: 1
 </style>
