@@ -10,7 +10,7 @@ npm run build
 cd dist
 
 # if you are deploying to a custom domain
-# echo 'www.example.com' > CNAME
+echo 'sturm.media' > CNAME
 
 git init
 git add -A
@@ -20,6 +20,6 @@ git commit -m 'deploy'
 # git push -f git@github.com:jobsturm/jobsturm.github.io.git master
 
 # if you are deploying to https://<USERNAME>.github.io/<REPO>
-git push -f git@github.com:jobsturm/portfolio-2020.git master:gh-pages
+git push -f git@github.com:jobsturm/my-timeline.git master:gh-pages
 
 cd -
