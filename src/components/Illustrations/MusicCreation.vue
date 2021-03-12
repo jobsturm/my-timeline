@@ -1,7 +1,7 @@
 <template>
     <svg class="dd__creative_outlets" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <defs>
-            <text id="musical_indication" class="ddc__music_note" text-anchor="middle" font-size="180" font-weight="normal" fill="#FFFFFF">
+            <text id="musical_indication" class="ddc__music_note" text-anchor="middle" :font-size="startNoteSize" font-weight="normal" fill="#FFFFFF">
                 <tspan>𝄞</tspan>
             </text>
             <text id="intro_text" class="title text" text-anchor="start" font-family="AppleSymbols, Apple Symbols" font-size="180" font-weight="normal" fill="#FFFFFF">
@@ -163,6 +163,9 @@ export default class MusicCreation extends GraphicMixin {
             introText: isMobile ? this.coords.introTextMobile : this.coords.introText,
             outroText: isMobile ? this.coords.outroTextMobile : this.coords.outroText,
         };
+    }
+    get startNoteSize():number {
+        return this.windowWidth < 769 ? 80 : 180;
     }
 
     @Watch('windowSizeSum')
