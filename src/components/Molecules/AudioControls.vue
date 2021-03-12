@@ -68,17 +68,15 @@ export default class AudioControls extends Vue {
 
     .audio_controls
         display: flex
-        background: rgba(main.$black, 0.5)
         opacity: 0.2
         transition: all 200ms
         &:hover
             opacity: 1
-            background: rgba(main.$black, 1)
 
     .audio_controls__button
+        background: rgba(main.$black, 0.5)
         border: 1px solid main.$white
         border-radius: 4px
-        background: rgba(0,0,0,0)
         outline: 0
         width: 30px
         height: 30px
@@ -94,6 +92,7 @@ export default class AudioControls extends Vue {
             margin-top: -2px
 
     .audio_visualizer__slider--container
+        background: rgba(main.$black, 0.5)
         border: 1px solid main.$white
         border-radius: 4px
         height: 28px

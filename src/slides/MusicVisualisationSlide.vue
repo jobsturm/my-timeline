@@ -1,6 +1,7 @@
 <template>
     <Slide class="slide" ref="slide" background="#000000">
         <AudioControls
+            v-if="showAudioControls"
             class="audio_visualizer__controls"
             :audioVisualizer="audioVisualizer"
         />
@@ -67,6 +68,7 @@ export default class MusicVisualisationSlide extends SlideMixin {
     @Mutation('setAudioPermission') readonly setAudioPermission: CallableFunction;
     end:Point;
     playing:boolean;
+    showAudioControls: boolean;
     audioVisualizer:AudioVisualizer;
     audioDataArray:Uint8Array = new Uint8Array();
 
@@ -76,8 +78,12 @@ export default class MusicVisualisationSlide extends SlideMixin {
             'assets/sounds/android52 - ANDROID52 COLLECT - 09 The Story of the Girl That Fell from the Sky.mp3',
             this.setAudioData,
             50,
+            () => {
+                this.audioOnPlayHandler();
+            },
         );
         this.playing = false;
+        this.showAudioControls = false;
         this.end = new Point({ x: 8, y: 100 });
     }
 
@@ -112,6 +118,14 @@ export default class MusicVisualisationSlide extends SlideMixin {
         if (!this.startTresholdPassed || !this.audioPermission) return;
         this.audioVisualizer.play();
     }
+    private audioOnPlayHandler() {
+        this.$gtag.event('audio_play', {
+            event_category: 'Audio',
+            event_label: 'Audio Playing',
+            value: 0,
+        });
+        this.showAudioControls = true;
+    }
 
     mounted():void {
         this.registerSlide(
@@ -141,10 +155,10 @@ export default class MusicVisualisationSlide extends SlideMixin {
         top: 0
         left: 0
     .audio_visualizer__controls
-        position: absolute
+        position: fixed
         top: 10px
         left: 10px
-        z-index: 5
+        z-index: 6
     $play_button_size: 56px
     .play_button
         position: absolute

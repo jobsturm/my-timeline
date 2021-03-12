@@ -244,5 +244,5 @@ export default class ProfessionGraphic extends GraphicMixin {
         width: 100vw
         @include main.viewportHeight(100, 0)
         position: absolute
-        z-index: 10
+        z-index: 5
 </style>

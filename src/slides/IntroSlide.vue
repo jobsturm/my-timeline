@@ -18,7 +18,10 @@
         <div class="header__background_graphic">
             <div class="timeline_bar" ref="timeline"/>
         </div>
-        <div class="header__audio_consent_prompt" @click="setAudioPermission(!audioPermission)">
+        <div
+            class="header__audio_consent_prompt"
+            @click="setAudioPermissionHandler(!audioPermission)"
+        >
             <label for="audio_allow_checkbox">Allow audio to be played later on?</label>
             <input
                 id="audio_allow_checkbox"
@@ -83,6 +86,14 @@ export default class IntroSlide extends SlideMixin {
             start,
             end,
         });
+    }
+    setAudioPermissionHandler(audioPermission:boolean):void {
+        this.$gtag.event(`audio_permission${audioPermission ? '-enabled' : '-disabled'}`, {
+            event_category: 'Permission Change',
+            event_label: audioPermission ? 'Enabled' : 'Disabled',
+            value: 1,
+        });
+        this.setAudioPermission(audioPermission);
     }
     mounted():void {
         setTimeout(() => {

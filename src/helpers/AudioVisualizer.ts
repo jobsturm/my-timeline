@@ -11,15 +11,17 @@ export default class AudioVisualiser {
     isPlaying:boolean;
     autoplayAllowed:boolean;
     onStep:CallableFunction;
+    onPlay:CallableFunction;
     volume:number;
 
-    constructor(mp3Path:string, onStep?:CallableFunction, volume = 50) {
+    constructor(mp3Path:string, onStep?:CallableFunction, volume = 50, onPlay?:CallableFunction) {
         this.mp3Path = mp3Path;
         this.isSetup = false;
         this.isPlaying = false;
         this.autoplayAllowed = false;
         this.volume = volume;
         if (onStep) this.onStep = onStep;
+        if (onPlay) this.onPlay = onPlay;
     }
     private getAudio():Promise<Record<'default', string>> {
         return import(/* webpackMode: "eager" */`@/${this.mp3Path}`);
@@ -70,6 +72,7 @@ export default class AudioVisualiser {
     public async play():Promise<void> {
         await this.setup();
         this.audio.play().then(() => {
+            if (this.onPlay) this.onPlay();
             this.autoplayAllowed = true;
             this.step();
         }).catch(() => {
