@@ -132,7 +132,7 @@ export default class TheFutureSlide extends SlideMixin {
         align-items: center
     .slide__content
         max-width: 600px
-        padding: 8px
+        padding: 12px
     .slide__title
         @extend %headline3_style
         color: main.$white

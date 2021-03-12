@@ -17,8 +17,9 @@
 
 <script lang="ts">
 import Vue from 'vue';
-import { Component, Watch } from 'vue-property-decorator';
+import { Component } from 'vue-property-decorator';
 import { vueWindowSizeMixin } from 'vue-window-size';
+import isMobile from 'is-mobile';
 import IntroSlide from './slides/IntroSlide.vue';
 import SchoolSlide from './slides/SchoolSlide.vue';
 import ComputerSlide from './slides/ComputerSlide.vue';
@@ -54,7 +55,6 @@ export default class App extends Vue {
         return this.windowWidth + this.windowHeight;
     }
 
-    @Watch('windowSizeSum')
     setViewportHeightCSSVar():void {
         let { windowHeight } = this;
         if (window.visualViewport) windowHeight = window.visualViewport.height;
@@ -65,6 +65,7 @@ export default class App extends Vue {
     mounted():void {
         // Fix for consistent Viewport Height on Mobile.
         this.setViewportHeightCSSVar();
+        if (isMobile()) return;
         window.addEventListener('resize', () => {
             this.setViewportHeightCSSVar();
             // iOS Safari Fix
