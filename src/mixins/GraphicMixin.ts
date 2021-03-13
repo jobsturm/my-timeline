@@ -4,6 +4,7 @@ import Point from '@/classes/Point';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import drawPercentageListGenerator from '@/helpers/drawPercentageListGenerator';
 import GraphicLocation from '@/classes/GraphicLocation';
+import { State } from 'vuex-class';
 
 interface ResponsivePointsInterface {
     desktop: Point,
@@ -21,6 +22,7 @@ interface ResponsivePointsInterface {
     mixins: [vueWindowSizeMixin],
 })
 export default class GraphicMixin extends Vue {
+    @State('windowHeight') windowHeight: number;
     @Prop({ default: 0 }) readonly animationPercentage: number
     @Prop({ default: () => new Point({ x: 0, y: 0 }) }) readonly start: Point
     @Prop({ default: () => new Point({ x: 0, y: 100 }) }) readonly end: Point

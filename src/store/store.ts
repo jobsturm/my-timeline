@@ -8,6 +8,7 @@ export default new Vuex.Store({
     state: {
         slides: new Array<Slide>(),
         audioPermission: false,
+        windowHeight: window.innerHeight,
     },
     mutations: {
         registerSlide(
@@ -27,6 +28,9 @@ export default new Vuex.Store({
         },
         setAudioPermission(state, audioPermission:boolean):void {
             state.audioPermission = audioPermission;
+        },
+        setWindowHeight(state, windowHeight:number):void {
+            state.windowHeight = windowHeight;
         },
     },
     actions: {

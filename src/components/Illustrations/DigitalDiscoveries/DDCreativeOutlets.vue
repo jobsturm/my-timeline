@@ -38,6 +38,7 @@ import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import GraphicLocation from '@/classes/GraphicLocation';
+import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -45,6 +46,7 @@ import GraphicLocation from '@/classes/GraphicLocation';
     },
 })
 export default class DDIntro extends GraphicMixin {
+    @State('windowHeight') windowHeight: number;
     graphicLayout = {
         textCoords: new Point({ x: 65, y: 43 }),
         textCoordsB500: new Point({ x: 90, y: 30 }),

@@ -19,6 +19,7 @@
 import Vue from 'vue';
 import { Component } from 'vue-property-decorator';
 import { vueWindowSizeMixin } from 'vue-window-size';
+import { Mutation } from 'vuex-class';
 import isMobile from 'is-mobile';
 import IntroSlide from './slides/IntroSlide.vue';
 import SchoolSlide from './slides/SchoolSlide.vue';
@@ -51,6 +52,8 @@ import TheFutureSlide from './slides/TheFutureSlide.vue';
     mixins: [vueWindowSizeMixin],
 })
 export default class App extends Vue {
+    @Mutation('setWindowHeight') readonly setWindowHeight: CallableFunction;
+
     get windowSizeSum():number {
         return this.windowWidth + this.windowHeight;
     }
@@ -59,6 +62,7 @@ export default class App extends Vue {
         let { windowHeight } = this;
         if (window.visualViewport) windowHeight = window.visualViewport.height;
         const vh = windowHeight * 0.01;
+        this.setWindowHeight(windowHeight);
         document.documentElement.style.setProperty('--vh', `${vh}px`);
     }
 

@@ -35,6 +35,7 @@ import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import GraphicLocation from '@/classes/GraphicLocation';
 import animationStep from '@/helpers/animationStep';
+import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -42,6 +43,7 @@ import animationStep from '@/helpers/animationStep';
     },
 })
 export default class AudioVisualization extends GraphicMixin {
+    @State('windowHeight') windowHeight: number;
     @Prop({ required: true }) readonly audioDataArray: Uint8Array
     @Prop({ required: true }) readonly exited: number
 

@@ -79,6 +79,7 @@ import RotationPoint from '@/classes/RotationPoint';
 import Path from '@/classes/Path';
 import MusicNote from '@/components/Atoms/MusicNote.vue';
 import GraphicLocation from '@/classes/GraphicLocation';
+import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -87,6 +88,8 @@ import GraphicLocation from '@/classes/GraphicLocation';
     },
 })
 export default class MusicCreation extends GraphicMixin {
+    @State('windowHeight') windowHeight: number;
+
     notes:Record<string, RotationPoint> = {
         note1: new RotationPoint({ x: 20, y: 32, degrees: 90 }),
         note2: new RotationPoint({ x: 30, y: 44, degrees: 30 }),

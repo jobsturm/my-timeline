@@ -55,6 +55,7 @@ import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import SVGPortal from '@/components/Atoms/SVGPortal.vue';
+import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -63,6 +64,7 @@ import SVGPortal from '@/components/Atoms/SVGPortal.vue';
     },
 })
 export default class DDIntro extends GraphicMixin {
+    @State('windowHeight') windowHeight: number;
     graphicLayout = {
         introTextCoords: new Point({ x: 27, y: 52 }),
         portalInCoords: new Point({ x: 20, y: 77 }),

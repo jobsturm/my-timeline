@@ -75,6 +75,7 @@ import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
+import { State } from 'vuex-class';
 
 interface CircleSizeInterface {
     radius: number;
@@ -87,6 +88,7 @@ interface CircleSizeInterface {
     },
 })
 export default class HereNowGraphic extends GraphicMixin {
+    @State('windowHeight') windowHeight: number;
     titleElementWidth:number;
 
     constructor() {

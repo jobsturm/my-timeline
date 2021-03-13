@@ -89,6 +89,7 @@ import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import RainbowBackground from '@/components/Molecules/RainbowBackground.vue';
+import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -97,6 +98,7 @@ import RainbowBackground from '@/components/Molecules/RainbowBackground.vue';
     },
 })
 export default class ProfessionGraphic extends GraphicMixin {
+    @State('windowHeight') windowHeight: number;
     titleElementWidth: number;
 
     constructor() {
