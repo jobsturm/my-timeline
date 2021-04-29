@@ -2,14 +2,9 @@
     <Slide class="slide" ref="slide" :background="backgroundColor">
         <div class="slide__centerer">
             <main class="slide__content">
-                <h1 class="slide__title">Job's looking for a job!</h1>
+                <h1 class="slide__title">I'm happily employed!</h1>
                 <p class="slide__message">
-                    So if you are looking for a good frontend-developer
-                    and you think one of these timelines
-                    should contain a partnership,
-                    feel free to send me a message on LinkedIn!
-                    Furthermore, this project is open source, so if you want to look
-                    at how I work and build projects, you can check out the repository on Github.
+                    And not accepting any offers at this time!
                 </p>
                 <a
                     class="slide_button"
