@@ -1,6 +1,6 @@
 <template>
     <Slide class="slide" ref="slide" :background="colors.$marine_dark">
-        <ProffesionGraphic
+        <AdyenGraphic
             class="illustration"
             :animationPercentage="entered"
             :start="timelinePosition.start"
@@ -15,14 +15,14 @@ import SlideMixin from '@/mixins/SlideMixin';
 import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import ProffesionGraphic from '@/components/Illustrations/ProfessionGraphic.vue';
+import AdyenGraphic from '@/components/Illustrations/AdyenGraphic.vue';
 
 @Component({
     components: {
-        ProffesionGraphic,
+        AdyenGraphic,
     },
 })
-export default class WorkSlide extends SlideMixin {
+export default class AdyenSlide extends SlideMixin {
     end:Point;
 
     constructor() {

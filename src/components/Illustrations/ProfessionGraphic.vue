@@ -14,13 +14,10 @@
                 class="profession_graphic__text"
             >
                 <h2 ref="title" class="profession_graphic__title" xmlns="http://www.w3.org/1999/xhtml">
-                    And I made it my profession!
+                    Which I made my profession!
                 </h2>
                 <main class="profession_graphic__main">
-                    <p>
-                        And I started working at Feedback Company three years ago.
-                        Building the frontend for a large scale web app in Vue, basically on my own!
-                    </p>
+                    <p>{{this.mainText}}</p>
                 </main>
             </foreignObject>
         </svg>
@@ -83,13 +80,13 @@
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
+import formatDistance from 'date-fns/formatDistance'
 import GraphicMixin from '@/mixins/GraphicMixin';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import RainbowBackground from '@/components/Molecules/RainbowBackground.vue';
-import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -98,8 +95,8 @@ import { State } from 'vuex-class';
     },
 })
 export default class ProfessionGraphic extends GraphicMixin {
-    @State('windowHeight') windowHeight: number;
     titleElementWidth: number;
+    mainText: string;
 
     constructor() {
         super();
@@ -114,6 +111,8 @@ export default class ProfessionGraphic extends GraphicMixin {
             { key: 'textOpacity', start: 0.2, end: 0.4 },
         ];
         this.titleElementWidth = 600;
+        const timeSinceFeedbackCompany = formatDistance(new Date(2017, 9, 11), Date.now());
+        this.mainText = `And I started working at Feedback Company ${timeSinceFeedbackCompany} ago. Building the frontend for a large scale web app in Vue, basically on my own!`;
     }
 
     get relativeLineWidth():number {

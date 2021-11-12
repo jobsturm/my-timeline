@@ -56,7 +56,6 @@ import GraphicMixin from '@/mixins/GraphicMixin';
 import easingFunctions from '@/helpers/easingFunctions';
 import ConfettiGenerator from 'canvas-confetti';
 import minMax from '@/helpers/minMax';
-import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -64,8 +63,6 @@ import { State } from 'vuex-class';
     },
 })
 export default class SchoolDoodle extends GraphicMixin {
-    @State('windowHeight') windowHeight: number;
-
     constructor() {
         super();
         this.graphicLayout = {

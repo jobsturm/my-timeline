@@ -10,8 +10,9 @@
         <MusicVisualisationSlide :index="7"/>
         <DiscoverFrontend :index="8"/>
         <WorkSlide :index="9"/>
-        <HereNowSlide :index="10"/>
-        <TheFutureSlide :index="11"/>
+        <AdyenSlide :index="10"/>
+        <HereNowSlide :index="11"/>
+        <TheFutureSlide :index="12"/>
     </div>
 </template>
 
@@ -31,6 +32,7 @@ import MusicSlide from './slides/MusicSlide.vue';
 import MusicVisualisationSlide from './slides/MusicVisualisationSlide.vue';
 import DiscoverFrontend from './slides/DiscoverFrontend.vue';
 import WorkSlide from './slides/WorkSlide.vue';
+import AdyenSlide from './slides/AdyenSlide.vue';
 import HereNowSlide from './slides/HereNowSlide.vue';
 import TheFutureSlide from './slides/TheFutureSlide.vue';
 
@@ -46,6 +48,7 @@ import TheFutureSlide from './slides/TheFutureSlide.vue';
         MusicVisualisationSlide,
         DiscoverFrontend,
         WorkSlide,
+        AdyenSlide,
         HereNowSlide,
         TheFutureSlide,
     },

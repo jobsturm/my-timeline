@@ -42,7 +42,6 @@ import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import minMax from '@/helpers/minMax';
-import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -50,8 +49,6 @@ import { State } from 'vuex-class';
     },
 })
 export default class DiscoverFrontendGraphic extends GraphicMixin {
-    @State('windowHeight') windowHeight: number;
-
     constructor() {
         super();
         this.graphicLayout = {

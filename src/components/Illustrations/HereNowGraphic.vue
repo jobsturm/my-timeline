@@ -28,7 +28,7 @@
                     That's the story
                 </h2>
                 <p class="here_now_graphic__main">
-                    I've been working as a Frontend Dev for three years now, learned a lot,
+                    I've been working as a Frontend Dev for five years now, learned a lot,
                     and grew alot as a developer, but also as a person professionally wise!
                     <br/><strong>But what about the future?</strong>
                 </p>
@@ -75,7 +75,6 @@ import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
-import { State } from 'vuex-class';
 
 interface CircleSizeInterface {
     radius: number;
@@ -88,8 +87,7 @@ interface CircleSizeInterface {
     },
 })
 export default class HereNowGraphic extends GraphicMixin {
-    @State('windowHeight') windowHeight: number;
-    titleElementWidth:number;
+    titleElementWidth: number;
 
     constructor() {
         super();

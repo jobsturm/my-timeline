@@ -82,7 +82,6 @@ import SVGSmoothPath from '@/classes/SVGSmoothPath';
 import Point from '@/classes/Point';
 import Path from '@/classes/Path';
 import SVGPortal from '@/components/Atoms/SVGPortal.vue';
-import { State } from 'vuex-class';
 
 @Component({
     components: {
@@ -91,7 +90,6 @@ import { State } from 'vuex-class';
     },
 })
 export default class DDUnleash extends GraphicMixin {
-    @State('windowHeight') windowHeight: number;
     constructor() {
         super();
         this.graphicLayout = {
