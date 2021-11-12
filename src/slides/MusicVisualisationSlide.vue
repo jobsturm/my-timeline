@@ -50,17 +50,14 @@ import SlideMixin from '@/mixins/SlideMixin';
 import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import AudioAnimation from '@/components/Molecules/AudioAnimation.vue';
-import AudioVizualization from '@/components/Illustrations/AudioVisualization.vue';
 import easingFunctions from '@/helpers/easingFunctions';
 import AudioVisualizer from '@/helpers/AudioVisualizer';
-import AudioControls from '@/components/Molecules/AudioControls.vue';
 
 @Component({
     components: {
-        AudioAnimation,
-        AudioVizualization,
-        AudioControls,
+        AudioAnimation: () => import('@/components/Molecules/AudioAnimation.vue'),
+        AudioVizualization: () => import('@/components/Illustrations/AudioVisualization.vue'),
+        AudioControls: () => import('@/components/Molecules/AudioControls.vue'),
     },
 })
 export default class MusicVisualisationSlide extends SlideMixin {

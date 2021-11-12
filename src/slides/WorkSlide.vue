@@ -15,11 +15,10 @@ import SlideMixin from '@/mixins/SlideMixin';
 import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import ProffesionGraphic from '@/components/Illustrations/ProfessionGraphic.vue';
 
 @Component({
     components: {
-        ProffesionGraphic,
+        ProffesionGraphic: () => import('@/components/Illustrations/ProfessionGraphic.vue'),
     },
 })
 export default class WorkSlide extends SlideMixin {

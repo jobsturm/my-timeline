@@ -8,6 +8,7 @@
         />
         <SlideTriangle class="overlay_triangle" :height="triangeHeight"/>
         <RainbowBackground
+            class="overlay_rainbow"
             :animationPercentage="as.rainbow"
             effectType="grow"
         />
@@ -21,15 +22,13 @@ import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import SlideTriangle from '@/components/Atoms/SlideTriangle.vue';
-import DiscoverFrontendGraphic from '@/components/Illustrations/DiscoverFrontendGraphic.vue';
-import RainbowBackground from '@/components/Molecules/RainbowBackground.vue';
 import easingFunctions from '@/helpers/easingFunctions';
 
 @Component({
     components: {
         SlideTriangle,
-        DiscoverFrontendGraphic,
-        RainbowBackground,
+        DiscoverFrontendGraphic: () => import('@/components/Illustrations/DiscoverFrontendGraphic.vue'),
+        RainbowBackground: () => import('@/components/Molecules/RainbowBackground.vue'),
     },
 })
 export default class DiscoverFrontend extends SlideMixin {
@@ -88,25 +87,14 @@ export default class DiscoverFrontend extends SlideMixin {
     .slide__discover_frontent_graphic
         position: absolute
         z-index: 3
+    .overlay_rainbow
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
     .overlay_triangle
         position: absolute
-    .rainbow_holder
-        width: 100%
-        @include main.viewportHeight(100, 0)
-        display: flex
-    .rainbow
-        width: calc(100% / 6)
-        will-change: height, margin, border-radius
-    .rainbow--part_1
-        background: #5EBD3E
-    .rainbow--part_2
-        background: #FFB900
-    .rainbow--part_3
-        background: #F78200
-    .rainbow--part_4
-        background: #E23838
-    .rainbow--part_5
-        background: #973999
-    .rainbow--part_6
-        background: #009CDF
+        top: 0
+        left: 0
+        z-index: 2
 </style>

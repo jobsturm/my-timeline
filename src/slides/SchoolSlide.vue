@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import { Component, Watch } from 'vue-property-decorator';
-import SchoolDoodle from '@/components/Illustrations/SchoolDoodle.vue';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import Point from '@/classes/Point';
@@ -23,7 +22,7 @@ import easingFunctions from '@/helpers/easingFunctions';
 
 @Component({
     components: {
-        SchoolDoodle,
+        SchoolDoodle: () => import('@/components/Illustrations/SchoolDoodle.vue'),
     },
 })
 export default class SchoolSlide extends SlideMixin {

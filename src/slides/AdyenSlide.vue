@@ -15,11 +15,10 @@ import SlideMixin from '@/mixins/SlideMixin';
 import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import AdyenGraphic from '@/components/Illustrations/AdyenGraphic.vue';
 
 @Component({
     components: {
-        AdyenGraphic,
+        AdyenGraphic: () => import('@/components/Illustrations/AdyenGraphic.vue'),
     },
 })
 export default class AdyenSlide extends SlideMixin {

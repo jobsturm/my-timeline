@@ -13,7 +13,6 @@
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
 import SlideMixin from '@/mixins/SlideMixin';
-import DDCreativeOutlets from '@/components/Illustrations/DigitalDiscoveries/DDCreativeOutlets.vue';
 import Point from '@/classes/Point';
 import easingFunctions from '@/helpers/easingFunctions';
 import Slide from '@/classes/Slide';
@@ -21,7 +20,7 @@ import Line from '@/classes/Line';
 
 @Component({
     components: {
-        DDCreativeOutlets,
+        DDCreativeOutlets: () => import('@/components/Illustrations/DigitalDiscoveries/DDCreativeOutlets.vue'),
     },
 })
 export default class DDCreativeOutletsSlide extends SlideMixin {

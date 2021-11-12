@@ -14,7 +14,6 @@
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
-import DiscoverComputer from '@/components/Illustrations/DiscoverComputer.vue';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import Point from '@/classes/Point';
@@ -23,7 +22,7 @@ import easingFunctions from '@/helpers/easingFunctions';
 
 @Component({
     components: {
-        DiscoverComputer,
+        DiscoverComputer: () => import('@/components/Illustrations/DiscoverComputer.vue'),
     },
 })
 export default class ComputerSlide extends SlideMixin {

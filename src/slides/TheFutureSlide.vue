@@ -53,12 +53,11 @@ import SlideMixin from '@/mixins/SlideMixin';
 import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import TheFutureGraphic from '@/components/Illustrations/TheFutureGraphic.vue';
 import Color from 'color';
 
 @Component({
     components: {
-        TheFutureGraphic,
+        TheFutureGraphic: () => import('@/components/Illustrations/TheFutureGraphic.vue'),
     },
 })
 

@@ -15,13 +15,12 @@ import SlideMixin from '@/mixins/SlideMixin';
 import Point from '@/classes/Point';
 import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
-import HereNowGraphic from '@/components/Illustrations/HereNowGraphic.vue';
 import animationStep from '@/helpers/animationStep';
 import Color from 'color';
 
 @Component({
     components: {
-        HereNowGraphic,
+        HereNowGraphic: () => import('@/components/Illustrations/HereNowGraphic.vue'),
     },
 })
 

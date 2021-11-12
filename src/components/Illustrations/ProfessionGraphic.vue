@@ -201,6 +201,8 @@ export default class ProfessionGraphic extends GraphicMixin {
     .profession_graphic__rainbow
         position: absolute
         z-index: 2
+        top: 0
+        width: 100vw
     .profession_graphic__upper_layer
         width: 100vw
         @include main.viewportHeight(100, 0)

@@ -14,7 +14,6 @@
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
 import SlideMixin from '@/mixins/SlideMixin';
-import DDIntro from '@/components/Illustrations/DigitalDiscoveries/DDIntro.vue';
 import Point from '@/classes/Point';
 import easingFunctions from '@/helpers/easingFunctions';
 import Slide from '@/classes/Slide';
@@ -24,7 +23,7 @@ import SlideTriangle from '@/components/Atoms/SlideTriangle.vue';
 
 @Component({
     components: {
-        DDIntro,
+        DDIntro: () => import('@/components/Illustrations/DigitalDiscoveries/DDIntro.vue'),
         SlideTriangle,
     },
 })
