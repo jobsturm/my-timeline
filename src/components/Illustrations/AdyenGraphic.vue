@@ -107,8 +107,8 @@ export default class AdyenGraphic extends GraphicMixin {
         const endX:number = this.end.x;
         const deviationPixels = deviation;
         let yTarget = 35;
-        if (this.windowWidth < 534) { yTarget = 10; }
-        else if (this.windowWidth < 732) { yTarget = 20; }
+        if (this.windowWidth < 534) yTarget = 10;
+        else if (this.windowWidth < 732) yTarget = 20;
         return new Path({
             points: [
                 new Point({ x: this.start.x, y: -1 }),

@@ -28,8 +28,8 @@
                     That's the story
                 </h2>
                 <p class="here_now_graphic__main">
-                    I've been working as a Frontend Dev for five years now, learned a lot,
-                    and grew alot as a developer, but also as a person professionally wise!
+                    I've been working as a Frontend Developer for years now.
+                    I'm still learning and still have a passion for creating awesome projects.
                     <br/><strong>But what about the future?</strong>
                 </p>
             </main>
@@ -51,7 +51,7 @@
                     />
                 </mask>
                 <image
-                    href="@/assets/portrait.jpg"
+                    href="@/assets/portrait-stockholm.jpeg"
                     mask="url(#portrait_mask)"
                     :width="circleSize.diameter"
                 />
