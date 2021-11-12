@@ -34,13 +34,13 @@ export default class AudioAnimation extends GraphicMixin {
     timeline = [
         { key: 'timeline', start: 0, end: 1 },
     ]
-    colors:Array<string>;
+    rainbowColors:Array<string>;
     colorIndex:number;
     testFreq:number;
 
     constructor() {
         super();
-        this.colors = ['red', 'yellow', 'green', 'blue'];
+        this.rainbowColors = ['red', 'yellow', 'green', 'blue'];
         this.colorIndex = 0;
         this.testFreq = 160;
     }
@@ -55,7 +55,7 @@ export default class AudioAnimation extends GraphicMixin {
         );
     }
     private get color():string {
-        return this.colors[this.colorIndex];
+        return this.rainbowColors[this.colorIndex];
     }
     private get isPlaying():boolean {
         return this.audioVisualizer.isPlaying;
@@ -65,7 +65,7 @@ export default class AudioAnimation extends GraphicMixin {
     private onKick():void {
         if (!this.kickIsActive) return;
         this.colorIndex += 1;
-        if (this.colorIndex > this.colors.length - 1) {
+        if (this.colorIndex > this.rainbowColors.length - 1) {
             this.colorIndex = 0;
         }
     }

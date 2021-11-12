@@ -37,7 +37,7 @@ export default class GraphicMixin extends Vue {
         super();
         this.colors = colors;
     }
-    
+
     get windowSizeSum(): number {
         return this.windowWidth + this.windowHeight;
     }

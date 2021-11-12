@@ -80,7 +80,7 @@
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
-import formatDistance from 'date-fns/formatDistance'
+import formatDistance from 'date-fns/formatDistance';
 import GraphicMixin from '@/mixins/GraphicMixin';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';

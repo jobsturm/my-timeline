@@ -26,7 +26,7 @@
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
             xmlns:xlink="http://www.w3.org/1999/xlink"
-        >   
+        >
             <AnimationPath
                 v-for="(greenPath, index) in greenPaths"
                 :key="`green-path-${index}`"
@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { Component } from 'vue-property-decorator';
-import formatDistance from 'date-fns/formatDistance'
+import formatDistance from 'date-fns/formatDistance';
 import GraphicMixin from '@/mixins/GraphicMixin';
 import AnimationPath from '@/components/Atoms/AnimationPath.vue';
 import SVGSmoothPath from '@/classes/SVGSmoothPath';
@@ -70,7 +70,7 @@ export default class AdyenGraphic extends GraphicMixin {
         this.graphicLayout = {
             text: {
                 desktop: new Point({ x: 46, y: 30 }),
-                mobile: new Point({ x: 4, y: 40 }),
+                mobile: new Point({ x: 32, y: 30 }),
             },
         };
         this.timeline = [
@@ -93,26 +93,29 @@ export default class AdyenGraphic extends GraphicMixin {
     }
     get greenPaths():Array<string> {
         const paths:Array<string> = [];
-        for (let index = 0; index < 6; index++) {
+        for (let index = 0; index < 6; index += 1) {
             const { windowWidth, windowHeight } = this;
-            const pathRight = this.getMainPath(index + 2.2);
-            const pathLeft = this.getMainPath(-(index + 2.2));
-            paths.push(new SVGSmoothPath({ path: pathRight, windowWidth, windowHeight }).SVGStringPath);            
-            paths.push(new SVGSmoothPath({ path: pathLeft, windowWidth, windowHeight }).SVGStringPath);            
+            const pathRight = this.getMainPath(index + 1.75);
+            const pathLeft = this.getMainPath(-(index + 1.75));
+            paths.push(new SVGSmoothPath({ path: pathRight, windowWidth, windowHeight }).SVGStringPath);
+            paths.push(new SVGSmoothPath({ path: pathLeft, windowWidth, windowHeight }).SVGStringPath);
         }
         return paths;
     }
-    
-    getMainPath(deviation: number = 0) {
+
+    getMainPath(deviation = 0):Path {
         const endX:number = this.end.x;
-        const deviationPercentage = deviation / 2;
+        const deviationPixels = deviation;
+        let yTarget = 35;
+        if (this.windowWidth < 534) { yTarget = 10; }
+        else if (this.windowWidth < 732) { yTarget = 20; }
         return new Path({
             points: [
                 new Point({ x: this.start.x, y: -1 }),
                 new Point({ x: this.start.x, y: 0 }),
-                new Point({ x: 35 + deviationPercentage, y: 49 }),
-                new Point({ x: 35 + deviationPercentage, y: 50 }),
-                new Point({ x: 35 + deviationPercentage, y: 51 }),
+                new Point({ x: yTarget + deviationPixels, y: 49 }),
+                new Point({ x: yTarget + deviationPixels, y: 50 }),
+                new Point({ x: yTarget + deviationPixels, y: 51 }),
                 new Point({ x: endX, y: this.end.y - 1 }),
                 new Point({ x: endX, y: this.end.y }),
             ],
@@ -148,9 +151,10 @@ export default class AdyenGraphic extends GraphicMixin {
         margin-top: 16px
         color: main.$adyen
         max-width: 100vw
-        @media (max-width: 620px)
-            font-size: min(70px, 11vw)
-            margin-top: min(10px, 11vw)
+        @media (max-width: 1110px)
+            font-size: min(40px, 11vw)
+        @media (max-width: 500px)
+            font-size: min(30px, 11vw)
     .adyen_graphic__main
         @extend %body1_style
         color: main.$white
@@ -158,15 +162,13 @@ export default class AdyenGraphic extends GraphicMixin {
         line-height: 1.5em
         margin-top: max(min(10px, 11vw), 16px)
         width: 100%
-        @media (max-width: 620px)
+        @media (max-width: 500px)
             font-size: max(min(1.3em, 5vw), 12px)
-            text-shadow: 2px 2px 0px #3A5F6B
     .adyen_graphic__text
-        width: 600px
-        @media (max-width: 620px)
-            padding: 0 12px
-            width: 92vw
-            font-size: max(min(1.3em, 5vw), 12px)
+        width: 50vw
+        max-width: 600px
+        @media (max-width: 732px)
+            width: 65vw
     .adyen_graphic__text_layer
         width: 100vw
         @include main.viewportHeight(100, 0)
