@@ -80,7 +80,7 @@ export default class AdyenGraphic extends GraphicMixin {
         ];
         this.titleElementWidth = 600;
         const timeSinceAdyen = formatDistance(new Date(2021, 6, 1), Date.now());
-        this.mainText = `Where I started ${timeSinceAdyen} ago and am having a terrific time, whilst also learning a lot.`;
+        this.mainText = `Where I started ${timeSinceAdyen} ago and am having an awesome time, while also learning a lot.`;
     }
 
     get relativeLineWidth():number {
