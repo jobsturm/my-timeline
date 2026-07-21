@@ -2,15 +2,11 @@ steps:
 - name: mikefarah/yq
   id: Update service name
   args: [ 'eval', '-i', '.service = "jobsturm-portfolio"', '/workspace/app.yaml']
-- name: node:14.15.0
-  id: Npm install @vue/cli
-  entrypoint: npm
-  args: ["install", "@vue/cli"]
-- name: node:14.15.0
+- name: node:20
   id: Npm install
   entrypoint: npm
   args: ["install"]
-- name: node:14.15.0
+- name: node:20
   id: NPM Run Build
   entrypoint: npm
   args: ["run", "build"]

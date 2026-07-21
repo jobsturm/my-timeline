@@ -52,6 +52,7 @@ import Slide from '@/classes/Slide';
 import Line from '@/classes/Line';
 import easingFunctions from '@/helpers/easingFunctions';
 import AudioVisualizer from '@/helpers/AudioVisualizer';
+import songUrl from '@/assets/sounds/android52 - ANDROID52 COLLECT - 09 The Story of the Girl That Fell from the Sky.mp3';
 
 @Component({
     components: {
@@ -72,7 +73,7 @@ export default class MusicVisualisationSlide extends SlideMixin {
     constructor() {
         super();
         this.audioVisualizer = new AudioVisualizer(
-            'assets/sounds/android52 - ANDROID52 COLLECT - 09 The Story of the Girl That Fell from the Sky.mp3',
+            songUrl,
             this.setAudioData,
             50,
             () => {
