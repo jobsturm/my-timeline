@@ -1,5 +1,5 @@
 export default class AudioVisualiser {
-    mp3Path:string;
+    audioUrl:string;
     audio:HTMLAudioElement;
     audioContext:AudioContext;
     source:MediaElementAudioSourceNode;
@@ -14,8 +14,8 @@ export default class AudioVisualiser {
     onPlay:CallableFunction;
     volume:number;
 
-    constructor(mp3Path:string, onStep?:CallableFunction, volume = 50, onPlay?:CallableFunction) {
-        this.mp3Path = mp3Path;
+    constructor(audioUrl:string, onStep?:CallableFunction, volume = 50, onPlay?:CallableFunction) {
+        this.audioUrl = audioUrl;
         this.isSetup = false;
         this.isPlaying = false;
         this.autoplayAllowed = false;
@@ -23,15 +23,11 @@ export default class AudioVisualiser {
         if (onStep) this.onStep = onStep;
         if (onPlay) this.onPlay = onPlay;
     }
-    private getAudio():Promise<Record<'default', string>> {
-        return import(/* webpackMode: "eager" */`@/${this.mp3Path}`);
-    }
     private async setup():Promise<void> {
         if (this.isSetup) return;
-        const audio = await this.getAudio();
         return new Promise((resolve) => {
             this.isSetup = true;
-            this.audio = new Audio(audio.default);
+            this.audio = new Audio(this.audioUrl);
             this.audio.load();
             this.audio.addEventListener('play', () => { this.setPlaying(); });
             this.audio.addEventListener('pause', () => { this.setPause(); });

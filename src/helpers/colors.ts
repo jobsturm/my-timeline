@@ -1,5 +1,5 @@
 // SHOULD DO: Make a Webpack Loader for this, doing this in runtime is not the best.
-import rawColors from '!!raw-loader!@/styles/colors.sass';
+import rawColors from '@/styles/colors.sass?raw';
 
 const colors:Record<string, string> = Object.fromEntries(
     rawColors
